@@ -21,6 +21,8 @@
     "favicon": "http://example.com/images/favicon.ico",
     "appleIcon": "http://example.com/images/apple-icon.ico",
     "appTitle": "site name"
-    },
-  "googleAnalyticsId": ""
+  },
+  "google": {
+    "analyticsId": "UA-XXXXX-X"
+  }
 }
