@@ -1,0 +1,26 @@
+{
+  "site": {
+    "name": "site name",
+    "desctiption": "site desctiption",
+    "keywords": "keyword1, keyword2",
+    "author": "Manabu Yasuda",
+    "rootURL": "http://example.com/"
+  },
+  "ogp": {
+    "image": "http://example.com/images/og-image.jpg"
+  },
+  "facebook": {
+    "admins": "",
+    "app_id": ""
+  },
+  "twitter": {
+    "card": "summary",
+    "site": "@"
+  },
+  "icon": {
+    "favicon": "http://example.com/images/favicon.ico",
+    "appleIcon": "http://example.com/images/apple-icon.ico",
+    "appTitle": "site name"
+    },
+  "googleAnalyticsId": ""
+}

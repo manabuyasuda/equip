@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html>
+  <head prefix="og: http://ogp.me/ns#  <%= ogpType %>: http://ogp.me/ns/<%= ogpType %>#">
+    <meta charset="UTF-8">
+    <!--[if lt IE 9]>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <![endif]-->
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <% if(pageTitle) { -%><title><%= pageTitle %> | <%= site.name %></title><% } else { %><title><%= site.name %></title><% } %>
+    <meta name="description" content="<%= pageDesctiption %>">
+    <meta name="keywords" content="<%= site.keywords %>">
+    <meta name="author" content="<%= site.author %>">
+
+    <!--[if lt IE 9]>
+    <script src="js/vendor/modernizr-2.8.3-respond-1.4.2.min.js"></script>
+    <![endif]-->
+
+    <link rel="stylesheet" href="<%= addPath %>css/style.css">
+
+    <link rel="shortcut icon" href="<%= icon.favicon %>">
+    <link rel="apple-touch-icon"  sizes="180x180" href="<%= icon.appleIcon %>">
+    <meta name="apple-mobile-web-app-title" content="<%= icon.appTitle %>">
+    <link rel="canonical" href="<%= site.rootURL %>">
+
+    <!-- OGP -->
+    <meta property="og:title" content="<% if(pageTitle) { %><%= pageTitle %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
+    <meta property="og:type" content="<%= ogpType %>">
+    <meta property="og:image" content="<%= ogp.image %>">
+    <meta property="og:url" content="<%= site.rootURL %><%= pageUrl %>">
+
+    <meta property="og:description" content="<%= pageDesctiption %>">
+    <meta property="og:site_name" content="<%= site.name %>">
+    <meta property="og:locale" content="ja_JP">
+
+    <!-- OGP Facebook insights -->
+    <meta property="fb:admins" content="<%= facebook.admins %>">
+    <meta property="fb:app_id" content="<%= facebook.app_id %>">
+    <!-- / OGP Facebook insights -->
+
+    <!-- OGP Twitter Cards -->
+    <meta name="twitter:card" content="<%= twitter.card %>">
+    <meta name="twitter:site" content="<%= twitter.site %>">
+    <!-- / OGP Twitter Cards -->
+    <!-- / OGP -->
+
+  </head>
+  <% if(pageClass) { %><body class="<%= pageClass %>"><% } else { %><body><% } %>
