@@ -1,0 +1,34 @@
+// -----------------------------------------------------------------------------
+// #Global
+// -----------------------------------------------------------------------------
+
+//
+// プロジェクトで横断的に使用される値を変数として定義します。
+//
+
+// Breakpoint
+$breakpoints: (
+  'sm': 'screen and (min-width: 400px)',
+  'md': 'screen and (min-width: 768px)',
+  'lg': 'screen and (min-width: 1000px)',
+  'xl': 'screen and (min-width: 1200px)',
+) !default;
+
+$breakpoints-down: (
+  'sm': 'screen and (max-width: 399px)',
+  'md': 'screen and (max-width: 767px)',
+  'lg': 'screen and (max-width: 999px)',
+  'xl': 'screen and (max-width: 1199px)',
+) !default;
+
+// Spacing
+$spacing-outer: 1.7rem !default;
+$spacing-outer--small: ($spacing-outer / 2) !default;
+$spacing-outer--large: ($spacing-outer * 2) !default;
+
+$spacing-inner: 1.0em !default;
+$spacing-inner--small: ($spacing-inner / 2) !default;
+$spacing-inner--large: ($spacing-inner * 2) !default;
+
+// Round
+$radius: 3px !default;

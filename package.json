@@ -14,11 +14,16 @@
   "author": "Manabu Yasuda",
   "license": "MIT",
   "devDependencies": {
+    "browser-sync": "^2.11.1",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-csscomb": "^3.0.6",
     "gulp-ejs": "^2.1.1",
+    "gulp-imagemin": "^2.4.0",
+    "gulp-notify": "^2.2.0",
+    "gulp-plumber": "^1.1.0",
     "gulp-sass": "^2.2.0",
-    "gulp-sourcemaps": "^1.6.0"
+    "gulp-sourcemaps": "^1.6.0",
+    "run-sequence": "^1.1.5"
   }
 }

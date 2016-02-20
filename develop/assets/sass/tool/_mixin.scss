@@ -1,0 +1,261 @@
+// -----------------------------------------------------------------------------
+// #Mixin
+// -----------------------------------------------------------------------------
+
+// @desc - クリアーフィックスのスタイルを挿入します。
+// @prop - 引数に"important"を渡すと`!important`の指定ができます。
+// @example scss - Usage
+// .foo { @include clearfix; }
+// .bar { @include clearfix(important); }
+//
+// @example css - CSS output
+// .foo:after {
+//     content: "";
+//     display: table;
+//     clear: both;
+// }
+//
+// .bar:after {
+//     content: "" !important;
+//     display: table !important;
+//     clear: both !important;
+// }
+@mixin cf($important: false) {
+  @if ($important == "important") {
+    $important: unquote("!important");
+  } @else {
+    $important: null;
+  }
+  &:after {
+    content: "" $important;
+    display: block $important;
+    clear: both $important;
+  }
+}
+
+// @desc - メディアクエリを挿入します。
+// @prop - 引数に変数のキーワードを渡します。
+// @see - $breakpoints
+// @example scss - Usage
+// .foo {
+//     color: red;
+//     @include media-query(sm) {
+//         color: blue;
+//     }
+// }
+//
+// @example css - CSS output
+// .foo {
+//   color: red;
+// }
+// @media screen and (min-width: 400px) {
+//   .foo {
+//     color: blue;
+//   }
+// }
+@mixin mq($breakpoint) {
+  @if $breakpoint == "x2" {
+    @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi), screen and (min-resolution: 2dppx) {
+      @content;
+    }
+  }
+  @else if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+    + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+// @desc - メディアクエリを`max-width`で挿入します。
+// @prop - 引数に変数のキーワードを渡します。
+// @see - $breakpoints-down
+@mixin mqd($breakpoint) {
+  @if map-has-key($breakpoints-down, $breakpoint) {
+    @media #{inspect(map-get($breakpoints-down, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+    + "Please make sure it is defined in `$breakpoints-down` map.";
+  }
+}
+
+// @desc - class名とルールセットを指定することで、レスポンシブに対応したスタイルを生成します。
+// @prop - 共通のclass名をクウォートとドットをつけて渡します（e.g. `.foo`）。
+// @prop - ブレイクポイントを定義したmapを渡します。
+// @see - $breakpoints
+// @example scss - Usage
+// @include responsive(".foo") {
+//   display: none;
+// }
+//
+// @example css - CSS output
+// .foo {
+//   display: none;
+// }
+// @media screen and (min-width: 400px) {
+//   .foo-sm {
+//     display: none;
+//   }
+// }
+@mixin responsive($class, $bp: $breakpoints) {
+  #{$class} {
+    @content;
+  }
+  @each $suffix, $value in $bp {
+    @media #{$value} {
+      #{$class}-#{$suffix} {
+        @content;
+      }
+    }
+  }
+}
+
+// @desc - 表示だけをせずに、スクリーンリーダーにだけ対応したい場合に使用します。
+// @prop - 引数に"important"を渡すと`!important`の指定ができます。
+@mixin sr-only($important: false) {
+  @if ($important == "important") {
+    $important: unquote("!important");
+  } @else {
+    $important: null;
+  }
+  position: absolute $important;
+  width: 1px $important;
+  height: 1px $important;
+  margin: -1px $important;
+  border: 0 $important;
+  overflow: hidden $important;
+  padding: 0 $important;
+  clip: rect(0, 0, 0, 0) $important;
+}
+
+// @desc - キャレット（<）を生成します。
+// @prop - `$size`は長さ、`$weight`は太さを定義します。
+@mixin caret($color: #333, $width: 18px, $weight: 2px, $deg: 35deg) {
+  display: inline-block;
+  position: relative;
+  width: $width;
+  height: 1em;
+  margin-left: 1em;
+  border: none;
+  vertical-align: middle;
+  background-color: transparent;
+  outline: none;
+  transition: all, ease-in, 0.3s;
+  &[class*="is-"] {
+    transform: rotate(90deg);
+  }
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    top: 0;
+    right: $weight;
+    bottom: 0;
+    width: ($width + $weight);
+    height: $weight;
+    margin: auto 0;
+    transform-origin: right;
+    box-shadow: inset 0 0 0 $weight $color;
+  }
+  &:before {
+    transform: rotate($deg);
+    @if $weight > 2px {
+      top: (($weight / 3) * 2);
+    }
+  }
+  &:after {
+    transform: rotate(-$deg);
+    @if $weight > 2px {
+      bottom: (($weight / 3) * 2);
+    }
+  }
+}
+
+// @desc - アニメーションするハンバーガーボタンを生成します。
+// @prop - `$width`は横幅、`$height`は高さ、`$weight`は太さを定義します。バランスが崩れた場合は`$bottom`で微調整してください。
+// @example html - Usage
+// <button class="burger">
+//   <span class="sr-only">ナビゲーションを表示する</span>
+// </button>
+//
+// @example scss - Usage
+// .burger {
+//   @include burger;
+// }
+// .sr-only {
+//   @include sr-only;
+// }
+@mixin burger($color: #333, $width: 30px, $height: 22px, $weight: 3px, $bottom: ($height / 3)) {
+  position: relative;
+  width: $width;
+  height: $height;
+  border: 0;
+  border-top: $weight solid $color;
+  border-bottom: $weight solid $color;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  transition: all, ease-out, 0.3s;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    bottom: $bottom;
+    left: 0;
+    border-bottom: $weight solid $color;
+  }
+  &[class*="is-"] {
+    border-color: transparent;
+    transform: rotate(90deg);
+    &:before {
+      transform: rotate(45deg);
+    }
+    &:after {
+      transform: rotate(-45deg);
+    }
+  }
+}
+
+// @desc - クローズボタン（x）を生成します。
+// @prop - `$weight`は太さを定義します。
+// @example html - Usage
+// <button class="close">
+//   <span class="sr-only">画面を閉じる</span>
+// </button>
+//
+// @example scss - Usage
+// .close {
+//   @include close;
+// }
+// .sr-only {
+//   @include sr-only;
+// }
+@mixin close($color: #333, $width: 30px, $height: 22px, $weight: 3px) {
+  position: relative;
+  width: $width;
+  height: $height;
+  border: 0;
+  vertical-align: middle;
+  background-color: transparent;
+  cursor: pointer;
+  outline: none;
+  &:before,
+  &:after {
+    content: "";
+    position: absolute;
+    right: 0;
+    left: 0;
+    border-bottom: $weight solid $color;
+  }
+  &:before {
+    transform: rotate(45deg);
+  }
+  &:after {
+    transform: rotate(-45deg);
+  }
+}

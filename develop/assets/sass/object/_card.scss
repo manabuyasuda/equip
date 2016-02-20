@@ -1,0 +1,99 @@
+/* -----------------------------------------------------------------------------
+   #Card
+   -------------------------------------------------------------------------- */
+/**
+ * カードタイプのオブジェクトです。
+ *
+ * <div class="o-card">
+ *   <img class="o-card__image-top">
+ *   <div class="o-card__body">
+ *     <h2 class="o-card__title"></h2>
+ *     <p class="o-card__text"></p>
+ *   </div>
+ *   <ul class="o-card__list">
+ *     <li class="o-card__item"></li>
+ *     <li class="o-card__item"></li>
+ *   </ul>
+ *   <div class="o-card__foot">
+ *     <p class="o-card__text"></p>
+ *   </div>
+ * </div>
+ */
+$card-gap: $spacing-inner !default;
+$card-padding-y: $spacing-inner--large !default;
+$card-padding-x: $spacing-inner--large !default;
+$card-border: 1px solid $color-ui-border !default;
+$card-radius: $radius !default;
+
+.o-card {
+  margin: 0 0 $card-gap;
+  padding: 0;
+  border: $card-border;
+  border-radius: $card-radius;
+  list-style-type: none;
+}
+
+.o-card__head {
+  padding: $card-padding-x;
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.o-card__body {
+  padding: $card-padding-y $card-padding-x;
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.o-card__foot {
+  padding: $card-padding-x;
+  border-top: $card-border;
+  > :last-child {
+    margin-bottom: 0;
+  }
+}
+
+.o-card__head,
+.o-card__image-top,
+.o-card__item--top,
+.o-card__link--top {
+  @if $card-radius != null {
+    border-radius: $card-radius $card-radius 0 0;
+  }
+}
+
+.o-card__foot,
+.o-card__image-bottom,
+.o-card__item--bottom,
+.o-card__link--bottom {
+  @if $card-radius != null {
+    border-radius: 0 0 $card-radius $card-radius;
+  }
+}
+
+.o-card__title {
+  margin-top: 0;
+}
+
+.o-card__text:last-child {
+  margin-bottom: 0;
+}
+
+.o-card__list {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.o-card__item {
+  padding: $card-padding-x;
+  border-top: $card-border;
+}
+
+.o-card__link {
+  display: block;
+  margin: -$card-padding-x;
+  padding: $card-padding-x;
+}

@@ -1,0 +1,45 @@
+/* -----------------------------------------------------------------------------
+   #Split
+   -------------------------------------------------------------------------- */
+/**
+ * 定義リストをブロックからインラインにするオブジェクトです。
+ * デフォルトで`o-split__name`が10文字を越えるとレイアウトが崩れます。
+ *
+ * <dl class="o-split [o-split--has-border]">
+ *   <dt class="o-split__name"></dt>
+ *   <dd class="o-split__value"></dd>
+ * </dl>
+ */
+$split-padding: $spacing-inner--small !default;
+$split-border: 1px solid $color-ui-border !default;
+
+.o-split {
+  margin: 0;
+  padding: 0;
+}
+
+.o-split__name {
+  padding-top: $split-padding;
+}
+
+.o-split__value {
+  margin-left: 0;
+  padding-bottom: $split-padding;
+}
+
+.o-split--has-border {
+  border-top: $split-border;
+  > .o-split__value {
+    border-bottom: $split-border;
+  }
+}
+
+@include mq(md) {
+  .o-split__name {
+    float: left;
+    clear: left;
+  }
+  .o-split__value {
+    padding: $split-padding 0 $split-padding 10em;
+  }
+}

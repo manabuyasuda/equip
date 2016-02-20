@@ -1,0 +1,19 @@
+/* -----------------------------------------------------------------------------
+   #Scroll
+   -------------------------------------------------------------------------- */
+/**
+ * `<table>`要素の横スクロールを可能にするオブジェクトです。
+ *
+ * <table class="c-scroll"></table>
+ */
+.o-scroll {
+  display: block;
+  overflow-x: auto;
+  max-width: 100%;
+  min-height: 0.01%;
+}
+
+.o-scroll th,
+.o-scroll td {
+  white-space: nowrap;
+}

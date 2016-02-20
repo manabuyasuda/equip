@@ -1,0 +1,18 @@
+/* -----------------------------------------------------------------------------
+   #Float
+   -------------------------------------------------------------------------- */
+.u-cf {
+  @include cf(important);
+}
+
+@include responsive(".u-fr") {
+  float: right !important;
+}
+
+@include responsive(".u-fl") {
+  float: left !important;
+}
+
+@include responsive(".u-fn") {
+  float: none !important;
+}

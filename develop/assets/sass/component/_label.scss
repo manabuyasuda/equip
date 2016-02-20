@@ -1,0 +1,19 @@
+/* -----------------------------------------------------------------------------
+   #Label
+   -------------------------------------------------------------------------- */
+/**
+ * インラインでメッセージを表示するコンポーネントです。
+ *
+ * <span class="c-label"></span>
+ */
+.c-label {
+  display: inline-block;
+  padding: $spacing-inner--small;
+  border-radius: $radius;
+  color: $color-ui-bg;
+  font-size: 0.8rem;
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  background-color: $color-link;
+}

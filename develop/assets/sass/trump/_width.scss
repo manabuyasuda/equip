@@ -1,0 +1,44 @@
+/* -----------------------------------------------------------------------------
+   #Width
+   -------------------------------------------------------------------------- */
+/**
+ * レスポンシブに対応した`width`プロパティを指定するヘルパークラスです。
+ * https://github.com/csswizardry/frcss/blob/master/_trumps.widths.scss
+ */
+
+// @example css - CSS output
+//
+// .u-11of12 { width: 91.66667% !important; }
+// .u-12of12 { width: 100% !important; }
+// @media screen and (min-width: 400px) {
+//     .u-1of12-sm { width: 8.33333% !important; }
+//     .u-2of12-sm { width: 16.66667% !important; }
+
+// 取得したいカラム数をリスト形式で指定します。
+// 例えば`1 2`を指定すると1/1, 1/2, 2/2の`width`を取得できます。
+$width-cols: 12 !default;
+
+// @param $cols - `$width-cols`から取得したいカラム数を取得します。
+// @param $breakpoint(null) - メディアクエリ用のキーワードを渡します。
+// @requires $width-cols - 取得したいカラム数をリスト形式で指定します。
+@mixin width($cols, $breakpoint: null) {
+  @each $col in $cols {
+    @for $i from 1 through $col {
+      .u-#{$i}of#{$col}#{$breakpoint} {
+        width: percentage($i / $col) !important;
+      }
+    }
+  }
+}
+
+// ブレイクポイントのないclassを生成します。
+// @requires - $width-cols
+@include width($width-cols);
+
+// ブレイクポイント付きのclassを生成します。
+// @requires - $breakpoints
+@each $name, $breakpoint in $breakpoints {
+  @media #{$breakpoint} {
+    @include width($width-cols, -#{$name})
+  }
+}

@@ -1,0 +1,38 @@
+/* -----------------------------------------------------------------------------
+   #Wrapper
+   -------------------------------------------------------------------------- */
+/**
+ * 横幅を制限するオブジェクトです。
+ *
+ * <div class="o-wrapper [o-wrapper--medium]">
+ *   <div class="o-grid">
+ *     <div class="o-grid__item u-8of12-md"></div>
+ *     <div class="o-grid__item u-4of12-md"></div>
+ *   </div>
+ * </div>
+ */
+$wrapper-padding: $spacing-inner !default;
+$wrapper-padding-small: ($wrapper-padding / 2) !default;
+$wrapper-padding-large: ($wrapper-padding * 2) !default;
+
+.o-wrapper {
+  width: 100%;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.o-wrapper--small {
+  padding-right: $wrapper-padding-small;
+  padding-left: $wrapper-padding-small;
+}
+
+.o-wrapper--medium {
+  padding-right: $wrapper-padding;
+  padding-left: $wrapper-padding;
+}
+
+.o-wrapper--large {
+  padding-right: $wrapper-padding-large;
+  padding-left: $wrapper-padding-large;
+}

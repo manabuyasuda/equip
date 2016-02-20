@@ -1,0 +1,38 @@
+/* -----------------------------------------------------------------------------
+   #Breadcrumb
+   -------------------------------------------------------------------------- */
+/**
+ * パンくずリストのコンポーネントです。
+ *
+ * <ol class="c-breadcrumb">
+ *   <li class="c-breadcrumb__item">
+ *     <a href="#" class="c-breadcrumb__link">home</a>
+ *   </li>
+ *   <li class="c-breadcrumb__item">
+ *     <a href="#" class="p-breadcrumb__link">category</a>
+ *   </li>
+ * </ol>
+ */
+.c-breadcrumb {
+    padding-left: 0;
+    list-style-type: none;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+}
+
+.c-breadcrumb__item {
+    display: inline-block;
+    &:last-child {
+        display: inline;
+    }
+}
+
+.c-breadcrumb__link {
+    display: inline-block;
+}
+
+.c-breadcrumb__item + .c-breadcrumb__item:before {
+    content: "\003E";
+    margin: 0 $spacing-inner--small;
+}

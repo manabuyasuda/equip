@@ -1,0 +1,126 @@
+/* -----------------------------------------------------------------------------
+   #Image
+   -------------------------------------------------------------------------- */
+$image-margin: $spacing-inner !default;
+
+.o-image-round {
+  border-radius: $radius;
+}
+
+.o-image-circle {
+  border-radius: 50%;
+}
+
+.o-image-center {
+  display: block;
+  margin-top: $image-margin;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.o-image-right {
+  float: right;
+  margin-left: $image-margin;
+}
+
+.o-image-left {
+  float: left;
+  margin-right: $image-margin;
+}
+
+/**
+ * 背景画像が縦横比を固定したまま表示領域いっぱいに表示されます。
+ * モディファイアかprojectレイヤーで
+ * `background-image`や`background-position`などを追加してください。
+ *
+ * <div class="o-image-cover [o-image-cover--fixed] p-image-example">
+ *   <div class="o-central-box">
+ *     <h1></h1>
+ *   </div>
+ * </div>
+ *
+ * .p-image-example {
+ *     position: relative; // 子要素の中央配置の起点となる
+ *     height: 300px; // 高さを固定
+ *     background-position: left top; // 基準位置を指定
+ *     background-image: url("http://placeimg.com/640/300/tech"); // 表示する画像を指定
+ * }
+ */
+.o-image-cover {
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+.o-image-cover--fixed {
+  @include mq(lg) {
+    background-attachment: fixed;
+  }
+}
+
+/**
+ * 背景画像をフルードイメージのように可変させます。
+ * 背景画像のURLとアスペクト比を指定するクラスを追加します。
+ * 入れ子になる要素を中央配置にする場合は`.o-central`オブジェクトを追加します。
+ *
+ * <div class="o-image-fluid c-image-example　o-central">
+ *   <div class="o-central__item"></div>
+ * </div>
+ *
+ * .c-image-example {
+ *   // 表示画像の高さ ÷ 表示画像の幅 × 100%
+ *   padding-top: percentage(300 / 1200); // Sassを使用している場合
+ *   background-image: url("http://lorempixel.com/1200/300/");
+ *   @include media-query(md) {
+ *     // グリッドレイアウトで高さを揃えて横並びにする場合は、大きく表示される方のアスペクト比を指定、
+ *     // その値を、いちばん大きいカラム数 ÷ この要素のカラム数で割る（以下は8/12と4/12で指定している場合）。
+ }     // この場合、小さい方の画像はトリミングされます。
+ *     padding-top: percentage(1000 / 400) / (8 / 4);
+ *     // 背景画像の起点を変える場合は`background-position`プロパティを上書きします（以下は左端から100%、上端から50%を基準にする）。
+ *     background-position: 100% 50%;
+ *   }
+ * }
+ */
+.o-image-fluid {
+  height: 0;
+  background-color: inherit;
+  background-repeat: no-repeat;
+  background-position: center center;
+  background-size: cover;
+}
+
+/**
+ * 背景画像の上に透過されたレイヤーを覆います。
+ * モディファイアで背景色を指定します。
+ * elementを指定しないと、うまく表示、選択できなくなるので注意してください。
+ *
+ * <div class="o-image-overlay c-image-overlay--black">
+ *   <div class="o-image-overlay__unit o-central-box">
+ *     content
+ *   </div>
+ * </div>
+ */
+.o-image-overlay {
+  position: relative;
+  &:after {
+    content: "";
+    position: absolute;
+    z-index: 0;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+  }
+}
+
+.o-image-overlay__unit {
+  position: absolute;
+  z-index: 1;
+}
+
+// .c-image-overlay--black {
+//   &:after {
+//     background: rgba(0, 0, 0, 0.6);
+//   }
+// }

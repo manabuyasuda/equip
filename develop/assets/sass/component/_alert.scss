@@ -1,0 +1,43 @@
+/* -----------------------------------------------------------------------------
+   #Alert
+   -------------------------------------------------------------------------- */
+/**
+ * エラーメッセージなどを表示するコンポーネントです。
+ *
+ * <p class="c-alert [c-alert--success]">
+     <a href="" class="c-alert__link"></a>
+   </p>
+ */
+.c-alert {
+  padding: $spacing-inner;
+  color: $color-neutral-text;
+  border: 1px solid $color-neutral-border;
+  border-radius: $radius;
+  background-color: $color-neutral-bg;
+}
+
+.c-alert__link {
+  color: inherit;
+  &:hover,
+  &:focus {
+    color: inherit;
+  }
+}
+
+.c-alert--success {
+  color: $color-success-text;
+  border-color: $color-success-border;
+  background-color: $color-success-bg;
+}
+
+.c-alert--warning {
+  color: $color-warning-text;
+  border-color: $color-warning-border;
+  background-color: $color-warning-bg;
+}
+
+.c-alert--error {
+  color: $color-error-text;
+  border-color: $color-error-border;
+  background-color: $color-error-bg;
+}
