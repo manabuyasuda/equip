@@ -47,6 +47,7 @@ index.ejsには下記のように変数が指定されています。ページ�
 * `pageUrl`はmetaタグの絶対パスで使用されています
 * `addPath`は下層ページで使用し、パスを追加したい場合に指定します
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します
+* `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に指定します（配列が空の場合は出力されません）
 
 ```ejs
 <% var
@@ -56,6 +57,7 @@ pageClass = "top";
 pageUrl = "index.html";
 addPath = "";
 ogpType = "website";
+addScript = ['script1.js', 'script2.js', 'script3.js'];
 -%>
 ```
 
@@ -69,6 +71,7 @@ pageClass = "page";
 pageUrl = "page/index.html";
 addPath = "../";
 ogpType = "article";
+addScript = [];
 -%>
 ```
 
