@@ -12,8 +12,8 @@ develop/assets/resources/site.jsonにサイト共通の値が指定されてい�
 
 * `site.name`はサイトの名前を記述します。（`title`要素に使用されます）
 * `site.description`はサイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）
-* `site.keywords`はサイトのキーワードを記述しますが、GoogleとYahoo!の検索エンジンは読んでいないためmeta要素自体を削除しても問題ありません。（`meta`要素内の`name`属性に使用されます）
-* `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
+* `site.keywords`はサイトのキーワードを記述しますが、GoogleとYahoo!の検索エンジンは読んでいないためmeta要素自体を削除しても問題ありません。（`meta`要素内の`name`属性に使用されます）
+* `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
 * `site.rootURL`はそのサイトの絶対パスを記述します。似たようなURLが複数ある場合やモバイルとPC向けのURLが違う場合などに使われるようです。（`canonical`属性やOGPの`og:url`に使用されます）
 * `ogp.image`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
 * `facebook.admins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`facebook.app_id`か`facebook.admins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
