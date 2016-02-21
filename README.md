@@ -18,7 +18,7 @@ develop/assets/resources/site.jsonにサイト共通の値が指定されてい�
 * `ogp.image`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
 * `facebook.admins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`facebook.app_id`か`facebook.admins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
 * `facebook.app_id`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`facebook.admins`か`facebook.app_id`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）
-* twitter.card`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
+* `twitter.card`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
 * `twitter.site`Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。（OGPの`twitter:site`で使用されます）
 * `icon.favicon`はファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。（`shortcut icon`に使用されます）
 * `icon.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。（`apple-touch-icon`で使用されます）
