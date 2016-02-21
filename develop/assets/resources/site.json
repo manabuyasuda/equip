@@ -1,7 +1,7 @@
 {
   "site": {
     "name": "site name",
-    "desctiption": "site desctiption",
+    "description": "site description",
     "keywords": "keyword1, keyword2",
     "author": "Manabu Yasuda",
     "rootURL": "http://example.com/"
