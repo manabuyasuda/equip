@@ -6,13 +6,30 @@ EJSを使っているので、共通部分の変更やページごとの上書�
 ## ejs
 develop/index.ejsがホームページになります。_layout/ディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
 
+### site.json
+
 develop/assets/resources/site.jsonにサイト共通の値が指定されています。サイトの名前やOGPの指定などがありますので、最初に確認をして、変更してください。site.jsonは`site.name`のように名前を統一してあります。
+
+* `site.name`はサイトの名前を記述します。（`title`要素に使用されます）
+* `site.description`はサイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）
+* `site.keywords`はサイトのキーワードを記述しますが、GoogleとYahoo!の検索エンジンは読んでいないためmeta要素自体を削除しても問題ありません。（`meta`要素内の`name`属性に使用されます）
+* `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
+* `site.rootURL`はそのサイトの絶対パスを記述します。似たようなURLが複数ある場合やモバイルとPC向けのURLが違う場合などに使われるようです。（`canonical`属性やOGPの`og:url`に使用されます）
+* `ogp.image`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
+* `facebook.admins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`facebook.app_id`か`facebook.admins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
+* `facebook.app_id`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`facebook.admins`か`facebook.app_id`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）
+* twitter.card`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
+* `twitter.site`Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。（OGPの`twitter:site`で使用されます）
+* `icon.favicon`はファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。（`shortcut icon`に使用されます）
+* `icon.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。（`apple-touch-icon`で使用されます）
+* `icon.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
+* `google.analyticsId`はGoogle Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。
 
 ```json
 {
   "site": {
     "name": "site name",
-    "desctiption": "site desctiption",
+    "description": "site description",
     "keywords": "keyword1, keyword2",
     "author": "Manabu Yasuda",
     "rootURL": "http://example.com/"
@@ -39,15 +56,17 @@ develop/assets/resources/site.jsonにサイト共通の値が指定されてい�
 }
 ```
 
-index.ejsには下記のように変数が指定されています。ページごとに指定することができます。index.ejsは`pageTitle`のように名前を統一してあります。
+### index.ejs
 
-* `pageTitle`はそのページの名前を指定します
-* `pageDesctiption`はそのページの説明を指定します
-* `pageClass`は`body`要素にclassを指定できます
-* `pageUrl`はmetaタグの絶対パスで使用されています
-* `addPath`は下層ページで使用し、パスを追加したい場合に指定します
-* `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します
-* `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に指定します（配列が空の場合は出力されません）
+index.ejsには下記のように変数が定義されているので、ページごとに指定することができます。index.ejsは`pageTitle`のように名前を統一してあります。
+
+* `pageTitle`はそのページの名前を記述します。
+* `pageDesctiption`はそのページの説明を記述します。
+* `pageClass`は`body`要素にclassを指定できます。
+* `pageUrl`はmetaタグの絶対パスで使用されています。
+* `addPath`は下層ページで使用し、パスを追加したい場合に指定します。
+* `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
+* `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に記述します。（配列が空の場合は出力されません）
 
 ```ejs
 <% var
@@ -61,7 +80,7 @@ addScript = ['script1.js', 'script2.js', 'script3.js'];
 -%>
 ```
 
-develop/page/index.ejsは下層ページを作る場合に使用します（使用しない場合は_index.ejsとリネームしてください）。変数は下記のように変更して使います。
+develop/page/index.ejsは下層ページを作る場合に使用します（使用する場合はフォルダごとコピーして使いまわします。使用しない場合は_index.ejsとリネームしてください。）。変数は下記のように変更して使います。
 
 ```ejs
 <% var
@@ -74,10 +93,6 @@ ogpType = "article";
 addScript = [];
 -%>
 ```
-
-develop/page/をコピーして使いまわします。
-
-TODO: jQueryプラグインのファイルを追加する場合の対処法を考える。現状ではcssはSassで1つのファイルに統合、jsは_footer.ejsファイルに一括で追加されます。
 
 ## assets
 develop/ディレクトリは基本的にEJSファイルのために使用します。ですので、SassとJavaScriptと画像とjsonはdevelop/assets/ディレクトリにあります。
@@ -122,8 +137,10 @@ sassディレクトリにはいくつかのオブジェクトやmixinなどが�
 
 SassはCSSにコンパイルされるときに「autoprefixer」でベンダープレフィックスの自動付与、「csscomb」で整形とプロパティの並び替えが実行されます。また、CSSファイルと同じディレクトリにsourcemapsが出力されます。
 
+TODO: 必要最低限の機能だけを残す。ディレクトリ構造とよく使うmixin、汎用性のあるオブジェクトとヘルパークラスなど。
+
 ### js
-JavaScriptはvendor/ディレクトリにjQueryとmodernizrが保存されています。処理としては連結や圧縮などもされません。
+JavaScriptはvendor/ディレクトリにjQueryとmodernizrが保存されています。連結や圧縮などの処理はされません。
 
 ## 始め方とGulpタスク
 npmでパッケージをインストールします。
