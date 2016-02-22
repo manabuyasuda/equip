@@ -63,6 +63,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageTitle`はそのページの名前を記述します。
 * `pageDesctiption`はそのページの説明を記述します。
 * `pageClass`は`body`要素にclassを指定できます。
+* `pageCurrent`はナビゲーションに`.is-current`を付けたい場合に記述します（トップページは空にしておきます）
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に指定します。
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
@@ -71,8 +72,9 @@ index.ejsには下記のように変数が定義されているので、ペー�
 ```ejs
 <% var
 pageTitle = "top page";
-pageDesctiption = site.desctiption;
+pageDescription = site.description;
 pageClass = "top";
+pageCurrent = "";
 pageUrl = "index.html";
 addPath = "";
 ogpType = "website";
@@ -85,13 +87,53 @@ develop/page/index.ejsは下層ページを作る場合に使用します（使�
 ```ejs
 <% var
 pageTitle = "page name";
-pageDesctiption = "page description";
-pageClass = "page";
-pageUrl = "page/index.html";
+pageDescription = "page description";
+pageClass = "page1";
+pageCurrent = "page1";
+pageUrl = "page1/index.html";
 addPath = "../";
 ogpType = "article";
 addScript = [];
 -%>
+```
+
+### _header.ejs
+_layout/_header.ejsには共通で使用するメインナビゲーションが定義されています。
+
+* `name`は各ページのフォルダ名を記述します。（index.ejsの`pageCurrent`と一致した場合は`.is-current`が付きます）
+* `link`はトップページから見た相対パスを記述します。
+* `ulClass`などは`ul`要素、`li`要素、`a`要素に指定するクラス名を記述します。
+
+```ejs
+<% var
+// `name`にナビゲーションの名前を、`link`にトップページから見た相対パスを記述します。
+// index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
+navs = [
+  { name: "page1", link: "/page1/index.html"},
+  { name: "page2", link: "/page2/index.html"},
+  { name: "page3", link: "/page3/index.html"},
+]
+// `ul`, `li`, `a`要素に記述するクラス名をそれぞれ定義します。
+ulClass = "main-nav";
+liClass = "main-nav__item";
+aClass = "main-link";
+-%>
+
+    <header>
+      <nav>
+        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { if(pageCurrent === nav.name) { %>
+          <li class="<%= liClass %>">
+            <a href="" class="<%= aClass %> is-current"><%= nav.name -%></a>
+          </li><% } else if(pageCurrent === "") { %>
+          <li class="<%= liClass %>">
+            <a href="<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
+          </li><% } else { %>
+          <li class="<%= liClass %>">
+            <a href="..<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
+          </li><% }}); %>
+        </ul>
+      </nav>
+    </header>
 ```
 
 ## assets
