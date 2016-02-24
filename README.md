@@ -60,18 +60,18 @@ develop/assets/resources/site.jsonにサイト共通の値が指定されてい�
 
 index.ejsには下記のように変数が定義されているので、ページごとに指定することができます。index.ejsは`pageTitle`のように名前を統一してあります。
 
-* `pageTitle`はそのページの名前を記述します。
+* `pageTitle`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
 * `pageDesctiption`はそのページの説明を記述します。
 * `pageClass`は`body`要素にclassを指定できます。
 * `pageCurrent`はナビゲーションに`.is-current`を付けたい場合に記述します（トップページは空にしておきます）
 * `pageUrl`はmetaタグの絶対パスで使用されています。
-* `addPath`は下層ページで使用し、パスを追加したい場合に指定します。
+* `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
 * `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に記述します。（配列が空の場合は出力されません）
 
 ```ejs
 <% var
-pageTitle = "top page";
+pageTitle = "";
 pageDescription = site.description;
 pageClass = "top";
 pageCurrent = "";
@@ -98,7 +98,7 @@ addScript = [];
 ```
 
 ### _header.ejs
-_layout/_header.ejsには共通で使用するメインナビゲーションが定義されています。
+_layout/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
 
 * `name`は各ページのフォルダ名を記述します。（index.ejsの`pageCurrent`と一致した場合は`.is-current`が付きます）
 * `link`はトップページから見た相対パスを記述します。
@@ -108,15 +108,16 @@ _layout/_header.ejsには共通で使用するメインナビゲーションが�
 <% var
 // `name`にナビゲーションの名前を、`link`にトップページから見た相対パスを記述します。
 // index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
+// `a`タグ内にテキストを追加する場合のコード。https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d
 navs = [
-  { name: "page1", link: "/page1/index.html"},
-  { name: "page2", link: "/page2/index.html"},
-  { name: "page3", link: "/page3/index.html"},
+  { name: "page1", link: "page1/index.html"},
+  { name: "page2", link: "page2/index.html"},
+  { name: "page3", link: "page3/index.html"},
 ]
 // `ul`, `li`, `a`要素に記述するクラス名をそれぞれ定義します。
 ulClass = "main-nav";
 liClass = "main-nav__item";
-aClass = "main-link";
+aClass = "main-nav__link";
 -%>
 
     <header>
@@ -129,7 +130,7 @@ aClass = "main-link";
             <a href="<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="..<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
+            <a href="../<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
           </li><% }}); %>
         </ul>
       </nav>
