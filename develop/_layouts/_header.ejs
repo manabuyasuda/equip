@@ -1,10 +1,11 @@
 <% var
 // `name`にナビゲーションの名前を、`link`にトップページから見た相対パスを記述します。
 // index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
+// `a`タグ内にテキストを追加する場合のコード。https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d
 navs = [
-  { name: "page1", link: "/page1/index.html"},
-  { name: "page2", link: "/page2/index.html"},
-  { name: "page3", link: "/page3/index.html"},
+  { name: "page1", link: "page1/index.html"},
+  { name: "page2", link: "page2/index.html"},
+  { name: "page3", link: "page3/index.html"},
 ]
 // `ul`, `li`, `a`要素に記述するクラス名をそれぞれ定義します。
 ulClass = "main-nav";
@@ -22,7 +23,7 @@ aClass = "main-nav__link";
             <a href="<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="..<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
+            <a href="../<%= nav.link %>" class="<%= aClass %>"><%= nav.name %></a>
           </li><% }}); %>
         </ul>
       </nav>
