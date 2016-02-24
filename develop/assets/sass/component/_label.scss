@@ -2,11 +2,11 @@
    #Label
    -------------------------------------------------------------------------- */
 /**
- * インラインでメッセージを表示するコンポーネントです。
+ * インラインでラベリングをするコンポーネントです。
  *
  * <span class="c-label"></span>
  */
-.c-label {
+%c-label {
   display: inline-block;
   padding: $spacing-inner--small;
   border-radius: $radius;

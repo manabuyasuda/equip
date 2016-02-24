@@ -4,47 +4,19 @@
 /**
  * Baseはクラス以外のHTML要素、見出しやリンクやリストなど、タイプセレクタを指定する最後のレイヤーです。
  */
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+h1, h2, h3, h4, h5, h6 {
   font-family: inherit;
   font-weight: 600;
   line-height: 1.4;
   color: inherit;
 }
 
-// h1,
-// .u-h1 {
-//   font-size: 2rem;
-// }
-
-// h2,
-// .u-h2 {
-//   font-size: 1.6rem;
-// }
-
-// h3,
-// .u-h3 {
-//   font-size: 1.4rem;
-// }
-
-// h4,
-// .u-h4 {
-//   font-size: 1.2rem;
-// }
-
-// h5,
-// .u-h5 {
-//   font-size: 1rem;
-// }
-
-// h6,
-// .u-h6 {
-//   font-size: 1rem;
-// }
+h1, .u-h1 {}
+h2, .u-h2 {}
+h3, .u-h3 {}
+h4, .u-h4 {}
+h5, .u-h5 {}
+h6, .u-h6 {}
 
 /**
  * ネストされたリストのマージンをリセットします。
@@ -101,21 +73,6 @@ a {
  address,
  dfn {
   font-style: normal;
-}
-
-/**
- * normalize.cssの`em`から`rem`に変更します。
- */
- code,
- kbd,
- pre,
- samp {
-  font-size: 1rem;
-}
-
-code,
-pre {
-  font-family: Menlo, Consolas, Courier, monospace;
 }
 
 // h1, h2, h3, h4, h5, h6,

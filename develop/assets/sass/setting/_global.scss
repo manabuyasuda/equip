@@ -30,5 +30,9 @@ $spacing-inner: 1.0em !default;
 $spacing-inner--small: ($spacing-inner / 2) !default;
 $spacing-inner--large: ($spacing-inner * 2) !default;
 
+// font-size
+$font-size: 14px;
 // Round
 $radius: 3px !default;
+// animation
+$duration: 0.3s;

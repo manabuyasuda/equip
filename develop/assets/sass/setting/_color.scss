@@ -12,23 +12,9 @@ $color-bg: #fff !default;
 
 // アンカータグ
 $color-link: #2b70ba !default;
-$color-link--visited: darken($color-link, 10%) !default;
+$color-link--visited: null !default;
 $color-link--hover: lighten($color-link, 15%) !default;
 
 // コンポーネントのベースカラー
 $color-ui-border: #666 !default;
 $color-ui-bg: #fff !default;
-
-// コンポーネントのカラーバリエーション
-$color-neutral-text: #47525d !default;
-$color-neutral-border: darken(#f7f9fa, 5%) !default;
-$color-neutral-bg: #f7f9fa !default;
-$color-success-text: #2c683f !default;
-$color-success-border: darken(#edfaf1, 5%) !default;
-$color-success-bg: #edfaf1 !default;
-$color-warning-text: #996e00 !default;
-$color-warning-border: darken(#fffdec, 5%) !default;
-$color-warning-bg: #fffdec !default;
-$color-error-text: #921515 !default;
-$color-error-border: darken(#ffe3e3, 5%) !default;
-$color-error-bg: #ffe3e3 !default;
