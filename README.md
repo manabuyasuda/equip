@@ -248,7 +248,7 @@ sassディレクトリにはいくつかのオブジェクトやmixinなどが�
    @include o-media;
 }
 
-.foo {
+.foo__item {
    @include o-media__item(1em, middle);
    @include mq(md) {
       &:not(:first-child) {
@@ -265,7 +265,7 @@ sassディレクトリにはいくつかのオブジェクトやmixinなどが�
   padding: 0;
 }
 
-.foo {
+.foo__item {
   display: table-cell;
   margin: 0;
   padding: 0;
@@ -285,7 +285,7 @@ sassディレクトリにはいくつかのオブジェクトやmixinなどが�
   max-width: none;
 }
 @media screen and (min-width: 768px) {
-  .foo:not(:first-child) {
+  .foo__item:not(:first-child) {
     padding-left: 2em;
   }
 }
