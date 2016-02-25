@@ -144,18 +144,9 @@ develop/ディレクトリは基本的にEJSファイルのために使用しま
 imagesディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。
 
 ### sass
-sassディレクトリにはいくつかのオブジェクトやmixinなどが定義されています。例えばグリッドレイアウトやメディアクエリのmixinなどです。
+sassディレクトリにはいくつかのオブジェクトやmixinなどが定義されています。例えばメディアクエリやグリッドレイアウトのmixinなどです。
 
-2カラムのグリッドレイアウト。
-
-```html
-<div class="o-grid">
-  <div class="o-grid__item u-8of12-md"></div>
-  <div class="o-grid__item u-4of12-md"></div>
-</div>
-```
-
-メディアクエリmixin。
+メディアクエリを指定するmixin。
 
 ```scss
 // input
@@ -178,9 +169,129 @@ sassディレクトリにはいくつかのオブジェクトやmixinなどが�
 }
 ```
 
-SassはCSSにコンパイルされるときに「autoprefixer」でベンダープレフィックスの自動付与、「csscomb」で整形とプロパティの並び替えが実行されます。また、CSSファイルと同じディレクトリにsourcemapsが出力されます。
+2カラムのグリッドレイアウトサンプル。
 
-TODO: 必要最低限の機能だけを残す。ディレクトリ構造とよく使うmixin、汎用性のあるオブジェクトとヘルパークラスなど。
+```scss
+// input
+.foo {
+   @include o-wrapper(1200px, 1em);
+}
+
+.bar {
+  @include o-grid;
+}
+
+.bar__item1 {
+  @include o-grid__item(1em);
+  @include mq(md) {
+    @include u-col(8);
+  }
+}
+
+.bar__item2 {
+  @include o-grid__item(1em);
+  @include mq(md) {
+    @include u-col(4);
+  }
+}
+
+/* output */
+.foo {
+  width: 100%;
+  max-width: 1200px;
+  margin-right: auto;
+  margin-left: auto;
+  padding-right: 1em;
+  padding-left: 1em;
+}
+
+.bar {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  list-style-type: none;
+}
+
+.bar__item1 {
+  display: inline-block;
+  width: 100%;
+  padding-left: 1em;
+  font-size: 1rem;
+  vertical-align: top;
+}
+@media screen and (min-width: 768px) {
+  .bar__item1 {
+    width: 66.66667%;
+  }
+}
+
+.bar__item2 {
+  display: inline-block;
+  width: 100%;
+  padding-left: 1em;
+  font-size: 1rem;
+  vertical-align: top;
+}
+@media screen and (min-width: 768px) {
+  .bar__item2 {
+    width: 33.33333%;
+  }
+}
+```
+
+メディアオブジェクトのサンプル。
+
+```scss
+// input
+.foo {
+   @include o-media;
+}
+
+.foo {
+   @include o-media__item(1em, middle);
+   @include mq(md) {
+      &:not(:first-child) {
+         padding-left: 2em;
+      }
+   }
+}
+
+/* output */
+.foo {
+  display: table;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+.foo {
+  display: table-cell;
+  margin: 0;
+  padding: 0;
+  vertical-align: middle;
+}
+.foo:not(:first-child) {
+  padding-left: 1em;
+}
+.foo > :first-child {
+  margin-top: 0;
+}
+.foo > :last-child {
+  margin-bottom: 0;
+}
+.foo > img {
+  display: block;
+  max-width: none;
+}
+@media screen and (min-width: 768px) {
+  .foo:not(:first-child) {
+    padding-left: 2em;
+  }
+}
+```
+
+SassはCSSにコンパイルされるときに「autoprefixer」でベンダープレフィックスの自動付与、「csscomb」で整形とプロパティの並び替えが実行されます。また、CSSファイルと同じディレクトリにsourcemapsが出力されます。
 
 ### js
 JavaScriptはvendor/ディレクトリにjQueryとmodernizrが保存されています。連結や圧縮などの処理はされません。
