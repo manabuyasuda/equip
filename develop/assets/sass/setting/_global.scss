@@ -21,6 +21,12 @@ $breakpoints-down: (
   'xl': 'screen and (max-width: 1199px)',
 ) !default;
 
+// wrapper
+$max-width: 1200px;
+
+// grid
+$column: 12;
+
 // Spacing
 $spacing-outer: 1.7rem !default;
 $spacing-outer--small: ($spacing-outer / 2) !default;
@@ -32,7 +38,10 @@ $spacing-inner--large: ($spacing-inner * 2) !default;
 
 // font-size
 $font-size: 14px;
+$font-size--lg: 16px;
+
 // Round
 $radius: 3px !default;
+
 // animation
 $duration: 0.3s;

@@ -32,7 +32,7 @@
 /**
  * アスペクト比 16:9
  */
-.o-embed--16to9 {
+.o-embed-16to9 {
   @extend %o-embed;
   padding-bottom: percentage(9 / 16) !important;
 }
@@ -40,7 +40,7 @@
 /**
  * アスペクト比 4:3
  */
-.o-embed--4to3 {
+.o-embed-4to3 {
   @extend %o-embed;
   padding-bottom: percentage(3 / 4) !important;
 }

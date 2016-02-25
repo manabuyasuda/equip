@@ -35,10 +35,10 @@
 }
 
 html {
-  font-size: 14px;
+  font-size: $font-size;
   line-height: strip-unit($spacing-outer);
   @include mq(lg) {
-    font-size: 16px;
+    font-size: $font-size--lg;
   }
 }
 

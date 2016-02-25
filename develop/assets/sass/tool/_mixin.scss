@@ -88,9 +88,9 @@
 //.foo-wrapper {
 //   @include o-wrapper(1200px, 1em)
 // }
-@mixin o-wrapper($max-width, $pad: null) {
+@mixin o-wrapper($max: $max-width, $pad: null) {
   width: 100%;
-  max-width: $max-width;
+  max-width: $max;
   margin-right: auto;
   margin-left: auto;
   padding-right: $pad;
@@ -107,7 +107,7 @@
 // .foo-grid__item {
 //   width: 66.66666667%;
 // }
-@mixin u-col($col, $cols: 12) {
+@mixin u-col($col, $cols: $column) {
   width: percentage($col / $cols);
 }
 
@@ -161,11 +161,11 @@
 //     }
 //   }
 // }
-@mixin o-media__item($pad) {
+@mixin o-media__item($pad, $align: top) {
   display: table-cell;
   margin: 0;
   padding: 0;
-  vertical-align: top;
+  vertical-align: $align;
   &:not(:first-child) {
     padding-left: $pad;
   }
@@ -184,17 +184,17 @@
 // @desc - 背景画像のベースを作ります。
 // @example scss - Usage
 // .c-image-fluid {
-//   @include o-fluid();
+//   @include o-fluid(center, cover);
 //   表示画像の高さ ÷ 表示画像の幅 × 100%
 //   padding-top: percentage(300 / 1200);
-//   background-image: url("http://lorempixel.com/1200/300/") no-repeat;
+//   background-image: url("http://lorempixel.com/1200/300/");
 // }
-@mixin o-fluid() {
+@mixin o-fluid($pos: center, $size: cover) {
   height: auto;
   background-color: inherit;
   background-repeat: no-repeat;
-  background-position: center center;
-  background-size: cover;
+  background-position: $pos;
+  background-size: $size;
 }
 
 // @desc - class名とルールセットを指定することで、レスポンシブに対応したスタイルを生成します。
