@@ -1,0 +1,52 @@
+// -----------------------------------------------------------------------------
+// #media query
+// -----------------------------------------------------------------------------
+// @desc - メディアクエリを挿入します。
+// @prop - 引数に変数のキーワードを渡します。
+// @see - $breakpoints
+// @example scss - Usage
+// .foo {
+//     color: red;
+//     @include mq(sm) {
+//         color: blue;
+//     }
+// }
+//
+// @example css - CSS output
+// .foo {
+//   color: red;
+// }
+// @media screen and (min-width: 400px) {
+//   .foo {
+//     color: blue;
+//   }
+// }
+@mixin mq($breakpoint) {
+  @if $breakpoint == "x2" {
+    @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi), screen and (min-resolution: 2dppx) {
+      @content;
+    }
+  }
+  @else if map-has-key($breakpoints, $breakpoint) {
+    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+    + "Please make sure it is defined in `$breakpoints` map.";
+  }
+}
+
+// @desc - メディアクエリを`max-width`で挿入します。
+// @prop - 引数に変数のキーワードを渡します。
+// @see - $breakpoints-down
+@mixin mqd($breakpoint) {
+  @if map-has-key($breakpoints-down, $breakpoint) {
+    @media #{inspect(map-get($breakpoints-down, $breakpoint))} {
+      @content;
+    }
+  } @else {
+    @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
+    + "Please make sure it is defined in `$breakpoints-down` map.";
+  }
+}
