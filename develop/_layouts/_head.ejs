@@ -27,20 +27,12 @@
     <meta property="og:type" content="<%= ogpType %>">
     <meta property="og:image" content="<%= ogp.image %>">
     <meta property="og:url" content="<%= site.rootURL %><%= pageUrl %>">
-
     <meta property="og:description" content="<%= pageDescription %>">
     <meta property="og:site_name" content="<%= site.name %>">
     <meta property="og:locale" content="ja_JP">
-
-    <!-- OGP Facebook insights -->
-    <meta property="fb:admins" content="<%= facebook.admins %>">
-    <meta property="fb:app_id" content="<%= facebook.app_id %>">
-    <!-- / OGP Facebook insights -->
-
-    <!-- OGP Twitter Cards -->
+    <% if(facebook.app_id) { %><meta property="fb:app_id" content="<%= facebook.app_id %>"><% } else if(facebook.admins) { %><meta property="fb:admins" content="<%= facebook.admins -%>"><% } %>
     <meta name="twitter:card" content="<%= twitter.card %>">
     <meta name="twitter:site" content="<%= twitter.site %>">
-    <!-- / OGP Twitter Cards -->
     <!-- / OGP -->
 
   </head>
