@@ -4,7 +4,8 @@
     "description": "site description",
     "keywords": "keyword1, keyword2",
     "author": "Manabu Yasuda",
-    "rootURL": "http://example.com/"
+    "rootURL": "http://example.com/",
+    "css": "style.css"
   },
   "ogp": {
     "image": "http://example.com/images/og-image.jpg"

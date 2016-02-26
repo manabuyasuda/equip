@@ -1,5 +1,7 @@
 var gulp = require('gulp');
 var sass = require('gulp-sass')
+var cleanCss = require('gulp-clean-css')
+var rename = require('gulp-rename');
 var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var csscomb = require('gulp-csscomb');
@@ -58,6 +60,21 @@ gulp.task('sass', function(){
       browsers: ['last 4 versions'],
     }))
     .pipe(csscomb())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(release.css))
+});
+
+gulp.task('cleanCss', function(){
+  return gulp.src(develop.sass)
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(autoprefixer({
+      browsers: ['last 4 versions'],
+    }))
+    .pipe(csscomb())
+    .pipe(rename({suffix: '.min'}))
+    .pipe(cleanCss())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(release.css))
 });
@@ -158,6 +175,7 @@ gulp.task('release', ['clean'], function() {
   runSequence(
     'ejs',
     'sass',
+    'cleanCss',
     'js',
     'imagemin'
   )
