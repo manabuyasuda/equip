@@ -3,7 +3,7 @@
 
 EJSを使っているので、共通部分の変更やページごとの上書きが簡単にできます。Sassの便利なオブジェクトやmixin付きです。画像の圧縮やライブリロードにも対応しています。
 
-## ejs
+## EJS
 develop/index.ejsがホームページになります。_layout/ディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
 
 ### site.json
@@ -69,7 +69,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
-* `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に記述します。（配列が空の場合は出力されません）
+* `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に記述します。`['script1.js', 'script2.js']`のようにファイル名だけを記述します。（配列が空の場合は出力されません）
 
 ```js
 <% var
@@ -80,23 +80,35 @@ pageCurrent = "";
 pageUrl = "index.html";
 addPath = "";
 ogpType = "website";
-addScript = ['script1.js', 'script2.js', 'script3.js'];
+addScript = [];
 -%>
 ```
 
-develop/page/index.ejsは下層ページを作る場合に使用します（使用する場合はフォルダごとコピーして使いまわします。使用しない場合は_index.ejsとリネームしてください。）。変数は下記のように変更して使います。
+develop/child-page1/index.ejsとchild-page1/grandchild-page1/_index.ejsは下層ページを作る場合に使用します（フォルダごとコピーして使いまわします）。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
 
 ```js
 <% var
-pageTitle = "page1";
-pageDescription = "page description";
-pageClass = "page1";
-pageCurrent = "page1";
-pageUrl = "page1/index.html";
+pageTitle = "child page1";
+pageDescription = "child page1 description";
+pageClass = "child-page1";
+pageCurrent = "child-page1";
+pageUrl = "child-page1/index.html";
 addPath = "../";
 ogpType = "article";
 addScript = [];
 -%>
+```
+
+```js
+<% var
+pageTitle = "grandchild-page";
+pageDescription = "grandchild page description";
+pageClass = "grandchild-page";
+pageCurrent = "grandchild-page";
+pageUrl = "grandchild-page/index.html";
+addPath = "../../";
+ogpType = "article";
+addScript = [];
 ```
 
 ### _header.ejs
@@ -105,16 +117,16 @@ _layout/_header.ejsには共通で使用するメインナビゲーションが�
 * `name`は各ページのフォルダ名を記述します。（index.ejsの`pageCurrent`と一致した場合は`.is-current`が付きます）
 * `ulClass`などは`ul`要素、`li`要素、`a`要素に指定するクラス名を記述します。
 
-```ejs
+```js
 <% var
 // `name`にページの名前（フォルダ名）を記述します。
 // index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
 // トップページから見て、2階層下まで使用できます。
 // `a`タグ内にテキストを追加する場合のコード。https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d
 navs = [
-  { name: "page1"},
-  { name: "page2"},
-  { name: "page3"},
+  { name: "child-page1"},
+  { name: "child-page2"},
+  { name: "child-page3"},
 ]
 // `ul`, `li`, `a`要素に記述するクラス名をそれぞれ定義します。
 ulClass = "main-nav";
@@ -353,7 +365,7 @@ gulp release
 
 1. `gulp`（EJSとSassのコンパイルとjsと画像のdest、`watch`オプション）
 1. `gulp develop`（デフォルトの`gulp`タスクにbrowser-syncによるライブリロードを追加）
-1. `gulp release`（EJSとSassのコンパイルとjsと画像のdest。画像は圧縮されます。）
+1. `gulp release`（EJSとSassのコンパイルとjsと画像のdest。画像とCSSは圧縮されます。）
 
 いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
 
