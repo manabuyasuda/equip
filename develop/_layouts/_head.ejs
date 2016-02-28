@@ -16,6 +16,8 @@
     <![endif]-->
 
     <link rel="stylesheet" href="<%= addPath %>css/<%= site.css %>">
+    <% if(addCss) { %><link rel="stylesheet" href="css/<%= addCss %>">
+    <% } -%>
 
     <link rel="shortcut icon" href="<%= icon.favicon %>">
     <link rel="apple-touch-icon"  sizes="180x180" href="<%= icon.appleIcon %>">

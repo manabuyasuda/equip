@@ -69,6 +69,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
+* `addCss`は同じディレクトリにCSSフォルダとCSSファイルを追加します。`"add.css"`のように指定すると、css/add.cssが追加されます。
 * `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に記述します。`['script1.js', 'script2.js']`のようにファイル名だけを記述します。（配列が空の場合は出力されません）
 
 ```js
@@ -80,6 +81,7 @@ pageCurrent = "";
 pageUrl = "index.html";
 addPath = "";
 ogpType = "website";
+addCss = "";
 addScript = [];
 -%>
 ```
@@ -95,6 +97,7 @@ pageCurrent = "child-page1";
 pageUrl = "child-page1/index.html";
 addPath = "../";
 ogpType = "article";
+addCss = "";
 addScript = [];
 -%>
 ```
@@ -108,7 +111,9 @@ pageCurrent = "grandchild-page";
 pageUrl = "grandchild-page/index.html";
 addPath = "../../";
 ogpType = "article";
+addCss = "";
 addScript = [];
+-%>
 ```
 
 ### _header.ejs
