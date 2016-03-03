@@ -69,7 +69,6 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
-* `addScript`はjQueryプラグインのファイルをページごとに読み込みたい場合に記述します。`['script1.js', 'script2.js']`のようにファイル名だけを記述します。（配列が空の場合は出力されません）
 
 ```js
 <% var
@@ -80,7 +79,6 @@ pageCurrent = "";
 pageUrl = "index.html";
 addPath = "";
 ogpType = "website";
-addScript = [];
 -%>
 ```
 
@@ -95,7 +93,6 @@ pageCurrent = "child-page1";
 pageUrl = "child-page1/index.html";
 addPath = "../";
 ogpType = "article";
-addScript = [];
 -%>
 ```
 
@@ -108,7 +105,6 @@ pageCurrent = "grandchild-page";
 pageUrl = "grandchild-page/index.html";
 addPath = "../../";
 ogpType = "article";
-addScript = [];
 -%>
 ```
 
@@ -156,6 +152,37 @@ aClass = "main-nav__link";
     </header>
 
 
+```
+
+### _footer.ejs
+_layout/_footer.ejsには共通で使用するスクリプトが定義されています。
+
+* jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
+* jQueryプラグインなどはjs/vendorディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`vendor.js`として出力されます。
+* 自作のスクリプトやjQueryプラグインなどのトリガーはjsディレクトリの`index.js`（名前は変更可能）に記述してください。
+* Google Analyticsを使用しない場合はエラーになってしまうので削除してください。
+
+```js
+    <!-- JavaScript -->
+    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="<%= addPath %>js/jquery-2.2.0.min.js"><\/script>')</script>
+    <script src="<%= addPath %>js/vendor/vendor.js"></script>
+    <script src="<%= addPath %>js/index.js"></script>
+    <!-- / JavaScript -->
+
+    <!-- Google Analytics -->
+<script>
+      (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
+      (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+      m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+      })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
+      ga("create", "<%= google.analyticsId %>", "auto");
+      ga("require", "displayfeatures");
+      ga("send", "pageview");
+    </script>
+    <!-- / Google Analytics -->
+  </body>
+</html>
 ```
 
 ## assets

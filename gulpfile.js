@@ -12,6 +12,7 @@ var plumber = require('gulp-plumber');
 var notify = require("gulp-notify");
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
+var concat = require('gulp-concat');
 
 /**
  * 開発中のソースパス。
@@ -20,7 +21,8 @@ var develop = {
   'ejs': ['develop/**/*.ejs', '!' + 'develop/**/_*.ejs'],
   'json': 'develop/assets/resources/site.json',
   'sass': 'develop/assets/sass/**/*.scss',
-  'js': 'develop/assets/js/**/*.js',
+  'js': 'develop/assets/js/*.js',
+  'vendor': 'develop/assets/js/vendor/**/*.js',
   'image': 'develop/assets/images/**/*.{png,jpg,gif,svg}'
 }
 
@@ -32,6 +34,7 @@ var release = {
   'html': 'release/',
   'css': 'release/css/',
   'js': 'release/js/',
+  'vendor': 'release/js/vendor/',
   'image': 'release/images/'
 }
 
@@ -61,7 +64,7 @@ gulp.task('sass', function(){
     }))
     .pipe(csscomb())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.css))
+    .pipe(gulp.dest(release.css));
 });
 
 gulp.task('cleanCss', function(){
@@ -76,11 +79,11 @@ gulp.task('cleanCss', function(){
     .pipe(rename({suffix: '.min'}))
     .pipe(cleanCss())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.css))
+    .pipe(gulp.dest(release.css));
 });
 
 /**
- * `.js`をリリースのためのディレクトリに吐きだします。
+ * デフォルトjsファイルとjQueryをリリースのためのディレクトリに吐きだします。
  */
 gulp.task('js', function() {
   return gulp.src(develop.js)
@@ -88,11 +91,22 @@ gulp.task('js', function() {
 });
 
 /**
+ * vendorsディレクトリにあるjQueryプラグインなどのファイルを連結してリリースディレクトリに吐き出します。
+ */
+gulp.task('vendor', function() {
+  return gulp.src(develop.vendor)
+    .pipe(sourcemaps.init())
+    .pipe(concat('vendor.js'))
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(release.vendor));
+});
+
+/**
  * 画像ファイルをリリースのためのディレクトリに吐きだします。
  */
 gulp.task('image', function() {
   return gulp.src(develop.image)
-  .pipe(gulp.dest(release.image))
+  .pipe(gulp.dest(release.image));
 });
 
 /**
@@ -108,7 +122,7 @@ gulp.task('imagemin', function() {
     // PNGファイルの圧縮率（7が最高）を指定します。
     optimizationLevel: 7
   }))
-  .pipe(gulp.dest(release.image))
+  .pipe(gulp.dest(release.image));
 });
 
 /**
@@ -121,7 +135,7 @@ gulp.task('clean', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮はreleaseタスク）。
  */
-gulp.task('build', ['ejs', 'sass', 'js', 'image']);
+gulp.task('build', ['ejs', 'sass', 'js', 'vendor', 'image']);
 
 /**
  * watchタスクを指定します。
@@ -130,6 +144,7 @@ gulp.task('watch', ['build'],function() {
   gulp.watch(develop.ejs, ['ejs']);
   gulp.watch(develop.sass, ['sass']);
   gulp.watch(develop.js, ['js']);
+  gulp.watch(develop.vendor, ['vendor']);
   gulp.watch(develop.image, ['image']);
 });
 
@@ -177,6 +192,7 @@ gulp.task('release', ['clean'], function() {
     'sass',
     'cleanCss',
     'js',
+    'vendor',
     'imagemin'
   )
 });

@@ -18,6 +18,7 @@
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^3.1.0",
     "gulp-clean-css": "^2.0.2",
+    "gulp-concat": "^2.6.0",
     "gulp-csscomb": "^3.0.6",
     "gulp-ejs": "^2.1.1",
     "gulp-imagemin": "^2.4.0",
