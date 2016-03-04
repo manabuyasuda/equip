@@ -1,18 +1,18 @@
 var gulp = require('gulp');
+var ejs = require("gulp-ejs");
 var sass = require('gulp-sass')
-var cleanCss = require('gulp-clean-css')
-var rename = require('gulp-rename');
-var sourcemaps = require('gulp-sourcemaps');
 var autoprefixer = require('gulp-autoprefixer');
 var csscomb = require('gulp-csscomb');
-var ejs = require("gulp-ejs");
+var cleanCss = require('gulp-clean-css')
 var imagemin = require('gulp-imagemin');
+var rename = require('gulp-rename');
+var concat = require('gulp-concat');
+var sourcemaps = require('gulp-sourcemaps');
 var rimraf = require('rimraf');
 var plumber = require('gulp-plumber');
 var notify = require("gulp-notify");
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
-var concat = require('gulp-concat');
 
 /**
  * 開発中のソースパス。
@@ -27,7 +27,7 @@ var develop = {
 }
 
 /**
- * リリースパス。
+ * リリースパス。ディレクトリ名はプロジェクトにあわせて変更します。
  */
 var release = {
   'root': 'release/',
@@ -39,19 +39,19 @@ var release = {
 }
 
 /**
- * `.ejs`を`.html`にコンパイルしてから、リリースのためのディレクトリに吐きだします。
+ * `.ejs`を`.html`にコンパイルしてから、リリースディレクトリに出力します。
  */
 var fs = require('fs');
 var json = JSON.parse(fs.readFileSync(develop.json));
 gulp.task('ejs', function() {
-  gulp.src(develop.ejs)
-  // jsonファイルを渡して、吐き出すファイルの拡張子を.htmlに変更する。
-  .pipe(ejs(json, {"ext": ".html"}))
-  .pipe(gulp.dest(release.html));
+  return gulp.src(develop.ejs)
+    // jsonファイルを渡して、吐き出すファイルの拡張子を.htmlに変更する。
+    .pipe(ejs(json, {"ext": ".html"}))
+    .pipe(gulp.dest(release.html));
 });
 
 /**
- * `.scss`を`.css`にコンパイルしてから、リリースのためのディレクトリに吐きだします。
+ * `.scss`を`.css`にコンパイルしてから、リリースディレクトリに出力します。
  * ベンダープレフィックスを付与後、csscombで整形されます。
  */
 gulp.task('sass', function(){
@@ -67,6 +67,9 @@ gulp.task('sass', function(){
     .pipe(gulp.dest(release.css));
 });
 
+/**
+ * sassタスクにミニファイとリネームを追加します。
+ */
 gulp.task('cleanCss', function(){
   return gulp.src(develop.sass)
     .pipe(sourcemaps.init())
@@ -83,7 +86,7 @@ gulp.task('cleanCss', function(){
 });
 
 /**
- * デフォルトjsファイルとjQueryをリリースのためのディレクトリに吐きだします。
+ * デフォルトjsファイルとjQueryをリリースディレクトリに出力します。
  */
 gulp.task('js', function() {
   return gulp.src(develop.js)
@@ -91,7 +94,7 @@ gulp.task('js', function() {
 });
 
 /**
- * vendorsディレクトリにあるjQueryプラグインなどのファイルを連結してリリースディレクトリに吐き出します。
+ * vendorディレクトリにあるjQueryプラグインなどのファイルを連結してリリースディレクトリに出力します。
  */
 gulp.task('vendor', function() {
   return gulp.src(develop.vendor)
@@ -102,27 +105,27 @@ gulp.task('vendor', function() {
 });
 
 /**
- * 画像ファイルをリリースのためのディレクトリに吐きだします。
+ * 画像ファイルをリリースディレクトリに出力します。
  */
 gulp.task('image', function() {
   return gulp.src(develop.image)
-  .pipe(gulp.dest(release.image));
+    .pipe(gulp.dest(release.image));
 });
 
 /**
- * 画像ファイルを圧縮後、リリースのためのディレクトリに吐きだします。
+ * imageタスクに画像ファイルの圧縮を追加します。
  */
 gulp.task('imagemin', function() {
   return gulp.src(develop.image)
-  .pipe(imagemin({
-    // jpgをロスレス圧縮（画質を落とさず、メタデータを削除）。
-    progressive: true,
-    // gifをインターレースgifにします。
-    interlaced: true,
-    // PNGファイルの圧縮率（7が最高）を指定します。
-    optimizationLevel: 7
-  }))
-  .pipe(gulp.dest(release.image));
+    .pipe(imagemin({
+      // jpgをロスレス圧縮（画質を落とさず、メタデータを削除）。
+      progressive: true,
+      // gifをインターレースgifにします。
+      interlaced: true,
+      // PNGファイルの圧縮率（7が最高）を指定します。
+      optimizationLevel: 7
+    }))
+    .pipe(gulp.dest(release.image));
 });
 
 /**
@@ -133,7 +136,7 @@ gulp.task('clean', function (cb) {
 });
 
 /**
- * 一連のタスクを処理します（画像の圧縮はreleaseタスク）。
+ * 一連のタスクを処理します（画像の圧縮はreleaseタスクでおこないます）。
  */
 gulp.task('build', ['ejs', 'sass', 'js', 'vendor', 'image']);
 
@@ -172,8 +175,8 @@ gulp.task('default', ['clean'], function() {
 
 /**
  * 開発に使用するタスクです。
- * releaseディレクトリを削除後、watchタスクを処理、
- * ブラウザを起動し、リアルタイムに更新を反映させます。
+ * gulpタスクにbrowser-syncを追加します。
+ * ローカルサーバーを起動し、リアルタイムに更新を反映させます。
  */
 gulp.task('develop', ['clean'], function() {
   runSequence(
@@ -184,15 +187,10 @@ gulp.task('develop', ['clean'], function() {
 
 /**
  * リリースに使用するタスクです。
- * releaseディレクトリを最新の状態にしてから、画像の圧縮をします。
+ * releaseディレクトリを最新の状態にしてから、ファイルの圧縮をします。
  */
 gulp.task('release', ['clean'], function() {
   runSequence(
-    'ejs',
-    'sass',
-    'cleanCss',
-    'js',
-    'vendor',
-    'imagemin'
+    ['ejs', 'sass', 'cleanCss', 'js', 'vendor','imagemin']
   )
 });
