@@ -19,7 +19,7 @@ var browserSync = require('browser-sync');
  */
 var develop = {
   'ejs': ['develop/**/*.ejs', '!' + 'develop/**/_*.ejs'],
-  'json': 'develop/assets/resources/site.json',
+  'data': 'develop/assets/data/',
   'sass': 'develop/assets/sass/**/*.scss',
   'js': 'develop/assets/js/*.js',
   'vendor': 'develop/assets/js/vendor/**/*.js',
@@ -42,12 +42,18 @@ var release = {
  * `.ejs`を`.html`にコンパイルしてから、リリースディレクトリに出力します。
  */
 var fs = require('fs');
-var json = JSON.parse(fs.readFileSync(develop.json));
 gulp.task('ejs', function() {
   return gulp.src(develop.ejs)
-    // jsonファイルを渡して、吐き出すファイルの拡張子を.htmlに変更する。
-    .pipe(ejs(json, {"ext": ".html"}))
-    .pipe(gulp.dest(release.html));
+    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(ejs({
+      site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
+      sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json'))
+      },
+      {
+        ext: '.html'
+        }
+        ))
+      .pipe(gulp.dest(release.html));
 });
 
 /**

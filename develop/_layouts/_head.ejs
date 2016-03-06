@@ -11,22 +11,22 @@
 
     <link rel="stylesheet" href="<%= addPath %>css/<%= site.css %>">
 
-    <link rel="shortcut icon" href="<%= icon.favicon %>">
-    <link rel="apple-touch-icon"  sizes="180x180" href="<%= icon.appleIcon %>">
-    <meta name="apple-mobile-web-app-title" content="<%= icon.appTitle %>">
+    <link rel="shortcut icon" href="<%= site.favicon %>">
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= site.appleIcon %>">
+    <meta name="apple-mobile-web-app-title" content="<%= site.appTitle %>">
     <link rel="canonical" href="<%= site.rootURL %>">
 
     <!-- OGP -->
     <meta property="og:title" content="<% if(pageTitle) { %><%= pageTitle %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
     <meta property="og:type" content="<%= ogpType %>">
-    <meta property="og:image" content="<%= ogp.image %>">
+    <meta property="og:image" content="<%= site.ogImage %>">
     <meta property="og:url" content="<%= site.rootURL %><%= pageUrl %>">
     <meta property="og:description" content="<%= pageDescription %>">
     <meta property="og:site_name" content="<%= site.name %>">
     <meta property="og:locale" content="ja_JP">
-    <% if(facebook.app_id) { %><meta property="fb:app_id" content="<%= facebook.app_id %>"><% } else if(facebook.admins) { %><meta property="fb:admins" content="<%= facebook.admins -%>"><% } %>
-    <meta name="twitter:card" content="<%= twitter.card %>">
-    <meta name="twitter:site" content="<%= twitter.site %>">
+    <% if(site.facebookAppId) { %><meta property="fb:app_id" content="<%= site.facebookAppId %>"><% } else if(site.facebookAdmins) { %><meta property="fb:admins" content="<%= site.facebookAdmins -%>"><% } %>
+    <meta name="twitter:card" content="<%= site.twitterCard %>">
+    <meta name="twitter:site" content="<%= site.twitterSite %>">
     <!-- / OGP -->
 
   </head>

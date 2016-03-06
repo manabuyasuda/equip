@@ -6,9 +6,9 @@ EJSを使っているので、共通部分の変更やページごとの上書�
 ## EJS
 develop/index.ejsがホームページになります。_layout/ディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
 
-### site.json
+### data(json)
 
-develop/assets/resources/site.jsonにサイト共通の値が指定されています。サイトの名前やOGPの指定などがありますので、最初に確認をして、変更してください。site.jsonは`site.name`のように名前を統一してあります。
+develop/assets/data/site.jsonにサイト共通の値が指定されています。サイトの名前やOGPの指定などがありますので、最初に確認をして、変更してください。site.jsonは`site.name`のように呼び出すことができます。
 
 * `site.name`はサイトの名前を記述します。（`title`要素に使用されます）
 * `site.description`はサイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）
@@ -16,46 +16,84 @@ develop/assets/resources/site.jsonにサイト共通の値が指定されてい�
 * `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
 * `site.rootURL`はそのサイトの絶対パスを記述します。似たようなURLが複数ある場合やモバイルとPC向けのURLが違う場合などに使われるようです。（`canonical`属性やOGPの`og:url`に使用されます）
 * `site.css`は読み込むCSSファイル名を記述します。`gulp release`タスクでminify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`となります。
-* `ogp.image`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
-* `facebook.admins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`facebook.app_id`か`facebook.admins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
-* `facebook.app_id`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`facebook.admins`か`facebook.app_id`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）
-* `twitter.card`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
-* `twitter.site`Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。（OGPの`twitter:site`で使用されます）
-* `icon.favicon`はファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。（`shortcut icon`に使用されます）
-* `icon.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。（`apple-touch-icon`で使用されます）
-* `icon.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
-* `google.analyticsId`はGoogle Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。
+* `site.OgImage`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
+* `site.facebookAdmins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
+* `site.facebookAppId`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`site.facebookAdmins`か`site.facebookAppId`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）
+* `site.twitterCard`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
+* `site.twitterSite`Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。（OGPの`twitter:site`で使用されます）
+* `site.favicon`はファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。（`shortcut icon`に使用されます）
+* `site.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。（`apple-touch-icon`で使用されます）
+* `site.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
+* `site.analyticsId`はGoogle Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。
 
 ```json
 {
-  "site": {
-    "name": "site name",
-    "description": "site description",
-    "keywords": "keyword1, keyword2",
-    "author": "Manabu Yasuda",
-    "rootURL": "http://example.com/",
-    "css": "style.css"
-  },
-  "ogp": {
-    "image": "http://example.com/images/og-image.jpg"
-  },
-  "facebook": {
-    "admins": "",
-    "app_id": ""
-  },
-  "twitter": {
-    "card": "summary",
-    "site": "@"
-  },
-  "icon": {
-    "favicon": "http://example.com/images/favicon.ico",
-    "appleIcon": "http://example.com/images/apple-icon.ico",
-    "appTitle": "site name"
-  },
-  "google": {
-    "analyticsId": "UA-XXXXX-X"
-  }
+  "name": "site name",
+  "description": "site description",
+  "keywords": "keyword1, keyword2",
+  "author": "Manabu Yasuda",
+  "rootURL": "http://example.com/",
+  "css": "style.css",
+  "ogImage": "http://example.com/images/og-image.jpg",
+  "facebookAdmins": "",
+  "facebookAppId": "",
+  "twitterCard": "summary",
+  "twitterSite": "@",
+  "favicon": "http://example.com/images/favicon.ico",
+  "appleIcon": "http://example.com/images/apple-icon.ico",
+  "appTitle": "site name",
+  "analyticsId": "UA-XXXXX-X"
 }
+```
+
+また、develop/assets/dataディレクトリにはsample.jsonファイルが入っています。記事内で記事一覧やニュースなどをループで、処理をしたい場合に使用します。
+
+```js
+[
+  {
+      "title": "title1",
+      "description": "description1"
+  },
+  {
+      "title": "title2",
+      "description": "description2"
+  }
+]
+```
+
+jsonファイルを追加する場合はgulpfile.jsにも追加する必要があります。`develop.data`でdataディレクトリへのパスを取得できます。
+
+```js
+    .pipe(ejs({
+      site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
+      sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json')),
+      sample2: JSON.parse(fs.readFileSync(develop.data + 'sample2.json'))
+      },
+```
+
+ejsファイルでは`forEach()`を使用してデータを取得し、ループを回します。
+
+```js
+<% sample.forEach(function(data){ %>
+  <article class="article">
+    <h2><%= data.title %></h2>
+    <p><%= data.description %></p>
+  </article>
+<% }); %>
+```
+
+このように出力されます。
+
+```html
+<article class="article">
+  <h2>title1</h2>
+  <p>description1</p>
+</article>
+
+<article class="article">
+  <h2>title2</h2>
+  <p>description2</p>
+</article>
 ```
 
 ### index.ejs
