@@ -44,7 +44,6 @@ var release = {
 var fs = require('fs');
 gulp.task('ejs', function() {
   return gulp.src(develop.ejs)
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(ejs({
       site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
       sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json'))
@@ -53,7 +52,8 @@ gulp.task('ejs', function() {
         ext: '.html'
         }
         ))
-      .pipe(gulp.dest(release.html));
+    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(gulp.dest(release.html));
 });
 
 /**
