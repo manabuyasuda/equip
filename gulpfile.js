@@ -38,6 +38,22 @@ var release = {
   'image': 'release/images/'
 }
 
+var AUTOPREFIXER_BROWSERS = [
+  // @see https://github.com/ai/browserslist#browsers
+  // Major Browsers（主要なブラウザの指定）
+  'last 2 version', // （Major Browsersの）最新2バージョン
+  // 'Chrome >= 34', // Google Chrome34以上
+  // 'Firefox >= 30', // Firefox30以上
+  'ie >= 9', // IE9以上
+  // 'Edge >= 12', // Edge12以上
+  'iOS >= 7', // iOS7以上
+  // 'Opera >= 23', // Opera23以上
+  // 'Safari >= 7', // Safari7以上
+
+  // Other（Androidなどのマイナーなデバイスの指定）
+  'Android >= 4.0' // Android4.0以上
+];
+
 /**
  * `.ejs`を`.html`にコンパイルしてから、リリースディレクトリに出力します。
  */
@@ -66,7 +82,7 @@ gulp.task('sass', function(){
     .pipe(sass().on('error', sass.logError))
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(autoprefixer({
-      browsers: ['last 4 versions'],
+      browsers: AUTOPREFIXER_BROWSERS,
     }))
     .pipe(csscomb())
     .pipe(sourcemaps.write('.'))
@@ -82,7 +98,7 @@ gulp.task('cleanCss', function(){
     .pipe(sass().on('error', sass.logError))
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(autoprefixer({
-      browsers: ['last 4 versions'],
+      browsers: AUTOPREFIXER_BROWSERS,
     }))
     .pipe(csscomb())
     .pipe(rename({suffix: '.min'}))
