@@ -18,9 +18,11 @@ var browserSync = require('browser-sync');
  * 開発中のソースパス。
  */
 var develop = {
+  'root': 'develop',
   'ejs': ['develop/**/*.ejs', '!' + 'develop/**/_*.ejs'],
   'data': 'develop/assets/data/',
   'sass': 'develop/assets/sass/**/*.scss',
+  'pageCss': ['develop/**/*.scss', '!develop/assets/**/*.scss'],
   'js': 'develop/assets/js/*.js',
   'vendor': 'develop/assets/js/vendor/**/*.js',
   'image': 'develop/assets/images/**/*.{png,jpg,gif,svg}'
@@ -87,6 +89,22 @@ gulp.task('sass', function(){
     .pipe(csscomb())
     .pipe(sourcemaps.write('.'))
     .pipe(gulp.dest(release.css));
+});
+
+/**
+ * 個別ページ専用の`.scss`を`css`にコンパイルしてから、階層構造を維持したまま出力します。
+ */
+gulp.task('pageCss', function() {
+  return gulp.src(develop.pageCss, {base: develop.root})
+    .pipe(sourcemaps.init())
+    .pipe(sass().on('error', sass.logError))
+    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+    .pipe(autoprefixer({
+      browsers: AUTOPREFIXER_BROWSERS,
+    }))
+    .pipe(csscomb())
+    .pipe(sourcemaps.write('.'))
+    .pipe(gulp.dest(release.root));
 });
 
 /**
@@ -160,7 +178,7 @@ gulp.task('clean', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮はreleaseタスクでおこないます）。
  */
-gulp.task('build', ['ejs', 'sass', 'js', 'vendor', 'image']);
+gulp.task('build', ['ejs', 'sass', 'pageCss', 'js', 'vendor', 'image']);
 
 /**
  * watchタスクを指定します。
@@ -168,6 +186,7 @@ gulp.task('build', ['ejs', 'sass', 'js', 'vendor', 'image']);
 gulp.task('watch', ['build'],function() {
   gulp.watch(develop.ejs, ['ejs']);
   gulp.watch(develop.sass, ['sass']);
+  gulp.watch(develop.pageCss, ['pageCss']);
   gulp.watch(develop.js, ['js']);
   gulp.watch(develop.vendor, ['vendor']);
   gulp.watch(develop.image, ['image']);
@@ -213,6 +232,6 @@ gulp.task('develop', ['clean'], function() {
  */
 gulp.task('release', ['clean'], function() {
   runSequence(
-    ['ejs', 'sass', 'cleanCss', 'js', 'vendor','imagemin']
+    ['ejs', 'sass', 'pageCss', 'cleanCss', 'js', 'vendor','imagemin']
   )
 });

@@ -106,6 +106,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageCurrent`はナビゲーションに`.is-current`を付けたい場合に記述します（トップページは空にしておきます）
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
+* `addCss`はページ専用のscssファイルを作成したい場合に指定します。single.scssを作成した場合は`single`と記述します。index.ejsと同じ階層にscssファイルを作成します。
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
 
 ```js
@@ -116,6 +117,7 @@ pageClass = "top";
 pageCurrent = "";
 pageUrl = "index.html";
 addPath = "";
+addCss = "";
 ogpType = "website";
 -%>
 ```
@@ -130,6 +132,7 @@ pageClass = "child-page1";
 pageCurrent = "child-page1";
 pageUrl = "child-page1/index.html";
 addPath = "../";
+addCss = "";
 ogpType = "article";
 -%>
 ```
@@ -142,6 +145,7 @@ pageClass = "grandchild-page";
 pageCurrent = "grandchild-page";
 pageUrl = "grandchild-page/index.html";
 addPath = "../../";
+addCss = "";
 ogpType = "article";
 -%>
 ```
