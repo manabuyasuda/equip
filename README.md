@@ -234,28 +234,34 @@ develop/ディレクトリは基本的にEJSファイルのために使用しま
 imagesディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。
 
 ### sass
-sassはITCSSをベースにしたディレクトリになっています。
+sassは[FLOCSS](https://github.com/hiloki/flocss)をベースにしたディレクトリになっています。
 
-1. Setting - グローバル変数、設定
-1. Tool - デフォルトのmixinとfunction
-1. Generic - 基礎になるスタイル（Normalize.css、リセット、box-sizingなど）
-1. Base - クラスを持たない、HTML要素（タイプセレクタ）
-1. Object - 見た目を定義しないデザインパターン
-1. Component - デザインされたコンポーネント、UIの集合
-1. Trump - ヘルパーと上書き
+1. Foundation
+ 1. function
+ 1. variable
+ 1. mixin
+ 1. vendor（Normalize.css）
+ 1. base（プロジェクトにおける、基本的なベーススタイル）
+1. Layout（ヘッダーやフッターのような、ページを構成するコンテナブロック）
+1. Object（プロジェクトにおけるビジュアルパターン）
+ 1. component（多くのプロジェクトで横断的に再利用のできるような、小さな単位のモジュール）
+ 1. project（プロジェクト固有のパターンで、コンテンツを構成する要素）
+ 1. utility（いわゆる汎用クラスで、ほとんどの場合は単一のスタイル）
 
-tool/レイヤーには汎用的に使えるいくつかのmixinが定義されています。グローバル変数を使っているものもあるので、setting/レイヤーも確認してください。
+レイヤーを追加する場合は[CSS Styleguide](https://github.com/manabuyasuda/styleguide/blob/master/css-styleguide.md#flocss)を参照してください。
+
+foundation/mixinレイヤーには汎用的に使えるいくつかのmixinが定義されています。グローバル変数を使っているものもあるので、foundation/variableレイヤーも確認してください。
 
 * メディアクエリ（`min-width`）を挿入する`mq()`
 * メディアクエリ（`max-width`）を挿入する`mqd()`
-* グリッドの横幅（パーセンテージ）を指定する`u-cal()`
-* グリッドの親要素になる`o-grid()`
-* グリッドの子要素になる`o-grid__item()`
+* グリッドの横幅（パーセンテージ）を指定する`cal()`
+* グリッドの親要素になる`grid()`
+* グリッドの子要素になる`grid__item()`
 * clearfixを作る`cf()`
-* 横幅の制限とセンタリングをする`o-wrapper()`
-* メディアオブジェクトの親要素になる`o-media()`
-* メディアオブジェクトの子要素になる`o-media__item()`
-* レスポンシブな背景画像のベースになる`o-fluid()`
+* 横幅の制限とセンタリングをする`wrapper()`
+* メディアオブジェクトの親要素になる`media()`
+* メディアオブジェクトの子要素になる`media__item()`
+* レスポンシブな背景画像のベースになる`fluid()`
 * レスポンシブなclassを生成する`responsive()`
 * 表示を消しスクリーンリーダーにだけ読まれる`sr-only()`
 * キャレット（&lt;）を生成する`caret()`
@@ -266,7 +272,7 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
 
 ```scss
 // input
-.foo {
+html {
   font-size: 14px;
   @include mq(md) {
     font-size: 16px;
@@ -274,12 +280,12 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
 }
 
 /* output */
-.foo {
+html {
   font-size: 14px;
 }
 
 @media screen and (min-width: 768px) {
-  .foo {
+  html {
     font-size: 16px;
   }
 }
@@ -289,30 +295,30 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
 
 ```scss
 // input
-.foo {
-   @include o-wrapper(1200px, 1em);
+.wrapper {
+   @include wrapper(1200px, 1em);
 }
 
-.bar {
-  @include o-grid;
+.grid {
+  @include grid;
 }
 
-.bar__item1 {
-  @include o-grid__item(1em);
+.grid__item1 {
+  @include grid__item(1em);
   @include mq(md) {
-    @include u-col(8);
+    @include col(8);
   }
 }
 
-.bar__item2 {
-  @include o-grid__item(1em);
+.grid__item2 {
+  @include grid__item(1em);
   @include mq(md) {
-    @include u-col(4);
+    @include col(4);
   }
 }
 
 /* output */
-.foo {
+.wrapper {
   width: 100%;
   max-width: 1200px;
   margin-right: auto;
@@ -321,7 +327,7 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
   padding-left: 1em;
 }
 
-.bar {
+.grid {
   display: block;
   margin: 0;
   padding: 0;
@@ -329,7 +335,7 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
   list-style-type: none;
 }
 
-.bar__item1 {
+.grid__item1 {
   display: inline-block;
   width: 100%;
   padding-left: 1em;
@@ -337,12 +343,12 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
   vertical-align: top;
 }
 @media screen and (min-width: 768px) {
-  .bar__item1 {
+  .grid__item1 {
     width: 66.66667%;
   }
 }
 
-.bar__item2 {
+.grid__item2 {
   display: inline-block;
   width: 100%;
   padding-left: 1em;
@@ -350,7 +356,7 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
   vertical-align: top;
 }
 @media screen and (min-width: 768px) {
-  .bar__item2 {
+  .grid__item2 {
     width: 33.33333%;
   }
 }
@@ -360,12 +366,12 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
 
 ```scss
 // input
-.foo {
-   @include o-media;
+.media {
+   @include media;
 }
 
-.foo__item {
-   @include o-media__item(1em, middle);
+.media__item {
+   @include media__item(1em, middle);
    @include mq(md) {
       &:not(:first-child) {
          padding-left: 2em;
@@ -374,34 +380,34 @@ tool/レイヤーには汎用的に使えるいくつかのmixinが定義され�
 }
 
 /* output */
-.foo {
+.media {
   display: table;
   width: 100%;
   margin: 0;
   padding: 0;
 }
 
-.foo__item {
+.media__item {
   display: table-cell;
   margin: 0;
   padding: 0;
   vertical-align: middle;
 }
-.foo:not(:first-child) {
+.media:not(:first-child) {
   padding-left: 1em;
 }
-.foo > :first-child {
+.media > :first-child {
   margin-top: 0;
 }
-.foo > :last-child {
+.media > :last-child {
   margin-bottom: 0;
 }
-.foo > img {
+.media > img {
   display: block;
   max-width: none;
 }
 @media screen and (min-width: 768px) {
-  .foo__item:not(:first-child) {
+  .media__item:not(:first-child) {
     padding-left: 2em;
   }
 }
