@@ -1,6 +1,6 @@
-// -----------------------------------------------------------------------------
+//
 // #Mixin
-// -----------------------------------------------------------------------------
+//
 
 // @desc - クリアーフィックスのスタイルを挿入します。
 // @prop - 引数$importantに"important"を渡すと`!important`の指定ができます。
@@ -36,12 +36,12 @@
 // ブロック要素をセンタリングしてラップするオブジェクトです。
 // @example scss - Usage
 // @see - $max-width(setting/_global.scss)
-//.foo-wrapper {
-//   @include o-wrapper(1200px, 1em)
+//.wrapper {
+//   @include wrapper(1200px, 1em)
 // }
 //
 // @example css - CSS output
-// .foo {
+// .wrapper {
 //   width: 100%;
 //   max-width: 1200px;
 //   margin-right: auto;
@@ -49,7 +49,7 @@
 //   padding-right: 1em;
 //   padding-left: 1em;
 // }
-@mixin o-wrapper($max: $max-width, $pad: null) {
+@mixin wrapper($max: $max-width, $pad: null) {
   width: 100%;
   max-width: $max;
   margin-right: auto;
@@ -59,11 +59,11 @@
 }
 
 // @example html - Usage
-// .foo {
-//    @include o-media;
+// .media {
+//    @include media;
 // }
-// .foo__item {
-//    @include o-media__item(1em, middle);
+// .media__item {
+//    @include media__item(1em, middle);
 //    @include mq(md) {
 //       &:not(:first-of-type)
 //          padding-left: 2em;
@@ -72,38 +72,38 @@
 // }
 //
 // @example css - CSS output
-// .foo {
+// .media {
 //   display: table;
 //   width: 100%;
 //   margin: 0;
 //   padding: 0;
 // }
-// .foo__item {
+// .media__item {
 //   display: table-cell;
 //   margin: 0;
 //   padding: 0;
 //   vertical-align: middle;
 // }
-// .foo:not(:first-of-type) {
+// .media:not(:first-of-type) {
 //   padding-left: 1em;
 // }
-// .foo > :first-child {
+// .media > :first-child {
 //   margin-top: 0;
 // }
-// .foo > :last-child {
+// .media > :last-child {
 //   margin-bottom: 0;
 // }
-// .foo > img {
+// .media > img {
 //   display: block;
 //   max-width: none;
 // }
 // @media screen and (min-width: 768px) {
-//   .foo__item:not(:first-of-type) {
+//   .media__item:not(:first-of-type) {
 //     padding-left: 2em;
 //   }
 // }
 // @desc - メディアオブジェクトのラップ部分を作ります。
-@mixin o-media() {
+@mixin media() {
   display: table;
   width: 100%;
   margin: 0;
@@ -113,7 +113,7 @@
 // @desc - メディアオブジェクトの子要素を作ります。
 // @prop - $padは1つ目以外の要素に左側の余白がつきます。
 // @prop - $alignはvertical-alignを指定します。
-@mixin o-media__item($pad, $align: top) {
+@mixin media__item($pad, $align: top) {
   display: table-cell;
   margin: 0;
   padding: 0;
@@ -136,12 +136,12 @@
 // @desc - 背景画像のベースを作ります。
 // @example scss - Usage
 // .c-image-fluid {
-//   @include o-fluid(center, cover);
+//   @include fluid(center, cover);
 //   // 表示画像の高さ ÷ 表示画像の幅 × 100%
 //   padding-top: percentage(300 / 1200);
 //   background-image: url("http://lorempixel.com/1200/300/");
 // }
-@mixin o-fluid($pos: center, $size: cover) {
+@mixin fluid($pos: center, $size: cover) {
   height: auto;
   background-color: inherit;
   background-repeat: no-repeat;
@@ -154,16 +154,16 @@
 // @prop - ブレイクポイントを定義したmapを渡します。
 // @see - $breakpoints
 // @example scss - Usage
-// @include responsive(".foo") {
+// @include responsive(".display-none") {
 //   display: none;
 // }
 //
 // @example css - CSS output
-// .foo {
+// .display-none {
 //   display: none;
 // }
 // @media screen and (min-width: 400px) {
-//   .foo-sm {
+//   .display-none-sm {
 //     display: none;
 //   }
 // }

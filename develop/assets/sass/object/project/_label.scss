@@ -1,12 +1,11 @@
-/* -----------------------------------------------------------------------------
-   #Label
+ /* #Label
    -------------------------------------------------------------------------- */
 /**
  * インラインでラベリングをするコンポーネントです。
  *
- * <span class="c-label"></span>
+ * <span class="p-label"></span>
  */
-%c-label {
+%p-label {
   display: inline-block;
   padding: $spacing-inner--small;
   border-radius: $radius;

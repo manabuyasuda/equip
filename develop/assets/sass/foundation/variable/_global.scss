@@ -1,9 +1,5 @@
-// -----------------------------------------------------------------------------
-// #Global
-// -----------------------------------------------------------------------------
-
 //
-// プロジェクトで横断的に使用される値を変数として定義します。
+// #Global
 //
 
 // Breakpoint
@@ -22,10 +18,20 @@ $breakpoints-down: (
 ) !default;
 
 // wrapper
-$max-width: 1200px;
+$max-width: 1200px !default;
 
 // grid
-$column: 12;
+$column: 12 !default;
+
+// font-size
+$font-size: 14px !default;
+$font-size--lg: 16px !default;
+
+// Round
+$radius: 3px !default;
+
+// animation
+$duration: 0.3s !default;
 
 // Spacing
 $spacing-outer: 1.7rem !default;
@@ -35,13 +41,3 @@ $spacing-outer--large: ($spacing-outer * 2) !default;
 $spacing-inner: 1.0em !default;
 $spacing-inner--small: ($spacing-inner / 2) !default;
 $spacing-inner--large: ($spacing-inner * 2) !default;
-
-// font-size
-$font-size: 14px;
-$font-size--lg: 16px;
-
-// Round
-$radius: 3px !default;
-
-// animation
-$duration: 0.3s;

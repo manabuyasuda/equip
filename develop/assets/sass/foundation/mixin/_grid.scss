@@ -1,33 +1,26 @@
-// -----------------------------------------------------------------------------
+//
 // #Grid
-// -----------------------------------------------------------------------------
+//
+
 // @example scss - Usage
-// .bar {
-//   @include o-grid;
+// .grid {
+//   @include grid;
 // }
-// .bar__item1 {
-//   @include o-grid__item(1em);
+// .grid__item1 {
+//   @include grid__item(1em);
 //   @include mq(md) {
-//     @include u-col(8);
+//     @include col(8);
 //   }
 // }
-// .bar__item2 {
-//   @include o-grid__item(1em);
+// .grid__item2 {
+//   @include grid__item(1em);
 //   @include mq(md) {
 //     @include u-col(4);
 //   }
 // }
 //
 // @example css - CSS output
-// .foo {
-//   width: 100%;
-//   max-width: 1200px;
-//   margin-right: auto;
-//   margin-left: auto;
-//   padding-right: 1em;
-//   padding-left: 1em;
-// }
-// .bar {
+// .grid {
 //   display: block;
 //   margin: 0;
 //   padding: 0;
@@ -35,7 +28,7 @@
 //   list-style-type: none;
 // }
 //
-// .bar__item1 {
+// .grid__item1 {
 //   display: inline-block;
 //   width: 100%;
 //   padding-left: 1em;
@@ -43,11 +36,11 @@
 //   vertical-align: top;
 // }
 // @media screen and (min-width: 768px) {
-//   .bar__item1 {
+//   .grid__item1 {
 //     width: 66.66667%;
 //   }
 // }
-// .bar__item2 {
+// .grid__item2 {
 //   display: inline-block;
 //   width: 100%;
 //   padding-left: 1em;
@@ -55,21 +48,21 @@
 //   vertical-align: top;
 // }
 // @media screen and (min-width: 768px) {
-//   .bar__item2 {
+//   .grid__item2 {
 //     width: 33.33333%;
 //   }
 // }
 
 // @desc - フルードグリッドの横幅をパーセンテージで指定します。
 // @prop - カラムの分子を指定します。
-// @see - $column(setting/_global.scss)
-@mixin u-col($col, $cols: $column) {
+// @see - $column(foundation/variable/_global.scss)
+@mixin col($col, $cols: $column) {
   width: percentage($col / $cols);
 }
 
 // @desc - グリッドレイアウトのラップ部分を作ります。
 // @prop - ガターが必要な場合はマイナスをつけずに指定します。
-@mixin o-grid($gutter: null) {
+@mixin grid($gutter: null) {
   display: block;
   @if $gutter {
    margin: 0 0 0 (-$gutter);
@@ -83,7 +76,7 @@
 
 // @desc - グリッドレイアウトのカラムを作ります。
 // @prop - ガターが必要な場合は指定します。
-@mixin o-grid__item($gutter: null, $align: top) {
+@mixin grid__item($gutter: null, $align: top) {
   display: inline-block;
   width: 100%;
   @if $gutter {
