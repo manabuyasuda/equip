@@ -103,7 +103,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageTitle`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
 * `pageDesctiption`はそのページの説明を記述します。
 * `pageClass`は`body`要素にclassを指定できます。
-* `pageCurrent`はナビゲーションに`.is-current`を付けたい場合に記述します（トップページは空にしておきます）
+* `pageCurrent`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `addCss`はページ専用のscssファイルを作成したい場合に指定します。single.scssを作成した場合は`single`と記述します。index.ejsと同じ階層にscssファイルを作成します。
@@ -153,19 +153,21 @@ ogpType = "article";
 ### _header.ejs
 _layout/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
 
-* `name`は各ページのフォルダ名を記述します。（index.ejsの`pageCurrent`と一致した場合は`.is-current`が付きます）
+* `fileName`は各ページのフォルダ名を記述します。（index.ejsの`pageCurrent`と一致した場合は`.is-current`が付きます）
+* `pageName`にナビゲーションに表示するページ名を記述します。
 * `ulClass`などは`ul`要素、`li`要素、`a`要素に指定するクラス名を記述します。
 
 ```js
 <% var
-// `name`にページの名前（フォルダ名）を記述します。
+// `fileName`にページのフォルダ名を記述します。
+// `pageName`にナビゲーションに表示するページ名を記述します。
 // index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
 // トップページから見て、2階層下まで使用できます。
 // `a`タグ内にテキストを追加する場合のコード。https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d
 navs = [
-  { name: "child-page1"},
-  { name: "child-page2"},
-  { name: "child-page3"},
+  { fileName: "child-page1", pageName: "child page1"},
+  { fileName: "child-page2", pageName: "child page2"},
+  { fileName: "child-page3", pageName: "child page3"},
 ]
 // `ul`, `li`, `a`要素に記述するクラス名をそれぞれ定義します。
 ulClass = "main-nav";
@@ -174,26 +176,24 @@ aClass = "main-nav__link";
 -%>
 
     <header>
-      <h1><a href="<%= site.rootURL %>index.html"><%= site.name %></a></h1>
+      <h1><a href="<% if(addPath) { %><%= addPath %>index.html><% } %>"><%= site.name %></a></h1>
       <nav>
-        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(pageCurrent === nav.name) { %>
+        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(pageCurrent === nav.fileName) { %>
           <% if(addPath === "../") { %><li class="<%= liClass %>">
-            <a href="" class="<%= aClass %> is-current"><%= nav.name %></a>
+            <a href="" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } else if(addPath === '../../') { %><li class="<%= liClass %>">
-            <a href="../index.html" class="<%= aClass %> is-current"><%= nav.name %></a>
+            <a href="../index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } %><% } else if(pageCurrent === "") { %>
           <li class="<%= liClass %>">
-            <a href="<%= nav.name %>/index.html" class="<%= aClass %>"><%= nav.name %></a>
+            <a href="<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } else {%>
           <li class="<%= liClass %>"><% if(addPath === "../") { %>
-            <a href="../<%= nav.name %>/index.html" class="<%= aClass %>"><%= nav.name %></a><% } else if(addPath === "../../") { %>
-            <a href="../../<%= nav.name %>/index.html" class="<%= aClass %>"><%= nav.name %></a>
+            <a href="../<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a><% } else if(addPath === "../../") { %>
+            <a href="../../<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           <% } %></li><% } %><% }) %>
         </ul>
       </nav>
     </header>
-
-
 ```
 
 ### _footer.ejs
