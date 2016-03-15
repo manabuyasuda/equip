@@ -1,0 +1,19 @@
+# sourceにはパースしたいファイル（.cssや.scssなど）があるディレクトリを指定します。
+source: ../release/css/
+
+# スタイルガイドに読み込むCSSファイルを指定します。
+# スタイルガイドを生成したいCSSファイルを指定します。
+css_include:
+  - '../release/css/style.css'
+
+# スタイルガイドを出力するディレクトリを指定します。
+destination: ../styleguide/
+
+# スタイルガイドのタイトルを指定します。
+global_title: Styleguide
+
+# スタイルガイドのテンプレートになるファイルの入ったディレクトリを指定します。
+documentation_assets: ./template/
+
+# Hologramのマークダウンの機能（Redcarpe）を拡張するファイルです。
+custom_markdown: markdown_renderer.rb
