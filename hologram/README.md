@@ -6,7 +6,8 @@ hologram_config.ymlにはHologramの設定が指定されています。パス�
 
 * `source`はreleaseディレクトリの名前を変更した場合に、それにあわせて変更します。
 * `css_include`はスタイルガイドを生成したいCSSファイルまでのパスを指定します。
-* `destination`はスタイルガイドのタイトルに使用されます。
+* `destination`はスタイルガイドを出力するディレクトリを指定します。
+* `global_title`はスタイルガイドのタイトルに使用されます。
 * `documentation_assets`はスタイルガイドのテンプレートファイルなどを指定しています（変更する必要はありません）。
 * `custom_markdown`はマークダウンを拡張するために指定しています（変更する必要はありません）。
 
@@ -32,7 +33,7 @@ custom_markdown: markdown_renderer.rb
 ```
 
 ## スタイルガイドのコメント
-スタイルガイドは.yml形式とMarkdownで.scssファイル内に記述します。
+スタイルガイドはYAML（ヤムル）とMarkdownで.scssファイル内に記述します。`block`と指定している部分の半角スペースはこのMarkdownファイルのシンタックスハイライトのためのもので、実際にはスペースは入りません。
 
 ```
 /*doc
@@ -49,10 +50,10 @@ categories: [object]
 * できます
 
 
-```block
+ ```block
 <p><span class="p-label">label</span></p>
 <p><span class="p-label label--error">label</span></p>
-```
+ ```
 
 */
 ```
@@ -82,13 +83,13 @@ hologram/template/css/styleguide.cssにはスタイルガイドで使用する�
 ## スタイルガイドを生成するコマンド
 HologramはRubyに依存しています。Rubyはインストールしておきます。
 
-Gemのバージョン管理にはBundlerを使用します。インストールしていない場合は以下のコマンドを実行してください。Gemfile.lockが生成されていれば完了しています。
+Gemのバージョン管理にはBundlerを使用します。インストールしていない場合は以下のコマンドを実行してください。
 
 ```bash
 gem install bundler
 ```
 
-Hologramのインストール。
+Hologramのインストール。Gemfile.lockが生成されていれば完了しています。
 
 ```bash
 bundle install
