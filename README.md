@@ -166,7 +166,6 @@ _layout/_header.ejsには共通で使用するメインナビゲーションが�
 // `fileName`にページのフォルダ名を記述します。
 // `pageName`にナビゲーションに表示するページ名を記述します。
 // index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
-// トップページから見て、2階層下まで使用できます。
 // `a`タグ内にテキストを追加する場合のコード。https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d
 navs = [
   { fileName: "child-page1", pageName: "child page1"},
@@ -182,19 +181,19 @@ aClass = "main-nav__link";
     <header>
       <h1><a href="<% if(addPath) { %><%= addPath %>index.html><% } %>"><%= site.name %></a></h1>
       <nav>
-        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(pageCurrent === nav.fileName) { %>
-          <% if(addPath === "../") { %><li class="<%= liClass %>">
+        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(pageCurrent === nav.fileName) { %><% if(addPath === "../") { %>
+          <li class="<%= liClass %>">
             <a href="" class="<%= aClass %> is-current"><%= nav.pageName %></a>
-          </li><% } else if(addPath === '../../') { %><li class="<%= liClass %>">
-            <a href="../index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
+          </li><% } else { %>
+          <li class="<%= liClass %>">
+            <a href="<%= addPath.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } %><% } else if(pageCurrent === "") { %>
           <li class="<%= liClass %>">
             <a href="<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
-          </li><% } else {%>
-          <li class="<%= liClass %>"><% if(addPath === "../") { %>
-            <a href="../<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a><% } else if(addPath === "../../") { %>
-            <a href="../../<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
-          <% } %></li><% } %><% }) %>
+          </li><% } else { %>
+          <li class="<%= liClass %>">
+            <a href="<%= addPath %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
+          </li><% } %><% }) %>
         </ul>
       </nav>
     </header>
