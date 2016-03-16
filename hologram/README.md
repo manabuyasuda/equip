@@ -33,7 +33,7 @@ custom_markdown: markdown_renderer.rb
 ```
 
 ## スタイルガイドのコメント
-スタイルガイドはYAML（ヤムル）とMarkdownで.scssファイル内に記述します。`block`と指定している部分の半角スペースはこのMarkdownファイルのシンタックスハイライトのためのもので、実際にはスペースは入りません。
+スタイルガイドはYAML（ヤムル）とMarkdownで.scssファイル内に記述します。`block`と指定している部分の`｀`はこのMarkdownファイルのシンタックスハイライトのためのもので、実際には半角です。
 
 ```
 /*doc
@@ -50,10 +50,10 @@ categories: [object]
 * できます
 
 
- ```block
+｀｀｀block
 <p><span class="p-label">label</span></p>
 <p><span class="p-label label--error">label</span></p>
- ```
+｀｀｀
 
 */
 ```
