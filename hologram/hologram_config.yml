@@ -1,8 +1,7 @@
 # sourceにはパースしたいファイル（.cssや.scssなど）があるディレクトリを指定します。
-source: ../release/css/
+source: ../develop/
 
-# スタイルガイドに読み込むCSSファイルを指定します。
-# スタイルガイドを生成したいCSSファイルを指定します。
+# スタイルガイドを生成するCSSファイルの相対パスを指定します。
 css_include:
   - '../release/css/style.css'
 

@@ -13,6 +13,7 @@ var plumber = require('gulp-plumber');
 var notify = require("gulp-notify");
 var runSequence = require('run-sequence');
 var browserSync = require('browser-sync');
+var hologram = require('gulp-hologram');
 
 /**
  * 開発中のソースパス。
@@ -166,6 +167,15 @@ gulp.task('imagemin', function() {
       optimizationLevel: 7
     }))
     .pipe(gulp.dest(release.image));
+});
+
+/**
+ * Hologramでスタイルガイドを生成します。
+ * 設定はhologram_config.ymlに記述しています。
+ */
+gulp.task('hologram', function() {
+  gulp.src('hologram/hologram_config.yml')
+    .pipe(hologram({bundler:true}));
 });
 
 /**

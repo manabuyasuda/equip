@@ -10,12 +10,11 @@ hologram_config.ymlにはHologramの設定が指定されています。パス�
 * `documentation_assets`はスタイルガイドのテンプレートファイルなどを指定しています（変更する必要はありません）。
 * `custom_markdown`はマークダウンを拡張するために指定しています（変更する必要はありません）。
 
-```
+```yml
 # sourceにはパースしたいファイル（.cssや.scssなど）があるディレクトリを指定します。
-source: ../release/css/
+source: ../develop/
 
-# スタイルガイドに読み込むCSSファイルを指定します。
-# スタイルガイドを生成したいCSSファイルを指定します。
+# スタイルガイドを生成するCSSファイルの相対パスを指定します。
 css_include:
   - '../release/css/style.css'
 
@@ -81,8 +80,22 @@ hologram/template/css/styleguide.cssにはスタイルガイドで使用する�
 ```
 
 ## スタイルガイドを生成するコマンド
-スタイルガイドの生成には`npm`コマンドを用意しています。
+HologramはRubyに依存しています。Rubyはインストールしておきます。
+
+Gemのバージョン管理にはBundlerを使用します。インストールしていない場合は以下のコマンドを実行してください。Gemfile.lockが生成されていれば完了しています。
 
 ```bash
-npm run styleguide
+gem install bundler
+```
+
+Hologramのインストール。
+
+```bash
+bundle install
+```
+
+スタイルガイドの生成には`gulp`コマンドを用意しています。
+
+```bash
+gulp styleguide
 ```

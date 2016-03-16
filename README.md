@@ -1,10 +1,14 @@
 # gulp-ejs-sass
-静的ページを効率良く作るためのテンプレートです。
+静的ページを効率良く作るためのテンプレートです。以下のような特徴があります。
 
-EJSを使っているので、共通部分の変更やページごとの上書きが簡単にできます。Sassの便利なオブジェクトやmixin付きです。画像の圧縮やライブリロードにも対応しています。
+* EJSでヘッダーなどの共通部分のテンプレート化とJSONを利用したデータの管理
+* [FLOCSS](https://github.com/hiloki/flocss)をベースにしたSassのディレクトリとメディアクエリなどの@mixin集
+* CSSや画像などのminifyと圧縮
+* Browsersyncを利用したライブリロード
+* [Hologram](http://trulia.github.io/hologram/)を利用したスタイルガイドの生成
 
 ## EJS
-develop/index.ejsがホームページになります。_layout/ディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
+develop/index.ejsがトップページになります。_layoutディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
 
 ### data(json)
 
@@ -228,7 +232,7 @@ _layout/_footer.ejsには共通で使用するスクリプトが定義されて�
 ```
 
 ## assets
-develop/ディレクトリは基本的にEJSファイルのために使用します。ですので、SassとJavaScriptと画像とjsonはdevelop/assets/ディレクトリにあります。
+developディレクトリ直下は基本的にEJSファイルのために使用します。SassとJavaScriptと画像とjsonはdevelop/assetsディレクトリで管理していきます。
 
 ### images
 imagesディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。
@@ -446,3 +450,26 @@ gulp release
 いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
 
 開発用のdevelopディレクトリにはassetsディレクトリがありますが、リリース用のreleaseディレクトリにはassetsディレクトリがありませんのでパスの指定に注意してください。
+
+## スタイルガイドの生成
+スタイルガイドの生成は[Hologram](http://trulia.github.io/hologram/)を使用しています。
+
+Bundlerのインストール。
+
+```bash
+gem install bundler
+```
+
+Hologramのインストール。
+
+```bash
+bundle install
+```
+
+スタイルガイドの生成。
+
+```bash
+gulp styleguide
+```
+
+詳しくはhologram/README.mdを参照してください。

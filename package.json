@@ -4,13 +4,13 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "styleguide": "hologram -c hologram/hologram_config.yml",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "keywords": [
     "gulp",
     "ejs",
-    "scss"
+    "scss",
+    "hologram"
   ],
   "author": "Manabu Yasuda",
   "license": "MIT",
