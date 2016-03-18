@@ -16,29 +16,29 @@ var browserSync = require('browser-sync');
 var hologram = require('gulp-hologram');
 
 /**
- * 開発中のソースパス。
+ * 開発用のデベロップパス。ディレクトリ名はプロジェクトにあわせて変更します。
  */
 var develop = {
-  'root': 'develop',
+  'root': 'develop/',
   'ejs': ['develop/**/*.ejs', '!' + 'develop/**/_*.ejs'],
   'data': 'develop/assets/data/',
   'sass': 'develop/assets/sass/**/*.scss',
   'pageCss': ['develop/**/*.scss', '!develop/assets/**/*.scss'],
   'js': 'develop/assets/js/*.js',
   'vendor': 'develop/assets/js/vendor/**/*.js',
-  'image': 'develop/assets/images/**/*.{png,jpg,gif,svg}'
+  'image': 'develop/**/*.{png,jpg,gif,svg}',
+  'imagemin': 'release/**/*.{png,jpg,gif,svg}'
 }
 
 /**
- * リリースパス。ディレクトリ名はプロジェクトにあわせて変更します。
+ * 公開用のリリースパス。ディレクトリ名はプロジェクトにあわせて変更します。
  */
 var release = {
   'root': 'release/',
   'html': 'release/',
   'css': 'release/css/',
   'js': 'release/js/',
-  'vendor': 'release/js/vendor/',
-  'image': 'release/images/'
+  'vendor': 'release/js/vendor/'
 }
 
 var AUTOPREFIXER_BROWSERS = [
@@ -58,7 +58,7 @@ var AUTOPREFIXER_BROWSERS = [
 ];
 
 /**
- * `.ejs`を`.html`にコンパイルしてから、リリースディレクトリに出力します。
+ * `.ejs`をコンパイルしてから、リリースディレクトリに出力します。
  */
 var fs = require('fs');
 gulp.task('ejs', function() {
@@ -76,7 +76,7 @@ gulp.task('ejs', function() {
 });
 
 /**
- * `.scss`を`.css`にコンパイルしてから、リリースディレクトリに出力します。
+ * `.scss`をコンパイルしてから、リリースディレクトリに出力します。
  * ベンダープレフィックスを付与後、csscombで整形されます。
  */
 gulp.task('sass', function(){
@@ -93,7 +93,7 @@ gulp.task('sass', function(){
 });
 
 /**
- * 個別ページ専用の`.scss`を`css`にコンパイルしてから、階層構造を維持したまま出力します。
+ * 個別ページ専用の`.scss`をコンパイルしてから、階層構造を維持したまま出力します。
  */
 gulp.task('pageCss', function() {
   return gulp.src(develop.pageCss, {base: develop.root})
@@ -109,7 +109,7 @@ gulp.task('pageCss', function() {
 });
 
 /**
- * sassタスクにミニファイとリネームを追加します。
+ * `sass`タスクにミニファイとリネームを追加します。
  */
 gulp.task('cleanCss', function(){
   return gulp.src(develop.sass)
@@ -135,7 +135,7 @@ gulp.task('js', function() {
 });
 
 /**
- * vendorディレクトリにあるjQueryプラグインなどのファイルを連結してリリースディレクトリに出力します。
+ * デベロップディレクトリにあるjQueryプラグインなどのファイルを連結してリリースディレクトリに出力します。
  */
 gulp.task('vendor', function() {
   return gulp.src(develop.vendor)
@@ -146,18 +146,18 @@ gulp.task('vendor', function() {
 });
 
 /**
- * 画像ファイルをリリースディレクトリに出力します。
+ * デベロップディレクトリの画像を階層構造を維持したまま、リリースディレクトリに出力します。
  */
 gulp.task('image', function() {
-  return gulp.src(develop.image)
-    .pipe(gulp.dest(release.image));
+  return gulp.src(develop.image, {base: develop.root})
+    .pipe(gulp.dest(release.root));
 });
 
 /**
- * imageタスクに画像ファイルの圧縮を追加します。
+ * リリースディレクトリの画像をすべて圧縮します。
  */
 gulp.task('imagemin', function() {
-  return gulp.src(develop.image)
+  return gulp.src(develop.imagemin, {base: release.root})
     .pipe(imagemin({
       // jpgをロスレス圧縮（画質を落とさず、メタデータを削除）。
       progressive: true,
@@ -166,7 +166,7 @@ gulp.task('imagemin', function() {
       // PNGファイルの圧縮率（7が最高）を指定します。
       optimizationLevel: 7
     }))
-    .pipe(gulp.dest(release.image));
+    .pipe(gulp.dest(release.root));
 });
 
 /**
@@ -179,14 +179,14 @@ gulp.task('hologram', function() {
 });
 
 /**
- * releaseディレクトリを削除します。
+ * リリースディレクトリを削除します。
  */
 gulp.task('clean', function (cb) {
   rimraf(release.root, cb);
 });
 
 /**
- * 一連のタスクを処理します（画像の圧縮はreleaseタスクでおこないます）。
+ * 一連のタスクを処理します（画像の圧縮は`release`タスクでおこないます）。
  */
 gulp.task('build', ['ejs', 'sass', 'pageCss', 'js', 'vendor', 'image']);
 
@@ -216,7 +216,7 @@ gulp.task('browser-sync', function() {
 
 /**
  * 開発に使用するタスクです。
- * releaseディレクトリを削除後、watchタスクを処理します。
+ * リリースディレクトリを削除後、`watch`タスクを処理します。
  */
 gulp.task('default', ['clean'], function() {
   runSequence(
@@ -226,7 +226,7 @@ gulp.task('default', ['clean'], function() {
 
 /**
  * 開発に使用するタスクです。
- * gulpタスクにbrowser-syncを追加します。
+ * `gulp`タスクにbrowser-syncを追加します。
  * ローカルサーバーを起動し、リアルタイムに更新を反映させます。
  */
 gulp.task('develop', ['clean'], function() {
@@ -238,10 +238,11 @@ gulp.task('develop', ['clean'], function() {
 
 /**
  * リリースに使用するタスクです。
- * releaseディレクトリを最新の状態にしてから、ファイルの圧縮をします。
+ * リリースディレクトリを最新の状態にしてから、ファイルの圧縮をします。
  */
 gulp.task('release', ['clean'], function() {
   runSequence(
-    ['ejs', 'sass', 'pageCss', 'cleanCss', 'js', 'vendor','imagemin']
+    ['ejs', 'sass', 'pageCss', 'cleanCss', 'js', 'vendor', 'image'],
+    'imagemin'
   )
 });
