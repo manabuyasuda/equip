@@ -4,7 +4,7 @@
   "keywords": "keyword1, keyword2",
   "author": "Manabu Yasuda",
   "rootURL": "http://example.com/",
-  "css": "style.css",
+  "css": ".css",
   "ogImage": "http://example.com/images/og-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",

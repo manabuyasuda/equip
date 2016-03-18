@@ -15,7 +15,7 @@ aClass = "main-nav__link";
 -%>
 
     <header>
-      <h1><a href="<% if(addPath) { %><%= addPath %>index.html><% } %>"><%= site.name %></a></h1>
+      <h1><a href="<% if(addPath) { %><%= addPath %>index.html<% } %>"><%= site.name %></a></h1>
       <nav>
         <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(pageCurrent === nav.fileName) { %><% if(addPath === "../") { %>
           <li class="<%= liClass %>">

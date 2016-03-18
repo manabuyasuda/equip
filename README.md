@@ -19,7 +19,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 * `site.keywords`はサイトのキーワードを記述しますが、GoogleとYahoo!の検索エンジンは読んでいないためmeta要素自体を削除しても問題ありません。（`meta`要素内の`name`属性に使用されます）
 * `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
 * `site.rootURL`はそのサイトの絶対パスを記述します。似たようなURLが複数ある場合やモバイルとPC向けのURLが違う場合などに使われるようです。（`canonical`属性やOGPの`og:url`に使用されます）
-* `site.css`は読み込むCSSファイル名を記述します。`gulp release`タスクでminify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`となります。
+* `site.css`は読み込むCSSファイルの拡張子を記述します。`gulp release`タスクでminify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。
 * `site.OgImage`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
 * `site.facebookAdmins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
 * `site.facebookAppId`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`site.facebookAdmins`か`site.facebookAppId`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）
@@ -37,7 +37,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
   "keywords": "keyword1, keyword2",
   "author": "Manabu Yasuda",
   "rootURL": "http://example.com/",
-  "css": "style.css",
+  "css": ".css",
   "ogImage": "http://example.com/images/og-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",
@@ -110,7 +110,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageCurrent`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
-* `addCss`はページ専用のscssファイルを作成したい場合に指定します。single.scssを作成した場合は`single`と記述します。index.ejsと同じ階層にscssファイルを作成します。
+* `addCss`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single`と記述します。index.ejsと同じ階層にscssファイルを作成します。
 * `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
 
 ```js
@@ -231,7 +231,7 @@ _layout/_footer.ejsには共通で使用するスクリプトが定義されて�
 ```
 
 ## assets
-developディレクトリ直下は基本的にEJSファイルのために使用します。SassとJavaScriptと画像とjsonはdevelop/assetsディレクトリで管理していきます。
+developディレクトリ直下は基本的にEJSとHTMLファイルのために使用します。SassとJavaScriptと画像とjsonはdevelop/assetsディレクトリで管理していきます。
 
 ### images
 imagesディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。
@@ -447,8 +447,6 @@ gulp release
 1. `gulp release`（EJSとSassのコンパイルとjsと画像のdest。画像とCSSは圧縮されます。）
 
 いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
-
-開発用のdevelopディレクトリにはassetsディレクトリがありますが、リリース用のreleaseディレクトリにはassetsディレクトリがありませんのでパスの指定に注意してください。
 
 ## スタイルガイドの生成
 スタイルガイドの生成は[Hologram](http://trulia.github.io/hologram/)を使用しています。

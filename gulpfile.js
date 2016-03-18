@@ -22,8 +22,7 @@ var develop = {
   'root': 'develop/',
   'ejs': ['develop/**/*.ejs', '!' + 'develop/**/_*.ejs'],
   'data': 'develop/assets/data/',
-  'sass': 'develop/assets/sass/**/*.scss',
-  'pageCss': ['develop/**/*.scss', '!develop/assets/**/*.scss'],
+  'sass': 'develop/**/*.scss',
   'js': 'develop/assets/js/*.js',
   'vendor': 'develop/assets/js/vendor/**/*.js',
   'image': 'develop/**/*.{png,jpg,gif,svg}',
@@ -36,7 +35,6 @@ var develop = {
 var release = {
   'root': 'release/',
   'html': 'release/',
-  'css': 'release/css/',
   'js': 'release/js/',
   'vendor': 'release/js/vendor/'
 }
@@ -67,9 +65,7 @@ gulp.task('ejs', function() {
       site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
       sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json'))
       },
-      {
-        ext: '.html'
-        }
+      {ext: '.html'}
         ))
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(gulp.dest(release.html));
@@ -80,23 +76,7 @@ gulp.task('ejs', function() {
  * ベンダープレフィックスを付与後、csscombで整形されます。
  */
 gulp.task('sass', function(){
-  return gulp.src(develop.sass)
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-    .pipe(autoprefixer({
-      browsers: AUTOPREFIXER_BROWSERS,
-    }))
-    .pipe(csscomb())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.css));
-});
-
-/**
- * 個別ページ専用の`.scss`をコンパイルしてから、階層構造を維持したまま出力します。
- */
-gulp.task('pageCss', function() {
-  return gulp.src(develop.pageCss, {base: develop.root})
+  return gulp.src(develop.sass, {base: develop.root})
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -111,11 +91,10 @@ gulp.task('pageCss', function() {
 /**
  * `sass`タスクにミニファイとリネームを追加します。
  */
-gulp.task('cleanCss', function(){
-  return gulp.src(develop.sass)
+gulp.task('minifyCss', function(){
+  return gulp.src(develop.sass, {base: develop.root})
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
     .pipe(autoprefixer({
       browsers: AUTOPREFIXER_BROWSERS,
     }))
@@ -123,7 +102,7 @@ gulp.task('cleanCss', function(){
     .pipe(rename({suffix: '.min'}))
     .pipe(cleanCss())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.css));
+    .pipe(gulp.dest(release.root));
 });
 
 /**
@@ -188,7 +167,7 @@ gulp.task('clean', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮は`release`タスクでおこないます）。
  */
-gulp.task('build', ['ejs', 'sass', 'pageCss', 'js', 'vendor', 'image']);
+gulp.task('build', ['ejs', 'sass', 'js', 'vendor', 'image']);
 
 /**
  * watchタスクを指定します。
@@ -196,7 +175,6 @@ gulp.task('build', ['ejs', 'sass', 'pageCss', 'js', 'vendor', 'image']);
 gulp.task('watch', ['build'],function() {
   gulp.watch(develop.ejs, ['ejs']);
   gulp.watch(develop.sass, ['sass']);
-  gulp.watch(develop.pageCss, ['pageCss']);
   gulp.watch(develop.js, ['js']);
   gulp.watch(develop.vendor, ['vendor']);
   gulp.watch(develop.image, ['image']);
@@ -242,7 +220,7 @@ gulp.task('develop', ['clean'], function() {
  */
 gulp.task('release', ['clean'], function() {
   runSequence(
-    ['ejs', 'sass', 'pageCss', 'cleanCss', 'js', 'vendor', 'image'],
+    ['ejs', 'sass', 'minifyCss', 'js', 'vendor', 'image'],
     'imagemin'
   )
 });
