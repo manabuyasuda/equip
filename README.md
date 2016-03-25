@@ -203,25 +203,25 @@ aClass = "main-nav__link";
 _layout/_footer.ejsには共通で使用するスクリプトが定義されています。
 
 * jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
-* jQueryプラグインなどはjs/vendorディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`vendor.js`として出力されます。
-* 自作のスクリプトやjQueryプラグインなどのトリガーはjsディレクトリの`index.js`（名前は変更可能）に記述してください。
+* jQueryプラグインなどはassets/js/vendorディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`vendor.js`として出力されます。
+* 自作のスクリプトやjQueryプラグインなどのトリガーはassets/jsディレクトリの`index.js`（名前は変更可能）に記述してください。
 * Google Analyticsを使用しない場合はエラーになってしまうので削除してください。
 
 ```js
     <!-- JavaScript -->
-    <script src="http://ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<%= addPath %>js/jquery-2.2.0.min.js"><\/script>')</script>
-    <script src="<%= addPath %>js/vendor/vendor.js"></script>
-    <script src="<%= addPath %>js/index.js"></script>
+    <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
+    <script>window.jQuery || document.write('<script src="<%= addPath %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
+    <script src="<%= addPath %>assets/js/vendor/vendor.js"></script>
+    <script src="<%= addPath %>assets/js/index.js"></script>
     <!-- / JavaScript -->
 
     <!-- Google Analytics -->
-<script>
+    <script>
       (function(i,s,o,g,r,a,m){i["GoogleAnalyticsObject"]=r;i[r]=i[r]||function(){
       (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
       m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
       })(window,document,"script","//www.google-analytics.com/analytics.js","ga");
-      ga("create", "<%= google.analyticsId %>", "auto");
+      ga("create", "<%= site.analyticsId %>", "auto");
       ga("require", "displayfeatures");
       ga("send", "pageview");
     </script>
@@ -419,7 +419,7 @@ html {
 SassはCSSにコンパイルされるときに「autoprefixer」でベンダープレフィックスの自動付与、「csscomb」で整形とプロパティの並び替えが実行されます。また、CSSファイルと同じディレクトリにsourcemapsが出力されます。
 
 ### js
-JavaScriptはvendor/ディレクトリにjQueryとmodernizrが保存されています。連結や圧縮などの処理はされません。
+JavaScriptはassets/js/vendorディレクトリにjQueryプラグインなどのファイルを保存します。連結されて`vendor.js`として出力されます。minifyはされません。それ以外のassets/jsディレクトリにあるファイルはそのままの階層で出力されます。
 
 ## 始め方とGulpタスク
 npmでパッケージをインストールします。
