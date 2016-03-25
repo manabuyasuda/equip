@@ -35,8 +35,8 @@ var develop = {
 var release = {
   'root': 'release/',
   'html': 'release/',
-  'js': 'release/js/',
-  'vendor': 'release/js/vendor/'
+  'js': 'release/assets/js/',
+  'vendor': 'release/assets/js/vendor/'
 }
 
 var AUTOPREFIXER_BROWSERS = [
