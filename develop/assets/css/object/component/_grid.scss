@@ -1,0 +1,99 @@
+ /* #Grid
+   -------------------------------------------------------------------------- */
+/**
+ * グリッドレイアウトオブジェクトです。
+ * `width`の変更はUtilityレイヤーで指定してください。
+ *
+ * <div class="c-wrapper">
+ *   <div class="c-grid c-grid--medium">
+ *     <div class="c-grid__item u-8of12-md"></div>
+ *     <div class="c-grid__item u-4of12-md"></div>
+ *   </div>
+ * </div>
+ */
+$grid-gutter: $spacing-inner--large !default;
+$grid-gutter-small: ($grid-gutter / 2) !default;
+$grid-gutter-large: ($grid-gutter * 2) !default;
+
+.c-grid {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  list-style-type: none;
+}
+
+.c-grid__item {
+  display: inline-block;
+  width: 100%;
+  font-size: 1rem;
+  vertical-align: top;
+}
+
+/**
+ * ガターを3つのパリエーションから選択します。
+ */
+.c-grid--small {
+  margin-left: -$grid-gutter-small;
+  > .c-grid__item {
+    padding-left: $grid-gutter-small;
+  }
+}
+
+.c-grid--medium {
+  margin-left: -$grid-gutter;
+  > .c-grid__item {
+    padding-left: $grid-gutter;
+  }
+}
+
+.c-grid--large {
+  margin-left: -$grid-gutter-large;
+  > .c-grid__item {
+    padding-left: $grid-gutter-large;
+  }
+}
+
+/**
+ * 垂直位置を2つのパリエーションから選択します（デフォルトは`top`）。
+ */
+.c-grid--middle {
+  > .c-grid__item {
+    vertical-align: middle;
+  }
+}
+
+.c-grid--bottom {
+  > .c-grid__item {
+    vertical-align: bottom;
+  }
+}
+
+/**
+ * 要素を中央配置か右端寄せに指定します（デフォルトは`left`）。
+ */
+.c-grid--center {
+  text-align: center;
+  > .c-grid__item {
+    text-align: left;
+  }
+}
+
+.c-grid--right {
+  text-align: right;
+  > .c-grid__item {
+    text-align: left;
+  }
+}
+
+/**
+ * 要素を右から配置させます（HTMLの記述を反転させた状態でレイアウトされます）。
+ */
+@include responsive('.c-grid--rev') {
+  text-align: left;
+  direction: rtl;
+  > .c-grid__item {
+    text-align: left;
+    direction: ltr;
+  }
+}

@@ -1,0 +1,103 @@
+/* -----------------------------------------------------------------------------
+   #Text
+   -------------------------------------------------------------------------- */
+/* font-weightを指定します。 */
+.u-text-light {
+  font-weight: 300 !important;
+}
+
+.u-text-normal {
+  font-weight: 400 !important;
+}
+
+.u-text-bold {
+  font-weight: 600 !important;
+}
+
+/* 先頭の1文字目を1文字分字下げします。 */
+.u-text-indent {
+  text-indent: 1em !important;
+}
+
+/* 2行目以降の1文字目を1文字分字下げします。 */
+.u-text-note {
+  margin-left: 1em !important;
+  text-indent: -1em !important;
+}
+
+/* テキストを改行させません。 */
+.u-text-nowrap {
+  white-space: nowrap !important;
+}
+
+/* テキストを改行させます。 */
+.u-text-breakword {
+  word-wrap: break-word !important;
+  overflow-wrap: break-word !important;
+}
+
+/* テキストを両端揃えさせます。 */
+.u-text-justify {
+  text-align: justify !important;
+  text-justify: inter-ideograph !important;
+}
+
+/* 記述した通りに表示します。 */
+.u-text-none {
+  text-transform: none !important;
+}
+
+/* すべての英単語を小文字にします。 */
+.u-text-lowercase {
+  text-transform: lowercase !important;
+}
+
+/* すべての英単語を大文字にします。 */
+.u-text-uppercase {
+  text-transform: uppercase !important;
+}
+
+/* 英単語の先頭を大文字にします。 */
+.u-text-capitalize {
+  text-transform: capitalize !important;
+}
+
+/* スモールキャップ（小文字と同じ高さで作られた大文字）にします。 */
+.u-text-smallcaps {
+  font-variant: small-caps !important;
+}
+
+/* 縦書きにします。 */
+.u-text-vertical {
+  writing-mode: vertical-rl !important;
+  text-orientation: mixed !important;
+}
+
+/* 英文も縦書きにする場合はModifierを指定します。 */
+.u-text-vertical--upright {
+  text-orientation: upright !important;
+}
+
+.u-text-right {
+  text-align: right !important;
+}
+
+.u-text-center {
+  text-align: center !important;
+}
+
+.u-text-left {
+  text-align: left !important;
+}
+
+.u-text-top {
+  vertical-align: top !important;
+}
+
+.u-text-middle {
+  vertical-align: middle !important;
+}
+
+.u-text-bottom {
+  vertical-align: bottom !important;
+}

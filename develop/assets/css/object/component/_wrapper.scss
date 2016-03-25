@@ -1,0 +1,37 @@
+ /* #Wrapper
+   -------------------------------------------------------------------------- */
+/**
+ * 横幅を制限するオブジェクトです。
+ *
+ * <div class="c-wrapper [c-wrapper--pad-medium]">
+ *   <div class="c-grid">
+ *     <div class="c-grid__item u-8of12-md"></div>
+ *     <div class="c-grid__item u-4of12-md"></div>
+ *   </div>
+ * </div>
+ */
+$wrapper-padding: $spacing-inner !default;
+$wrapper-padding-small: ($wrapper-padding / 2) !default;
+$wrapper-padding-large: ($wrapper-padding * 2) !default;
+
+.c-wrapper {
+  width: 100%;
+  max-width: $max-width;
+  margin-right: auto;
+  margin-left: auto;
+}
+
+.c-wrapper--pad-small {
+  padding-right: $wrapper-padding-small;
+  padding-left: $wrapper-padding-small;
+}
+
+.c-wrapper--pad-medium {
+  padding-right: $wrapper-padding;
+  padding-left: $wrapper-padding;
+}
+
+.c-wrapper--pad-large {
+  padding-right: $wrapper-padding-large;
+  padding-left: $wrapper-padding-large;
+}

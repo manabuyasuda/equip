@@ -26,6 +26,9 @@
  * sidebar...........サイドバーエリアのコンテナブロックのスタイルです。
  *
  * COMPONENT
+ * wrapper...........最大幅を指定します。
+ * grid..............グリッドレイアウトを指定します。
+ * media.............画像とテキストが横並びになるコンポーネントです。
  * button............ボタンのデフォルトスタイルです。
  * embed.............Youtubeなどをレスポンシブ対応させる場合に使用します。
  *
@@ -34,6 +37,7 @@
  * label.............インラインのラベルです。
  *
  * UTILITY
+ * text..............テキストのスタイルに関する汎用クラスです。
  * display...........要素の表示や改行をコントロールする場合に使用します。
  * width.............主にグリッドで使用する`width`を指定する汎用クラスです。
  */
@@ -85,6 +89,9 @@
  * 1. Component（`c-`）
  * 2. Project（`p-`またはページ名の短縮系）
  * 3. Utility（`u-`）
+ *
+ * ランディングページのようにページ数が少なく、影響範囲が狭い場合は、
+ * Projectレイヤーのプレフィックスを省略してもいいでしょう。
  */
 
 /* -----------------------------------------------------------------------------
@@ -96,6 +103,9 @@
  * また、`width`や`margin`といったレイアウトに影響を与えるプロパティも含めないようにします。
  * 例えばbuttonのベーススタイルやgridやmediaといったレイアウトパターンが該当します。
  */
+@import "object/component/_wrapper";
+@import "object/component/_grid";
+@import "object/component/_media";
 @import "object/component/_button";
 @import "object/component/_embed";
 
@@ -117,5 +127,6 @@
  * Utilityレイヤーはいわゆる汎用クラスで、ほとんどの場合は単一のスタイルをもっています。
  * `10px`のような絶対値を指定するより、`1rem`や`25%`のような相対値をもたせることを推奨します。
  */
+@import "object/utility/_text";
 @import "object/utility/_display";
 @import "object/utility/_width";
