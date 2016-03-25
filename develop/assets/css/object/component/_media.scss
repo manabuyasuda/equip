@@ -66,17 +66,15 @@ $media-gutter-large: ($media-gutter * 2) !default;
  * 要素を右から配置させます（HTMLの記述を反転させた状態でレイアウトされます）。
  */
 @include responsive('.c-media--rev') {
-  .c-media--rev {
+  text-align: left;
+  direction: rtl;
+  > .c-media__item {
     text-align: left;
-    direction: rtl;
-    > .c-media__item {
-      text-align: left;
-      direction: ltr;
-    }
-    > .c-media__item:not(:first-child) {
-      padding-right: $media-gutter;
-      padding-left: 0;
-    }
+    direction: ltr;
+  }
+  > .c-media__item:not(:first-child) {
+    padding-right: $media-gutter;
+    padding-left: 0;
   }
 }
 
