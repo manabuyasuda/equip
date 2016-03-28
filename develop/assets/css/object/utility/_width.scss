@@ -65,3 +65,7 @@ $width-cols: 12 !default;
     @include width($width-cols, -#{$name})
   }
 }
+
+@include responsive('.u-wa') {
+  width: auto;
+}
