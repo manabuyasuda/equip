@@ -1,37 +1,47 @@
  /* #Breadcrumb
    -------------------------------------------------------------------------- */
-/**
- * パンくずリストのコンポーネントです。
- *
- * <ol class="p-breadcrumb">
- *   <li class="p-breadcrumb__item">
- *     <a href="#" class="p-breadcrumb__link">home</a>
- *   </li>
- *   <li class="p-breadcrumb__item">
- *     <a href="#" class="p-breadcrumb__link">category</a>
- *   </li>
- * </ol>
- */
+/*doc
+---
+title: breadcrumb
+name: breadcrumb
+categories: [project]
+---
+
+パンくずリストのコンポーネントです。横幅を超えると、折り返さず省略されます。
+
+```block
+<ol class="p-breadcrumb">
+  <li class="p-breadcrumb__item">
+    <a href="#" class="p-breadcrumb__link">home</a>
+  </li>
+  <li class="p-breadcrumb__item">
+    <a href="#" class="p-breadcrumb__link">page1</a>
+  </li>
+  <li class="p-breadcrumb__item">page2</li>
+</ol>
+```
+*/
 .p-breadcrumb {
-    padding-left: 0;
-    list-style-type: none;
-    overflow: hidden;
-    white-space: nowrap;
-    text-overflow: ellipsis;
+  overflow: hidden;
+  margin-left: 0;
+  padding-left: 0;
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  list-style-type: none;
 }
 
 .p-breadcrumb__item {
-    display: inline-block;
-    &:last-child {
-        display: inline;
-    }
+  display: inline-block;
+  &:last-child {
+    display: inline;
+  }
 }
 
 .p-breadcrumb__link {
-    display: inline-block;
+  display: inline-block;
 }
 
 .p-breadcrumb__item + .p-breadcrumb__item:before {
-    content: "\003E";
-    margin: 0 $spacing-inner--small;
+  content: "\003E";
+  margin: 0 $spacing-inner--small;
 }
