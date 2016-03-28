@@ -3,7 +3,7 @@ source: ../develop/
 
 # スタイルガイドを生成するCSSファイルの相対パスを指定します。
 css_include:
-  - '../release/css/style.css'
+  - '../release/assets/css/style.css'
 
 # スタイルガイドを出力するディレクトリを指定します。
 destination: ../styleguide/

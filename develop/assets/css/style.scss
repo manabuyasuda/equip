@@ -31,6 +31,7 @@
  * media.............画像とテキストが横並びになるコンポーネントです。
  * button............ボタンのデフォルトスタイルです。
  * embed.............Youtubeなどをレスポンシブ対応させる場合に使用します。
+ * icon..............CSSだけで作ったアイコンです。
  *
  * PROJECT
  * breadcrumb........パンくずリストです。
@@ -108,6 +109,7 @@
 @import "object/component/_media";
 @import "object/component/_button";
 @import "object/component/_embed";
+@import "object/component/_icon";
 
 /* -----------------------------------------------------------------------------
    #Project

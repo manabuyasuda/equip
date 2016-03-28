@@ -1,10 +1,34 @@
  /* #Width
    -------------------------------------------------------------------------- */
-/**
- * レスポンシブに対応した`width`プロパティを指定するヘルパークラスです。
- * https://github.com/csswizardry/frcss/blob/master/_trumps.widths.scss
- */
+/*doc
+---
+title: width
+name: width
+categories: [utility]
+---
 
+レスポンシブに対応した`width`プロパティを指定する汎用クラスです。
+
+[trumps.width.scss](https://github.com/csswizardry/frcss/blob/master/_trumps.widths.scss)
+
+```block
+<div class="c-wrapper">
+  <div class="c-grid c-grid--medium" style="margin-bottom:1rem;">
+    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">item1</div>
+    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">item2</div>
+  </div>
+
+  <div class="c-grid c-grid--rev c-grid--medium" style="margin-bottom:1rem;">
+    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">item1</div>
+    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">item2</div>
+  </div>
+
+  <div class="c-grid c-grid--center c-grid--medium">
+    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">item</div>
+  </div>
+</div>
+```
+*/
 // @example css - CSS output
 //
 // .u-11of12 { width: 91.66667% !important; }

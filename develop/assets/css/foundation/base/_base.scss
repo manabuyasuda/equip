@@ -68,6 +68,9 @@ h4, .u-h4 {}
 h5, .u-h5 {}
 h6, .u-h6 {}
 
+ul, ol {
+  margin-left: 1.5rem;
+}
 /**
  * ネストされたリストのマージンをリセットします。
  */
@@ -78,7 +81,7 @@ h6, .u-h6 {}
 }
 
 /**
- * `dd`と`dl`の左端を揃えます。
+ * `dt`と`dd`の左端を揃えます。
  */
  dd {
   margin-left: 0;
@@ -125,12 +128,12 @@ a {
   font-style: normal;
 }
 
-// h1, h2, h3, h4, h5, h6,
-// ul, ol, dl,
-// blockquote, p, address,
-// hr,
-// table,
-// fieldset, figure,
-// pre {
-//   margin-bottom: $spacing-outer;
-// }
+h1, h2, h3, h4, h5, h6,
+ul, ol, dl,
+blockquote, p, address,
+hr,
+table,
+fieldset, figure,
+pre {
+  margin-bottom: $spacing-outer;
+}

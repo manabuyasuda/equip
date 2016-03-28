@@ -200,7 +200,7 @@
 
 // @desc - キャレット（<）を生成します。
 // @prop - `$size`は長さ、`$weight`は太さを定義します。
-@mixin caret($color: #333, $width: 18px, $weight: 2px, $deg: 35deg) {
+@mixin caret($color: #333, $width: 14px, $weight: 2px, $deg: 35deg) {
   display: inline-block;
   position: relative;
   width: $width;

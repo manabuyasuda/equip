@@ -1,16 +1,32 @@
  /* #Grid
    -------------------------------------------------------------------------- */
-/**
- * グリッドレイアウトオブジェクトです。
- * `width`の変更はUtilityレイヤーで指定してください。
- *
- * <div class="c-wrapper">
- *   <div class="c-grid c-grid--medium">
- *     <div class="c-grid__item u-8of12-md"></div>
- *     <div class="c-grid__item u-4of12-md"></div>
- *   </div>
- * </div>
- */
+/*doc
+---
+title: grid
+name: grid
+categories: [component]
+---
+
+グリッドレイアウトオブジェクトです。`width`の変更はUtilityレイヤーで指定してください。
+
+```block
+<div class="c-wrapper">
+  <div class="c-grid c-grid--medium" style="margin-bottom:1rem;">
+    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">c-grid__item u-8of12-md</div>
+    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">c-grid__item u-4of12-md</div>
+  </div>
+
+  <div class="c-grid c-grid--rev c-grid--medium" style="margin-bottom:1rem;">
+    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">c-grid--rev c-grid__item u-8of12-md</div>
+    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">c-grid--rev c-grid__item u-4of12-md</div>
+  </div>
+
+  <div class="c-grid c-grid--center c-grid--medium">
+    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">c-grid--center c-grid__item u-8of12-md</div>
+  </div>
+</div>
+```
+*/
 $grid-gutter: $spacing-inner--large !default;
 $grid-gutter-small: ($grid-gutter / 2) !default;
 $grid-gutter-large: ($grid-gutter * 2) !default;

@@ -119,7 +119,10 @@ h1.styleguide:not(:first-child) {
 /**
  * コードブロック内でシンタックスハイライトが出力されるエリアのインナーです。
  */
-.highlight {}
+.highlight pre {
+  margin-bottom: 0;
+  font-size: 0.9rem;
+}
 
 /**
  * ページ内リンク

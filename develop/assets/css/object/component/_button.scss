@@ -1,9 +1,30 @@
  /* #Button
    -------------------------------------------------------------------------- */
-/**
- * 装飾のないボタンオブジェクトです。
- */
-%c-button {
+/*doc
+---
+title: button
+name: button
+categories: [component]
+---
+
+装飾のないボタンオブジェクトです。
+
+```block
+<p><button class="c-button c-button-example">button &lt;button&gt;</button></p>
+<p><a class="c-button c-button--full c-button-example">button full &lt;a&gt;</a></p>
+
+<p><input type="button" class="c-button c-button--pill c-button-example" value="button pill &lt;input&gt;"></button></p>
+<p>
+  <button class="c-button c-button--pill-left c-button-example">button pill left</button>
+  <button class="c-button c-button--pill-center c-button-example">button pill center</button>
+  <button class="c-button c-button--pill-right c-button-example">button pill right</button>
+</p>
+```
+*/
+$button-pill-base: 0 !default;
+$button-pill-round: 3em !default;
+
+.c-button {
   display: inline-block;
   margin: 0;
   padding: 0.75em;
@@ -26,5 +47,44 @@
   &.is-disabled {
     opacity: 0.5;
     pointer-events: none;
+  }
+}
+
+.c-button--full {
+  width: 100%;
+}
+
+.c-button--circle {
+  border-radius: 50%;
+}
+
+/**
+ * カプセル状の錠剤のような形をしたボタンコンポーネントです。
+ */
+ .c-button--pill {
+  border-radius: $button-pill-round;
+}
+
+.c-button--pill-right {
+  border-radius: $button-pill-base $button-pill-round $button-pill-round $button-pill-base;
+}
+
+.c-button--pill-center {
+  border-radius: $button-pill-base;
+}
+
+.c-button--pill-left {
+  border-radius: $button-pill-round $button-pill-base $button-pill-base $button-pill-round;
+}
+
+.c-button-example {
+  color: #fff;
+  background-color: $color-link;
+  border: 1px solid darken($color-link, 0.6);
+  &:hover,
+  &:focus {
+    color: $color-link;
+    background-color: #fff;
+    border: 1px solid darken($color-link, 0.6);
   }
 }

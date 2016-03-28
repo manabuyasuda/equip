@@ -1,25 +1,45 @@
  /* #Media
    -------------------------------------------------------------------------- */
-/**
- * 画像とテキストを横並びにするオブジェクトです。
- * 余白サイズ、垂直方向、要素の配置順の反転の指定ができます。
- * 任意の横幅以下でブロック（縦に積み重なる）レスポンシブ対応にすることができます。
- *
- * <div class="c-media [c-media--small c-media--middle c-media--rev c-media--stack-md-down]">
- *   <figure class="c-media__item">
- *     <img>
- *   </figure>
- *   <div class="c-media__item">
- *     <p></p>
- *   </div>
- * </div>
- */
+/*doc
+---
+title: media
+name: media
+categories: [component]
+---
+
+画像とテキストを横並びにするオブジェクトです。余白サイズ、垂直方向、要素の配置順の反転の指定ができます。
+
+任意の横幅以下でブロック（縦に積み重なる）レスポンシブ対応にすることができます。
+
+```block
+<div class="c-media" style="margin-bottom:1rem;">
+  <div class="c-media__item"><img src="http://lorempixel.com/150/150/"></div>
+  <div class="c-media__item">
+    <p>画像とテキストを横並びにするオブジェクトです。<br>余白サイズ、垂直方向、要素の配置順の反転の指定ができます。</p>
+  </div>
+</div>
+
+<div class="c-media c-media--middle c-media--rev-md" style="margin-bottom:1rem;">
+  <div class="c-media__item"><img src="http://lorempixel.com/150/150/"></div>
+  <div class="c-media__item">
+    <p><code>c-media--middle c-media--rev-md</code></p>
+  </div>
+</div>
+
+<div class="c-media c-media--bottom c-media--stack-down-md" style="margin-bottom:1rem;">
+  <div class="c-media__item"><img src="http://lorempixel.com/150/150/"></div>
+  <div class="c-media__item">
+    <p><code>c-media--bottom c-media--stack-down-md</code></p>
+  </div>
+</div>
+```
+*/
 $media-gutter: $spacing-inner !default;
 $media-gutter-small: ($media-gutter / 2) !default;
 $media-gutter-large: ($media-gutter * 2) !default;
 
 .c-media {
-  display: table;
+  display: block;
   width: 100%;
   margin: 0;
   padding: 0;
@@ -30,7 +50,7 @@ $media-gutter-large: ($media-gutter * 2) !default;
   margin: 0;
   padding: 0;
   vertical-align: top;
-  &:not(:first-child) {
+  &:not(:first-of-type) {
     padding-left: $media-gutter;
   }
   & > :first-child {
@@ -72,7 +92,7 @@ $media-gutter-large: ($media-gutter * 2) !default;
     text-align: left;
     direction: ltr;
   }
-  > .c-media__item:not(:first-child) {
+  > .c-media__item:not(:first-of-type) {
     padding-right: $media-gutter;
     padding-left: 0;
   }
@@ -82,20 +102,20 @@ $media-gutter-large: ($media-gutter * 2) !default;
  * 要素間の余白を変更します。
  */
 .c-media--small {
-  > .c-media__item:not(:first-child) {
+  > .c-media__item:not(:first-of-type) {
     padding-left: $media-gutter-small;
   }
-  &.c-media--rev > .c-media__item:not(:first-child) {
+  &.c-media--rev > .c-media__item:not(:first-of-type) {
     padding-right: $media-gutter-small;
     padding-left: 0;
   }
 }
 
 .c-media--large {
-  > .c-media__item:not(:first-child) {
+  > .c-media__item:not(:first-of-type) {
     padding-left: $media-gutter-large;
   }
-  &.c-media--rev > .c-media__item:not(:first-child) {
+  &.c-media--rev > .c-media__item:not(:first-of-type) {
     padding-right: $media-gutter-large;
     padding-left: 0;
   }
@@ -104,20 +124,20 @@ $media-gutter-large: ($media-gutter * 2) !default;
 /**
  * あるウィンドウサイズ以下になると、縦にレイアウトされます。
  */
-@include responsive('.c-media--stack', $breakpoints-down) {
+@include responsive('.c-media--stack-down', $breakpoints-down) {
   > .c-media__item {
     display: block;
   }
-  > .c-media__item:not(:first-child) {
+  > .c-media__item:not(:first-of-type) {
     padding: $media-gutter 0 0;
   }
   > .c-media__item > img {
     margin: auto;
   }
-  &.c-media--small > .c-media__item:not(:first-child) {
+  &.c-media--small > .c-media__item:not(:first-of-type) {
     padding: $media-gutter-small 0 0;
   }
-  &.c-media--large > .c-media__item:not(:first-child) {
+  &.c-media--large > .c-media__item:not(:first-of-type) {
     padding: $media-gutter-large 0 0;
   }
 }

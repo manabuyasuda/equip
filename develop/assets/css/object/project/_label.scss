@@ -1,10 +1,18 @@
  /* #Label
    -------------------------------------------------------------------------- */
-/**
- * インラインでラベリングをするコンポーネントです。
- *
- * <span class="p-label"></span>
- */
+/*doc
+---
+title: label
+name: label
+categories: [project]
+---
+
+インラインでメッセージを表示するコンポーネントです。
+
+```block
+<p><span class="p-label">タグ名</span></p>
+```
+*/
 %p-label {
   display: inline-block;
   padding: $spacing-inner--small;
@@ -15,4 +23,8 @@
   text-align: center;
   white-space: nowrap;
   background-color: $color-link;
+}
+
+.p-label {
+  @extend %p-label;
 }
