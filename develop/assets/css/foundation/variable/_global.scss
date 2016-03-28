@@ -17,6 +17,23 @@ $breakpoints-down: (
   'xl': 'screen and (max-width: 1199px)',
 ) !default;
 
+// "Helvetica Neue"か"Verdana"、游書体はWindowsのChromeで薄く表示される。
+$font-sans-serif: "Helvetica Neue", Helvetica, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+$font-sans-serif-Yu: "Helvetica Neue", Helvetica, "游ゴシック", YuGothic, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+
+// "Times New Roman"か"Georgia"、"HG明朝E"か"HGP明朝E"（"HGP明朝E"は文字間が狭い）、
+// 游書体はWindowsのChromeで薄く表示される、"ＭＳ Ｐ明朝"はアンチエイリアスが効かないので指定しない。
+// Androidは明朝体に非対応。
+$font-serif: "Times New Roman", "ヒラギノ明朝 Pro W3", "Hiragino Mincho ProN", "HG明朝E", "メイリオ", Meiryo, serif;
+$font-serif-yu: "Times New Roman", "游明朝", "Yu Mincho", "ヒラギノ明朝 Pro W3", "Hiragino Mincho ProN", "HG明朝E", "メイリオ", Meiryo, serif;
+
+// EL Captainで追加されたフォント。
+// 筑紫丸Aゴシック→ "TsukuARdGothic-Regular"（ふところを絞ったデザインの丸ゴシック体で和風、落ち着いた印象）
+// 筑紫丸Bゴシック→ "TsukuBRdGothic-Regular"（筑紫丸Aゴシックよりも特徴がある）
+// クレー→ "Klee"（鉛筆やペンのような手書き風で本文組みに適した書体）
+// ヒラギノ角ゴシック→ "Hiragino Sans"（ヒラギノ角ゴに10種類のウェイトを追加）
+// 游明朝体+36ポかな→ "YuMin_36pKn-Medium"（毛筆表現のある游明朝体で漢字と英数字は含んでいない）
+
 // wrapper
 $max-width: 1200px !default;
 

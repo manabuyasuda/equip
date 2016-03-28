@@ -44,7 +44,7 @@ html {
 
 body {
   color: $color-text;
-  font-family: "Helvetica Neue", Helvetica, "游ゴシック", YuGothic, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+  font-family: $font-sans-serif;
   font-weight: 400;
   background-color: $color-bg;
   /* アンチエイリアスを指定する */
