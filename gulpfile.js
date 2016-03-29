@@ -23,6 +23,7 @@ var develop = {
   'ejs': ['develop/**/*.ejs', '!' + 'develop/**/_*.ejs'],
   'data': 'develop/assets/data/',
   'sass': 'develop/**/*.scss',
+  'minifyCss': 'develop/assets/css/*.scss',
   'js': 'develop/assets/js/*.js',
   'vendor': 'develop/assets/js/vendor/**/*.js',
   'image': 'develop/**/*.{png,jpg,gif,svg}',
@@ -35,6 +36,7 @@ var develop = {
 var release = {
   'root': 'release/',
   'html': 'release/',
+  'minifyCss': 'release/assets/css/',
   'js': 'release/assets/js/',
   'vendor': 'release/assets/js/vendor/'
 }
@@ -92,7 +94,7 @@ gulp.task('sass', function(){
  * `sass`タスクにミニファイとリネームを追加します。
  */
 gulp.task('minifyCss', function(){
-  return gulp.src(develop.sass, {base: develop.root})
+  return gulp.src(develop.minifyCss)
     .pipe(sourcemaps.init())
     .pipe(sass().on('error', sass.logError))
     .pipe(autoprefixer({
@@ -102,7 +104,7 @@ gulp.task('minifyCss', function(){
     .pipe(rename({suffix: '.min'}))
     .pipe(cleanCss())
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.root));
+    .pipe(gulp.dest(release.minifyCss));
 });
 
 /**
