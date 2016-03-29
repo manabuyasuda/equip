@@ -1,14 +1,41 @@
-# gulp-ejs-sass
-静的ページを効率良く作るためのテンプレートです。以下のような特徴があります。
+# equip - Make efficient site
+静的サイトを効率良く作るためのテンプレートです。以下のような特徴があります。
 
-* EJSでヘッダーなどの共通部分のテンプレート化とJSONを利用したデータの管理
-* [FLOCSS](https://github.com/hiloki/flocss)をベースにしたSassのディレクトリとメディアクエリなどの@mixin集
+* [EJS](http://ejs.co/)でヘッダーなどの共通部分のテンプレート化、JSONを利用したデータの管理
+* [FLOCSS](https://github.com/hiloki/flocss)をベースにしたSassのディレクトリとグリッドやメディアクエリなどの@mixin集
 * CSSや画像などのminifyと圧縮
 * Browsersyncを利用したライブリロード
 * [Hologram](http://trulia.github.io/hologram/)を利用したスタイルガイドの生成
 
+## 始め方とGulpタスク
+npmでパッケージをインストールします。
+
+```bash
+npm install
+```
+
+開発に使用するGulpタスクは3つあります。
+
+```bash
+gulp
+```
+
+```bash
+gulp develop
+```
+
+```bash
+gulp release
+```
+
+1. `gulp`（EJSとSassのコンパイルとjsと画像のdest、`watch`オプション）
+1. `gulp develop`（デフォルトの`gulp`タスクにbrowser-syncによるライブリロードを追加）
+1. `gulp release`（EJSとSassのコンパイルとjsと画像のdest。画像とCSSは圧縮されます。）
+
+いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
+
 ## EJS
-develop/index.ejsがトップページになります。_layoutディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
+develop/index.ejsがトップページになります。develop/_layoutディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
 
 ### data(json)
 
@@ -102,7 +129,7 @@ ejsファイルでは`forEach()`を使用してデータを取得し、ループ
 
 ### index.ejs
 
-index.ejsには下記のように変数が定義されているので、ページごとに指定することができます。index.ejsは`pageTitle`のように名前を統一してあります。
+index.ejsには下記のように変数が定義されているので、ページごとに変更することができます。index.ejsは`pageTitle`のようにローワーキャメルケースで名前を統一してあります。
 
 * `pageTitle`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
 * `pageDesctiption`はそのページの説明を記述します。
@@ -111,7 +138,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageUrl`はmetaタグの絶対パスで使用されています。
 * `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `addCss`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single`と記述します。index.ejsと同じ階層にscssファイルを作成します。
-* `ogpType`はOGPで使用されていて、ホーム（トップ）ページはwebsite、それ以外の記事はarticleを指定します。
+* `ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
 
 ```js
 <% var
@@ -126,7 +153,7 @@ ogpType = "website";
 -%>
 ```
 
-develop/child-page1/index.ejsとchild-page1/grandchild-page1/_index.ejsは下層ページを作る場合に使用します（フォルダごとコピーして使いまわします）。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
+develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレクトリの_index.ejsは下層ページを作る場合に使用します（フォルダごとコピーして使いまわします）。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
 
 ```js
 <% var
@@ -200,7 +227,7 @@ aClass = "main-nav__link";
 ```
 
 ### _footer.ejs
-_layout/_footer.ejsには共通で使用するスクリプトが定義されています。
+_layout/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
 
 * jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
 * jQueryプラグインなどはassets/js/vendorディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`vendor.js`として出力されます。
@@ -231,13 +258,13 @@ _layout/_footer.ejsには共通で使用するスクリプトが定義されて�
 ```
 
 ## assets
-developディレクトリ直下は基本的にEJSとHTMLファイルのために使用します。SassとJavaScriptと画像とjsonはdevelop/assetsディレクトリで管理していきます。
+developディレクトリ直下は基本的にEJSのために使用します。それ以外のファイルはdevelop/assetsディレクトリで管理をしていきます。ページ専用のCSSや画像フォルダはassetsディレクトリに置かなくても大丈夫です。
 
 ### images
-imagesディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。
+imagesディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。developディレクトリの階層構造を保ったままreleaseディレクトリに出力されます。
 
-### sass
-sassは[FLOCSS](https://github.com/hiloki/flocss)をベースにしたディレクトリになっています。
+### css
+cssディレクトリは[FLOCSS](https://github.com/hiloki/flocss)をベースにSassで構成しています。
 
 1. Foundation
  1. function
@@ -252,6 +279,8 @@ sassは[FLOCSS](https://github.com/hiloki/flocss)をベースにしたディレ�
  1. utility（いわゆる汎用クラスで、ほとんどの場合は単一のスタイル）
 
 レイヤーを追加する場合は[CSS Styleguide](https://github.com/manabuyasuda/styleguide/blob/master/css-styleguide.md#flocss)を参照してください。
+
+objectレイヤーのcomponentとprojectレイヤーにはグリッドやボタンなどの汎用的に使用できるスタイルがあらかじめ定義されています。
 
 foundation/mixinレイヤーには汎用的に使えるいくつかのmixinが定義されています。グローバル変数を使っているものもあるので、foundation/variableレイヤーも確認してください。
 
@@ -376,7 +405,7 @@ html {
 .media__item {
    @include media__item(1em, middle);
    @include mq(md) {
-      &:not(:first-child) {
+      &:not(:first-of-type) {
          padding-left: 2em;
       }
    }
@@ -410,7 +439,7 @@ html {
   max-width: none;
 }
 @media screen and (min-width: 768px) {
-  .media__item:not(:first-child) {
+  .media__item:not(:first-of-type) {
     padding-left: 2em;
   }
 }
@@ -421,32 +450,6 @@ SassはCSSにコンパイルされるときに「autoprefixer」でベンダー�
 ### js
 JavaScriptはassets/js/vendorディレクトリにjQueryプラグインなどのファイルを保存します。連結されて`vendor.js`として出力されます。minifyはされません。それ以外のassets/jsディレクトリにあるファイルはそのままの階層で出力されます。
 
-## 始め方とGulpタスク
-npmでパッケージをインストールします。
-
-```bash
-npm install
-```
-
-開発に使用するGulpタスクは3つあります。
-
-```bash
-gulp
-```
-
-```bash
-gulp develop
-```
-
-```bash
-gulp release
-```
-
-1. `gulp`（EJSとSassのコンパイルとjsと画像のdest、`watch`オプション）
-1. `gulp develop`（デフォルトの`gulp`タスクにbrowser-syncによるライブリロードを追加）
-1. `gulp release`（EJSとSassのコンパイルとjsと画像のdest。画像とCSSは圧縮されます。）
-
-いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
 
 ## スタイルガイドの生成
 スタイルガイドの生成は[Hologram](http://trulia.github.io/hologram/)を使用しています。
