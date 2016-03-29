@@ -43,7 +43,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 
 * `site.name`はサイトの名前を記述します。（`title`要素に使用されます）
 * `site.description`はサイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）
-* `site.keywords`はサイトのキーワードを記述しますが、GoogleとYahoo!の検索エンジンは読んでいないためmeta要素自体を削除しても問題ありません。（`meta`要素内の`name`属性に使用されます）
+* `site.keywords`はサイトのキーワードを記述します。GoogleとYahoo!の検索エンジンは読んでいませんが、できれば記述しておきます。（`meta`要素内の`name`属性に使用されます）
 * `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
 * `site.rootURL`はそのサイトの絶対パスを記述します。似たようなURLが複数ある場合やモバイルとPC向けのURLが違う場合などに使われるようです。（`canonical`属性やOGPの`og:url`に使用されます）
 * `site.css`はassetsディレクトリｄえ読み込むCSSファイルの拡張子を記述します。`gulp release`タスクを実行すると、minify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。
@@ -133,6 +133,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 
 * `pageTitle`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
 * `pageDesctiption`はそのページの説明を記述します。
+* `pageKeywords`はそのページのキーワードを記述します。
 * `pageClass`は`body`要素にclassを指定できます。
 * `pageCurrent`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
 * `pageUrl`はmetaタグの絶対パスで使用されています。
@@ -142,8 +143,9 @@ index.ejsには下記のように変数が定義されているので、ペー�
 
 ```js
 <% var
-pageTitle = "";
+pageTitle = "top page";
 pageDescription = site.description;
+pageKeywords = site.keywords;
 pageClass = "top";
 pageCurrent = "";
 pageUrl = "index.html";
@@ -159,6 +161,7 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
 <% var
 pageTitle = "child page1";
 pageDescription = "child page1 description";
+pageKeywords = site.keywords;
 pageClass = "child-page1";
 pageCurrent = "child-page1";
 pageUrl = "child-page1/index.html";
@@ -172,6 +175,7 @@ ogpType = "article";
 <% var
 pageTitle = "grandchild-page";
 pageDescription = "grandchild page description";
+pageKeywords = site.keywords;
 pageClass = "grandchild-page";
 pageCurrent = "child-page1";
 pageUrl = "grandchild-page/index.html";
