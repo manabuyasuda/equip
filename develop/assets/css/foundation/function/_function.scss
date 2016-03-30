@@ -15,6 +15,26 @@
   @return $n / ($n * 0 + 1);
 }
 
+// @desc - '$z-index'のkeyから値を返します。
+// @see - '$z-index' (foundation/variable/_global.scss)
+// @author - Hugo Giraudel
+// @link http://www.sitepoint.com/better-solution-managing-z-index-sass/
+// @example scss - Usage
+// .foo {
+//   z-index: z-index(default);
+// }
+// @example css - CSS Output
+// .foo {
+//   z-index: 1;
+// }
+@function z-index($layer) {
+  @if not map-has-key($z-index, $layer) {
+    @error 'There is no layer named `#{$layer}` in $z-index. '
+         + 'Layer should be one of #{map-keys($z-index)}.';
+  }
+  @return map-get($z-index, $layer);
+}
+
 // @desc - 白色を加えて明度を明るくします。
 // @example scss - Usage
 // .foo {
