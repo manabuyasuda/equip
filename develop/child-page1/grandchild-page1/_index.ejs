@@ -1,18 +1,17 @@
-<% var
-pageTitle = "grandchild-page";
-pageDescription = "grandchild page description";
-pageKeywords = site.keywords;
-pageClass = "grandchild-page";
-pageCurrent = "child-page1";
-pageUrl = "grandchild-page/index.html";
-addPath = "../../";
-addCss = "";
-ogpType = "article";
+<% var pageData = {
+  title: "grandchild-page",
+  description: "grandchild page description",
+  keywords: site.keywords,
+  class: "grandchild-page",
+  current: "grandchild-page",
+  url: "grandchild-page/index.html",
+  path: "../../",
+  css: "",
+  ogpType: "article"
+};
 -%>
-<% include ../../_layouts/_head.ejs -%>
-
-<% include ../../_layouts/_header.ejs %>
-
+<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
     <article>contents here</article>
 
-<% include ../../_layouts/_footer.ejs -%>
+<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>

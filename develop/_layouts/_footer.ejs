@@ -1,12 +1,13 @@
-    <footer>
+<% if (typeof modifier === undefined) { var modifier = ''; } -%>
+    <footer class="footer<%= modifier %>">
       <p><small>© <%= site.name %> All Rights Reserved.</small></p>
     </footer>
 
     <!-- JavaScript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<%= addPath %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
-    <script src="<%= addPath %>assets/js/vendor/vendor.js"></script>
-    <script src="<%= addPath %>assets/js/index.js"></script>
+    <script>window.jQuery || document.write('<script src="<%= page.path %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
+    <script src="<%= page.path %>assets/js/vendor/vendor.js"></script>
+    <script src="<%= page.path %>assets/js/index.js"></script>
     <!-- / JavaScript -->
 
     <!-- Google Analytics -->

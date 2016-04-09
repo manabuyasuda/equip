@@ -129,66 +129,90 @@ ejsファイルでは`forEach()`を使用してデータを取得し、ループ
 
 ### index.ejs
 
-index.ejsには下記のように変数が定義されているので、ページごとに変更することができます。index.ejsは`pageTitle`のようにローワーキャメルケースで名前を統一してあります。
+index.ejsには下記のように変数が定義されているので、ページごとに変更することができます。index.ejsでは`pageData.title`、インクルードしている_head.ejsや_footer.ejsなどでは`page.title`のように呼び出すことができます。
 
-* `pageTitle`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
-* `pageDesctiption`はそのページの説明を記述します。
-* `pageKeywords`はそのページのキーワードを記述します。
-* `pageClass`は`body`要素にclassを指定できます。
-* `pageCurrent`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
-* `pageUrl`はmetaタグの絶対パスで使用されています。
-* `addPath`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
-* `addCss`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
-* `ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
+* `pageData.title`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
+* `pageData.desctiption`はそのページの説明を記述します。
+* `pageData.keywords`はそのページのキーワードを記述します。
+* `pageData.class`は`body`要素にclassを指定できます。
+* `page.current`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
+* `pageData.url`はmetaタグの絶対パスで使用されています。
+* `pageData.path`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
+* `pageData.css`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
+* `pageData.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
 
 ```js
-<% var
-pageTitle = "top page";
-pageDescription = site.description;
-pageKeywords = site.keywords;
-pageClass = "top";
-pageCurrent = "";
-pageUrl = "index.html";
-addPath = "";
-addCss = "";
-ogpType = "website";
+<% var pageData = {
+  title: "top page",
+  description: site.description,
+  keywords: site.keywords,
+  class: "top",
+  current: "",
+  url: "index.html",
+  path: "",
+  css: "",
+  ogpType: "website"
+};
 -%>
+<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
+    <article>contents here</article>
+
+<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
+```
+
+`include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: pageData,`は各index.ejsの変数（`pageData`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合、以下のように出力されます。
+
+```html
+<header class="header header--fixed">
 ```
 
 develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレクトリの_index.ejsは下層ページを作る場合に使用します（フォルダごとコピーして使いまわします）。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
 
 ```js
-<% var
-pageTitle = "child page1";
-pageDescription = "child page1 description";
-pageKeywords = site.keywords;
-pageClass = "child-page1";
-pageCurrent = "child-page1";
-pageUrl = "child-page1/index.html";
-addPath = "../";
-addCss = "";
-ogpType = "article";
+<% var pageData = {
+  title: "child page1",
+  description: "child page1 description",
+  keywords: site.keywords,
+  class: "child-page1",
+  current: "child-page1",
+  url: "child-page1/index.html",
+  path: "../",
+  css: "",
+  ogpType: "article"
+};
 -%>
+<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
+    <article>contents here</article>
+
+<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
 ```js
-<% var
-pageTitle = "grandchild-page";
-pageDescription = "grandchild page description";
-pageKeywords = site.keywords;
-pageClass = "grandchild-page";
-pageCurrent = "child-page1";
-pageUrl = "grandchild-page/index.html";
-addPath = "../../";
-addCss = "";
-ogpType = "article";
+<% var pageData = {
+  title: "grandchild-page",
+  description: "grandchild page description",
+  keywords: site.keywords,
+  class: "grandchild-page",
+  current: "grandchild-page",
+  url: "grandchild-page/index.html",
+  path: "../../",
+  css: "",
+  ogpType: "article"
+};
 -%>
+<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
+    <article>contents here</article>
+
+<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
 ### _header.ejs
 _layout/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
 
-* `fileName`は各ページのフォルダ名を記述します。（index.ejsの`pageCurrent`と一致した場合は`.is-current`が付きます）
+* `fileName`は各ページのフォルダ名を記述します。（index.ejsの`page.current`と一致した場合は`.is-current`が付きます）
 * `pageName`にナビゲーションに表示するページ名を記述します。
 * `ulClass`などは`ul`要素、`li`要素、`a`要素に指定するクラス名を記述します。
 
@@ -207,23 +231,24 @@ navs = [
 ulClass = "main-nav";
 liClass = "main-nav__item";
 aClass = "main-nav__link";
--%>
 
-    <header>
-      <h1><a href="<% if(addPath) { %><%= addPath %>index.html><% } %>"><%= site.name %></a></h1>
+if (typeof modifier === undefined) { var modifier = ''; }
+-%>
+    <header class="header<%= modifier %>">
+      <h1><a href="<% if(page.path) { %><%= page.path %>index.html<% } %>"><%= site.name %></a></h1>
       <nav>
-        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(pageCurrent === nav.fileName) { %><% if(addPath === "../") { %>
+        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.current === nav.fileName) { %><% if(page.path === "../") { %>
           <li class="<%= liClass %>">
             <a href="" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="<%= addPath.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
-          </li><% } %><% } else if(pageCurrent === "") { %>
+            <a href="<%= page.path.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
+          </li><% } %><% } else if(page.current === "") { %>
           <li class="<%= liClass %>">
             <a href="<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="<%= addPath %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
+            <a href="<%= page.path %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } %><% }) %>
         </ul>
       </nav>
@@ -239,11 +264,16 @@ _layout/_footer.ejsには共通で使用するフッターとスクリプトが�
 * Google Analyticsを使用しない場合はエラーになってしまうので削除してください。
 
 ```js
+<% if (typeof modifier === undefined) { var modifier = ''; } -%>
+    <footer class="footer<%= modifier %>">
+      <p><small>© <%= site.name %> All Rights Reserved.</small></p>
+    </footer>
+
     <!-- JavaScript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<%= addPath %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
-    <script src="<%= addPath %>assets/js/vendor/vendor.js"></script>
-    <script src="<%= addPath %>assets/js/index.js"></script>
+    <script>window.jQuery || document.write('<script src="<%= page.path %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
+    <script src="<%= page.path %>assets/js/vendor/vendor.js"></script>
+    <script src="<%= page.path %>assets/js/index.js"></script>
     <!-- / JavaScript -->
 
     <!-- Google Analytics -->
@@ -264,8 +294,8 @@ _layout/_footer.ejsには共通で使用するフッターとスクリプトが�
 ## assets
 developディレクトリ直下は基本的にEJSのために使用します。それ以外のファイルはdevelop/assetsディレクトリで管理をしていきます。ページ専用のCSSや画像フォルダはassetsディレクトリに置かなくても大丈夫です。
 
-### images
-imagesディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。developディレクトリの階層構造を保ったままreleaseディレクトリに出力されます。
+### image
+imageディレクトリは空の状態です。Gulpタスクを実行してもフォルダも生成されないので、仮の画像やOGP画像などを入れてからタスクを実行します。developディレクトリの階層構造を保ったままreleaseディレクトリに出力されます。
 
 ### css
 cssディレクトリは[FLOCSS](https://github.com/hiloki/flocss)をベースにSassで構成しています。

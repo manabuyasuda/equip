@@ -1,16 +1,17 @@
+<% if (typeof modifier === undefined) { var modifier = ''; } -%>
 <!DOCTYPE html>
 <html>
-  <head prefix="og: http://ogp.me/ns# <%= ogpType %>: http://ogp.me/ns/<%= ogpType %>#">
+  <head prefix="og: http://ogp.me/ns# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
-    <% if(pageTitle) { %><title><%= pageTitle %> | <%= site.name %></title><% } else { %><title><%= site.name %></title><% } %>
-    <meta name="description" content="<%= pageDescription %>">
-    <meta name="keywords" content="<%= pageKeywords %>">
+    <% if(page.title) { %><title><%= page.title %> | <%= site.name %></title><% } else { %><title><%= site.name %></title><% } %>
+    <meta name="description" content="<%= page.description %>">
+    <meta name="keywords" content="<%= page.keywords %>">
     <meta name="author" content="<%= site.author %>">
 
-    <link rel="stylesheet" href="<%= addPath %>assets/css/style<%= site.css %>"><% if(addCss) { %>
-    <link rel="stylesheet" href="<%= addCss %>"><% } %>
+    <link rel="stylesheet" href="<%= page.path %>assets/css/style<%= site.css %>"><% if(page.css) { %>
+    <link rel="stylesheet" href="<%= page.css %>"><% } %>
 
     <link rel="shortcut icon" href="<%= site.favicon %>">
     <link rel="apple-touch-icon" sizes="180x180" href="<%= site.appleIcon %>">
@@ -19,11 +20,11 @@
     <link rel="canonical" href="<%= site.rootURL %>">
 
     <!-- OGP -->
-    <meta property="og:title" content="<% if(pageTitle) { %><%= pageTitle %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
-    <meta property="og:type" content="<%= ogpType %>">
+    <meta property="og:title" content="<% if(page.title) { %><%= page.title %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
+    <meta property="og:type" content="<%= page.ogpType %>">
     <meta property="og:image" content="<%= site.ogImage %>">
-    <meta property="og:url" content="<%= site.rootURL %><%= pageUrl %>">
-    <meta property="og:description" content="<%= pageDescription %>">
+    <meta property="og:url" content="<%= site.rootURL %><%= page.url %>">
+    <meta property="og:description" content="<%= page.description %>">
     <meta property="og:site_name" content="<%= site.name %>">
     <meta property="og:locale" content="ja_JP">
     <% if(site.facebookAppId) { %><meta property="fb:app_id" content="<%= site.facebookAppId %>"><% } else if(site.facebookAdmins) { %><meta property="fb:admins" content="<%= site.facebookAdmins -%>"><% } %>
@@ -32,4 +33,4 @@
     <!-- / OGP -->
 
   </head>
-  <% if(pageClass) { %><body class="<%= pageClass %>"><% } else { %><body><% } %>
+  <% if(page.class) { %><body class="<%= page.class %><%= modifier %>"><% } else { %><body><% } %>
