@@ -5,8 +5,8 @@
 // @desc - クリアーフィックスのスタイルを挿入します。
 // @prop - 引数$importantに"important"を渡すと`!important`の指定ができます。
 // @example scss - Usage
-// .foo { @include cf; }
-// .bar { @include cf(important); }
+// .foo { @include clearfix; }
+// .bar { @include clearfix(important); }
 // @example css - CSS output
 // .foo:after {
 //     content: "";
@@ -18,7 +18,7 @@
 //     display: block !important;
 //     clear: both !important;
 // }
-@mixin cf($important: false) {
+@mixin clearfix($important: false) {
   @if ($important == "important") {
     $important: unquote("!important");
   } @else {
@@ -59,104 +59,6 @@
     &:focus {
       @content;
     }
-  }
-}
-
-// ブロック要素をセンタリングしてラップするオブジェクトです。
-// @example scss - Usage
-// @see - $max-width(setting/_global.scss)
-//.wrapper {
-//   @include wrapper(1200px, 1em)
-// }
-// @example css - CSS output
-// .wrapper {
-//   width: 100%;
-//   max-width: 1200px;
-//   margin-right: auto;
-//   margin-left: auto;
-//   padding-right: 1em;
-//   padding-left: 1em;
-// }
-@mixin wrapper($max: $max-width, $pad: null) {
-  width: 100%;
-  max-width: $max;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: $pad;
-  padding-left: $pad;
-}
-
-// @example html - Usage
-// .media {
-//    @include media;
-// }
-// .media__item {
-//    @include media__item(1em, middle);
-//    @include mq(md) {
-//       &:not(:first-of-type)
-//          padding-left: 2em;
-//       }
-//    }
-// }
-// @example css - CSS output
-// .media {
-//   display: block;
-//   width: 100%;
-//   margin: 0;
-//   padding: 0;
-// }
-// .media__item {
-//   display: table-cell;
-//   margin: 0;
-//   padding: 0;
-//   vertical-align: middle;
-// }
-// .media:not(:first-of-type) {
-//   padding-left: 1em;
-// }
-// .media > :first-child {
-//   margin-top: 0;
-// }
-// .media > :last-child {
-//   margin-bottom: 0;
-// }
-// .media > img {
-//   display: block;
-//   max-width: none;
-// }
-// @media screen and (min-width: 768px) {
-//   .media__item:not(:first-of-type) {
-//     padding-left: 2em;
-//   }
-// }
-// @desc - メディアオブジェクトのラップ部分を作ります。
-@mixin media() {
-  display: block;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-// @desc - メディアオブジェクトの子要素を作ります。
-// @prop - $padは1つ目以外の要素に左側の余白がつきます。
-// @prop - $alignはvertical-alignを指定します。
-@mixin media__item($pad, $align: top) {
-  display: table-cell;
-  margin: 0;
-  padding: 0;
-  vertical-align: $align;
-  &:not(:first-of-type) {
-    padding-left: $pad;
-  }
-  & > :first-child {
-    margin-top: 0;
-  }
-  & > :last-child {
-    margin-bottom: 0;
-  }
-  > img {
-    display: block;
-    max-width: none;
   }
 }
 
@@ -206,6 +108,32 @@
   }
 }
 
+// @desc - Font Awesomeで疑似要素などに個別に指定する場合に使用します。
+// @param {null} $content [null] - Unicodeを"\"で囲んで指定します。
+// @param {Boolean} $adjust [true] - trueにすると日本語テキストで位置がほぼ揃います。
+// @link - https://fortawesome.github.io/Font-Awesome/
+// @example - .icon-arrow:before { @include create-icon("\f105"); }
+@mixin create-icon($content: null, $adjust: true) {
+  content: $content;
+  @if($adjust == true) {
+    position: relative;
+    top: -0.1em;
+  }
+  display: inline-block;
+  /* use !important to prevent issues with browser extensions that change fonts */
+  font-family: FontAwesome !important;
+  font-weight: normal;
+  font-style: normal;
+  font-variant: normal;
+  line-height: 1;
+  vertical-align: middle;
+  text-transform: none;
+  /* Better Font Rendering =========== */
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  speak: none;
+}
+
 // @desc - 表示だけをせずに、スクリーンリーダーにだけ対応したい場合に使用します。
 // @prop - 引数に"important"を渡すと`!important`の指定ができます。
 @mixin sr-only($important: false) {
@@ -222,132 +150,4 @@
   overflow: hidden $important;
   padding: 0 $important;
   clip: rect(0, 0, 0, 0) $important;
-}
-
-// @desc - キャレット（<）を生成します。
-// @prop - `$size`は長さ、`$weight`は太さを定義します。
-@mixin caret($color: #333, $width: 14px, $weight: 2px, $deg: 35deg) {
-  display: inline-block;
-  position: relative;
-  width: $width;
-  height: 1em;
-  margin-left: 1em;
-  border: none;
-  vertical-align: middle;
-  background-color: transparent;
-  outline: none;
-  transition: all, ease-in, 0.3s;
-  &[class*="is-"] {
-    transform: rotate(90deg);
-  }
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    top: 0;
-    right: $weight;
-    bottom: 0;
-    width: ($width + $weight);
-    height: $weight;
-    margin: auto 0;
-    transform-origin: right;
-    box-shadow: inset 0 0 0 $weight $color;
-  }
-  &:before {
-    transform: rotate($deg);
-    @if $weight > 2px {
-      top: (($weight / 3) * 2);
-    }
-  }
-  &:after {
-    transform: rotate(-$deg);
-    @if $weight > 2px {
-      bottom: (($weight / 3) * 2);
-    }
-  }
-}
-
-// @desc - アニメーションするハンバーガーボタンを生成します。
-// @prop - `$width`は横幅、`$height`は高さ、`$weight`は太さを定義します。バランスが崩れた場合は`$bottom`で微調整してください。
-// @example html - Usage
-// <button class="burger">
-//   <span class="sr-only">ナビゲーションを表示する</span>
-// </button>
-//
-// @example scss - Usage
-// .burger {
-//   @include burger;
-// }
-// .sr-only {
-//   @include sr-only;
-// }
-@mixin burger($color: #333, $width: 30px, $height: 22px, $weight: 3px, $bottom: ($height / 3)) {
-  position: relative;
-  width: $width;
-  height: $height;
-  border: 0;
-  border-top: $weight solid $color;
-  border-bottom: $weight solid $color;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-  transition: all, ease-out, 0.3s;
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    right: 0;
-    bottom: $bottom;
-    left: 0;
-    border-bottom: $weight solid $color;
-  }
-  &[class*="is-"] {
-    border-color: transparent;
-    transform: rotate(90deg);
-    &:before {
-      transform: rotate(45deg);
-    }
-    &:after {
-      transform: rotate(-45deg);
-    }
-  }
-}
-
-// @desc - クローズボタン（x）を生成します。
-// @prop - `$weight`は太さを定義します。
-// @example html - Usage
-// <button class="close">
-//   <span class="sr-only">画面を閉じる</span>
-// </button>
-//
-// @example scss - Usage
-// .close {
-//   @include close;
-// }
-// .sr-only {
-//   @include sr-only;
-// }
-@mixin close($color: #333, $width: 30px, $height: 22px, $weight: 3px) {
-  position: relative;
-  width: $width;
-  height: $height;
-  border: 0;
-  vertical-align: middle;
-  background-color: transparent;
-  cursor: pointer;
-  outline: none;
-  &:before,
-  &:after {
-    content: "";
-    position: absolute;
-    right: 0;
-    left: 0;
-    border-bottom: $weight solid $color;
-  }
-  &:before {
-    transform: rotate(45deg);
-  }
-  &:after {
-    transform: rotate(-45deg);
-  }
 }

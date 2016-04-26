@@ -41,7 +41,8 @@ categories: [project]
   display: inline-block;
 }
 
-.p-breadcrumb__item + .p-breadcrumb__item:before {
+/* 2つ目以降のリストの前に`>`を表示する。 */
+.p-breadcrumb__item:not(:first-of-type):before {
   content: "\003E";
   margin: 0 $spacing-inner--small;
 }

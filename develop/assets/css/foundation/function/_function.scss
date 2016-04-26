@@ -3,14 +3,7 @@
 //
 
 // @desc - 渡した引数から単位を取り除きます。
-// @example scss - Usage
-// .foo {
-//  font-size: strip-unit(24em);
-// }
-// @example css - CSS Output
-// .foo {
-//   font-size: 24;
-// }
+// @example - strip-unit(24em); => 24
 @function strip-unit($n) {
   @return $n / ($n * 0 + 1);
 }
@@ -19,14 +12,7 @@
 // @see - '$z-index' (foundation/variable/_global.scss)
 // @author - Hugo Giraudel
 // @link http://www.sitepoint.com/better-solution-managing-z-index-sass/
-// @example scss - Usage
-// .foo {
-//   z-index: z-index(default);
-// }
-// @example css - CSS Output
-// .foo {
-//   z-index: 1;
-// }
+// @example - z-index(default) => 1
 @function z-index($layer) {
   @if not map-has-key($z-index, $layer) {
     @error 'There is no layer named `#{$layer}` in $z-index. '
@@ -36,27 +22,13 @@
 }
 
 // @desc - 白色を加えて明度を明るくします。
-// @example scss - Usage
-// .foo {
-//   color: tint(blue, 50%);
-// }
-// @example css - CSS Output
-// .foo {
-//   color: #8080ff;
-// }
+// @example - tint(blue, 50%) => #8080ff
 @function tint($color, $percent) {
   @return mix(#fff, $color, $percent);
 }
 
 // @desc - 黒色を加えて明度を暗くします。
-// @example scss - Usage
-// .foo {
-//   color: shade(blue, 50%);
-// }
-// @example css - CSS Output
-// .foo {
-//   color: navy;
-// }
+// @example - color: shade(blue, 50%) => navy
 @function shade($color, $percent) {
   @return mix(#000, $color, $percent);
 }

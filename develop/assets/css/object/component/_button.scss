@@ -39,9 +39,7 @@ $button-pill-round: 3em !default;
   background: transparent;
   cursor: pointer;
   appearance: none;
-  &:hover,
-  &:active,
-  &:focus {
+  @include on-event {
     text-decoration: none;
   }
   &.is-disabled {

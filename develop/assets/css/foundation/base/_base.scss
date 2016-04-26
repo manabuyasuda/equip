@@ -19,24 +19,9 @@
   box-sizing: inherit;
 }
 
-/**
- * ブロック要素をすべてリセットします
- */
- body,
- h1, h2, h3, h4, h5, h6,
- p, blockquote, pre,
- dl, dd, ol, ul,
- form, fieldset, legend,
- figure,
- table, th, td, caption,
- hr {
-  margin: 0;
-  padding: 0;
-}
-
 html {
   font-size: $font-size;
-  line-height: strip-unit($spacing-outer);
+  line-height: 1.7;
   @include mq(lg) {
     font-size: $font-size--lg;
   }
@@ -101,8 +86,7 @@ a {
   &:visited {
     color: $color-link--visited;
   }
-  &:hover,
-  &:focus {
+  @include on-event {
     text-decoration: underline;
     color: $color-link--hover;
   }

@@ -2,7 +2,7 @@
 // #Global
 //
 
-// Breakpoint
+// breakpoint
 $breakpoints: (
   'sm': 'screen and (min-width: 400px)',
   'md': 'screen and (min-width: 768px)',
@@ -18,16 +18,16 @@ $breakpoints-down: (
 ) !default;
 
 // wrapper
-$max-width: 1200px !default;
+$max-width: 960px !default;
 
 // grid
 $column: 12 !default;
 
 // font-size
-$font-size: 14px !default;
+$font-size: 15px !default;
 $font-size--lg: 16px !default;
 
-// Round
+// round
 $radius: 3px !default;
 
 // animation
@@ -45,7 +45,7 @@ $z-index: (
   'modal': 3,
 ) !default;
 
-// Spacing
+// spacing
 $spacing-outer: 1.7rem !default;
 $spacing-outer--small: ($spacing-outer / 2) !default;
 $spacing-outer--large: ($spacing-outer * 2) !default;

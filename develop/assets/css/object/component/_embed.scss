@@ -10,12 +10,12 @@ categories: [component]
 YouTubeなどのエンベディットコンテンツのアクペクト比を指定するオブジェクトです。
 
 ```block
-<div class="c-embed-16to9">
+<div class="c-embed c-embed-16to9">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/1OKZOV-iLj4" frameborder="0" allowfullscreen></iframe>
 </div>
 ```
 */
-%c-embed {
+.c-embed {
   display: block;
   overflow: hidden;
   position: relative;
@@ -40,7 +40,6 @@ YouTubeなどのエンベディットコンテンツのアクペクト比を指�
  * アスペクト比 16:9
  */
 .c-embed-16to9 {
-  @extend %c-embed;
   padding-bottom: percentage(9 / 16) !important;
 }
 
@@ -48,6 +47,5 @@ YouTubeなどのエンベディットコンテンツのアクペクト比を指�
  * アスペクト比 4:3
  */
 .c-embed-4to3 {
-  @extend %c-embed;
   padding-bottom: percentage(3 / 4) !important;
 }

@@ -13,7 +13,7 @@ categories: [project]
 <p><span class="p-label">タグ名</span></p>
 ```
 */
-%p-label {
+.p-label {
   display: inline-block;
   padding: $spacing-inner--small;
   border-radius: $radius;
@@ -23,8 +23,4 @@ categories: [project]
   text-align: center;
   white-space: nowrap;
   background-color: $color-link;
-}
-
-.p-label {
-  @extend %p-label;
 }

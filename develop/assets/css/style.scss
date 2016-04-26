@@ -32,9 +32,9 @@
  * media.............画像とテキストが横並びになるコンポーネントです。
  * button............ボタンのデフォルトスタイルです。
  * embed.............Youtubeなどをレスポンシブ対応させる場合に使用します。
- * icon..............CSSだけで作ったアイコンです。
  *
  * PROJECT
+ * icon..............アイコンフォントです。
  * breadcrumb........パンくずリストです。
  * label.............インラインのラベルです。
  *
@@ -111,7 +111,6 @@
 @import "object/component/_media";
 @import "object/component/_button";
 @import "object/component/_embed";
-@import "object/component/_icon";
 
 /* -----------------------------------------------------------------------------
    #Project
@@ -121,6 +120,7 @@
  * 記事の一覧やあるページにだけ使用するパターンなどで、追加するほとんどのスタイルはこのレイヤーになります。
  * もし、このレイヤーで3箇所で同じパターンが使われていたら、Componentとしてまとめられないかを検討しましょう。
  */
+@import "object/project/_icon";
 @import "object/project/_breadcrumb";
 @import "object/project/_label";
 
