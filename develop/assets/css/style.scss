@@ -8,6 +8,7 @@
  * global............プロジェクト全体で使用される変数を定義しています。
  * color.............色に関する変数を定義しています。
  * font..............フォントに関する変数を定義しています。
+ * easing............cubic-bezier関数を使用したタイミング関数を定義しています。
  *
  * MIXIN
  * mixin.............Sassの@mixinを定義しています。
@@ -62,6 +63,7 @@
 @import "foundation/variable/_global";
 @import "foundation/variable/_color";
 @import "foundation/variable/_font";
+@import "foundation/variable/_easing";
 @import "foundation/mixin/_mixin";
 @import "foundation/mixin/_media-query";
 @import "foundation/mixin/_grid";
