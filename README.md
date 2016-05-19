@@ -47,7 +47,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 * `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
 * `site.rootURL`はそのサイトの絶対パスを記述します。似たようなURLが複数ある場合やモバイルとPC向けのURLが違う場合などに使われるようです。（`canonical`属性やOGPの`og:url`に使用されます）
 * `site.css`はassetsディレクトリｄえ読み込むCSSファイルの拡張子を記述します。`gulp release`タスクを実行すると、minify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。
-* `site.OgImage`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
+* `site.ogpImage`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
 * `site.facebookAdmins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
 * `site.facebookAppId`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`site.facebookAdmins`か`site.facebookAppId`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）
 * `site.twitterCard`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
@@ -65,7 +65,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
   "author": "Manabu Yasuda",
   "rootURL": "http://example.com/",
   "css": ".css",
-  "ogImage": "http://example.com/images/og-image.jpg",
+  "ogpImage": "http://example.com/images/og-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",
   "twitterCard": "summary",
@@ -140,6 +140,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageData.path`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `pageData.css`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
 * `pageData.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
+* ``pageData.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
 
 ```js
 <% var pageData = {
@@ -151,7 +152,8 @@ index.ejsには下記のように変数が定義されているので、ペー�
   url: "index.html",
   path: "",
   css: "",
-  ogpType: "website"
+  ogpType: "website",
+  ogpImage: site.ogpImage
 };
 -%>
 <%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
@@ -161,7 +163,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 <%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
-`include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: pageData,`は各index.ejsの変数（`pageData`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合、以下のように出力されます。
+`include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: pageData,`は各index.ejsの変数（`pageData`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合（スペースが入っていることに注意）、以下のように出力されます。
 
 ```html
 <header class="header header--fixed">
@@ -179,7 +181,8 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
   url: "child-page1/index.html",
   path: "../",
   css: "",
-  ogpType: "article"
+  ogpType: "article",
+  ogpImage: site.ogpImage
 };
 -%>
 <%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
@@ -187,6 +190,7 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
     <article>contents here</article>
 
 <%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
+
 ```
 
 ```js
@@ -199,7 +203,8 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
   url: "grandchild-page/index.html",
   path: "../../",
   css: "",
-  ogpType: "article"
+  ogpType: "article",
+  ogpImage: site.ogpImage
 };
 -%>
 <%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
@@ -210,6 +215,7 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
 ```
 
 ### _header.ejs
+
 _layout/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
 
 * `fileName`は各ページのフォルダ名を記述します。（index.ejsの`page.current`と一致した場合は`.is-current`が付きます）
@@ -256,6 +262,7 @@ if (typeof modifier === undefined) { var modifier = ''; }
 ```
 
 ### _footer.ejs
+
 _layout/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
 
 * jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
