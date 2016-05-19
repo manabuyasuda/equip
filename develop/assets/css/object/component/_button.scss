@@ -7,7 +7,13 @@ name: button
 categories: [component]
 ---
 
-装飾のないボタンオブジェクトです。
+ベーシックなボタンオブジェクトです。
+
+Modifierは以下のとおりです。
+
+* 100%表示 `--full`
+* 真円 `--circle`
+* 楕円 `--pill`, `--pill-right`, `--pill-center`, `--pill-left`
 
 ```block
 <p><button class="c-button c-button-example">button &lt;button&gt;</button></p>
@@ -21,15 +27,15 @@ categories: [component]
 </p>
 ```
 */
-$button-pill-base: 0 !default;
-$button-pill-round: 3em !default;
+$_button-pill-base: 0 !default;
+$_button-pill-round: 3em !default;
 
 .c-button {
   display: inline-block;
   margin: 0;
   padding: 0.75em;
   border: none;
-  border-radius: $radius;
+  border-radius: $_radius;
   color: inherit;
   font-family: inherit;
   font-size: inherit;
@@ -39,7 +45,7 @@ $button-pill-round: 3em !default;
   background: transparent;
   cursor: pointer;
   appearance: none;
-  @include on-event {
+  @include _on-event {
     text-decoration: none;
   }
   &.is-disabled {
@@ -60,29 +66,28 @@ $button-pill-round: 3em !default;
  * カプセル状の錠剤のような形をしたボタンコンポーネントです。
  */
  .c-button--pill {
-  border-radius: $button-pill-round;
+  border-radius: $_button-pill-round;
 }
 
 .c-button--pill-right {
-  border-radius: $button-pill-base $button-pill-round $button-pill-round $button-pill-base;
+  border-radius: $_button-pill-base $_button-pill-round $_button-pill-round $_button-pill-base;
 }
 
 .c-button--pill-center {
-  border-radius: $button-pill-base;
+  border-radius: $_button-pill-base;
 }
 
 .c-button--pill-left {
-  border-radius: $button-pill-round $button-pill-base $button-pill-base $button-pill-round;
+  border-radius: $_button-pill-round $_button-pill-base $_button-pill-base $_button-pill-round;
 }
 
 .c-button-example {
   color: #fff;
-  background-color: $color-link;
-  border: 1px solid darken($color-link, 0.6);
-  &:hover,
-  &:focus {
-    color: $color-link;
+  background-color: $_color-link;
+  border: 1px solid darken($_color-link, 0.6);
+  @include _on-event {
+    color: $_color-link;
     background-color: #fff;
-    border: 1px solid darken($color-link, 0.6);
+    border: 1px solid darken($_color-link, 0.6);
   }
 }

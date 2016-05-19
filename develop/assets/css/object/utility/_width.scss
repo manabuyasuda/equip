@@ -9,22 +9,22 @@ categories: [utility]
 
 レスポンシブに対応した`width`プロパティを指定する汎用クラスです。
 
-[trumps.width.scss](https://github.com/csswizardry/frcss/blob/master/_trumps.widths.scss)
+@see - [trumps.width.scss](https://github.com/csswizardry/frcss/blob/master/_trumps.widths.scss)
 
 ```block
 <div class="c-wrapper">
   <div class="c-grid c-grid--medium" style="margin-bottom:1rem;">
-    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">item1</div>
-    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">item2</div>
+    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid__item u-8of12-md</div></div>
+    <div class="c-grid__item u-4of12-md"><div style="background-color:lightblue;">c-grid__item u-4of12-md</div></div>
   </div>
 
   <div class="c-grid c-grid--rev c-grid--medium" style="margin-bottom:1rem;">
-    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">item1</div>
-    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">item2</div>
+    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid--rev c-grid__item u-8of12-md</div></div>
+    <div class="c-grid__item u-4of12-md"><div style="background-color:lightblue;">c-grid--rev c-grid__item u-4of12-md</div></div>
   </div>
 
   <div class="c-grid c-grid--center c-grid--medium">
-    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">item</div>
+    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid--center c-grid__item u-8of12-md</div></div>
   </div>
 </div>
 ```
@@ -39,12 +39,12 @@ categories: [utility]
 
 // 取得したいカラム数をリスト形式で指定します。
 // 例えば`1 2`を指定すると1/1, 1/2, 2/2の`width`を取得できます。
-$width-cols: 12 !default;
+$_width-cols: 12 !default;
 
 // @param $cols - `$width-cols`から取得したいカラム数を取得します。
 // @param $breakpoint(null) - メディアクエリ用のキーワードを渡します。
 // @requires $width-cols - 取得したいカラム数をリスト形式で指定します。
-@mixin width($cols, $breakpoint: null) {
+@mixin _width($cols, $breakpoint: null) {
   @each $col in $cols {
     @for $i from 1 through $col {
       .u-#{$i}of#{$col}#{$breakpoint} {
@@ -56,16 +56,20 @@ $width-cols: 12 !default;
 
 // ブレイクポイントのないclassを生成します。
 // @requires - $width-cols
-@include width($width-cols);
+@include _width($_width-cols);
 
 // ブレイクポイント付きのclassを生成します。
 // @requires - $breakpoints
-@each $name, $breakpoint in $breakpoints {
+@each $name, $breakpoint in $_breakpoint-up {
   @media #{$breakpoint} {
-    @include width($width-cols, -#{$name})
+    @include _width($_width-cols, -#{$name})
   }
 }
 
-@include responsive('.u-wa') {
-  width: auto;
+@include _responsive('.u-wf') {
+  width: 100% !important;
+}
+
+@include _responsive('.u-wa') {
+  width: auto !important;
 }

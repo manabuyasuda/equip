@@ -1,0 +1,10 @@
+// z-indexが定義されていない要素は`z-index:0;`として描画されます。
+// 同じz-indexを持つ要素はスタック文脈が同じであればHTMLの記述順に依存します。
+// なるべく数値はユニーク（一意）にして、シンプルに管理できるようにします。
+// @see - 'e-z-index()' (foundation/function/_z-index.scss)
+$_z-index: (
+  'below': -1,
+  'default': 1,
+  'fixNav': 2,
+  'modal': 3,
+) !default;

@@ -15,12 +15,12 @@ categories: [project]
 */
 .p-label {
   display: inline-block;
-  padding: $spacing-inner--small;
-  border-radius: $radius;
-  color: $color-ui-bg;
-  font-size: 0.8rem;
+  padding: 0.5em;
+  // border-radius: $_radius;
+  color: $_color-ui-bg;
+  font-size: $_font-size--small;
   line-height: 1;
   text-align: center;
   white-space: nowrap;
-  background-color: $color-link;
+  background-color: $_color-link;
 }

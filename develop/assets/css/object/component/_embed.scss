@@ -9,8 +9,13 @@ categories: [component]
 
 YouTubeなどのエンベディットコンテンツのアクペクト比を指定するオブジェクトです。
 
+Modifierは以下のとおりです。
+
+* アスペクト比16:9 `--16to9`
+* アスペクト比4:3 `--4to3`
+
 ```block
-<div class="c-embed c-embed-16to9">
+<div class="c-embed c-embed--16to9">
   <iframe width="560" height="315" src="https://www.youtube.com/embed/1OKZOV-iLj4" frameborder="0" allowfullscreen></iframe>
 </div>
 ```
@@ -39,13 +44,13 @@ YouTubeなどのエンベディットコンテンツのアクペクト比を指�
 /**
  * アスペクト比 16:9
  */
-.c-embed-16to9 {
+.c-embed--16to9 {
   padding-bottom: percentage(9 / 16) !important;
 }
 
 /**
  * アスペクト比 4:3
  */
-.c-embed-4to3 {
+.c-embed--4to3 {
   padding-bottom: percentage(3 / 4) !important;
 }

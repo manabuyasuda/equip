@@ -23,7 +23,7 @@ categories: [project]
 */
 .p-breadcrumb {
   overflow: hidden;
-  margin-left: 0;
+  margin: 0;
   padding-left: 0;
   white-space: nowrap;
   text-overflow: ellipsis;
@@ -44,5 +44,5 @@ categories: [project]
 /* 2つ目以降のリストの前に`>`を表示する。 */
 .p-breadcrumb__item:not(:first-of-type):before {
   content: "\003E";
-  margin: 0 $spacing-inner--small;
+  margin: 0 0.5em;
 }

@@ -1,0 +1,33 @@
+ /* #Badge
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: badge
+name: badge
+categories: [project]
+---
+
+投稿数のような数値を表示するバッジコンポーネントです。
+
+```block
+<span class="p-badge">1</span>
+<span class="p-badge">10</span>
+<span class="p-badge">100</span>
+```
+*/
+$_badge-size: 2em !default;
+
+.p-badge {
+  display: inline-block;
+  min-width: $_badge-size;
+  min-height: $_badge-size;
+  padding: 0 ($_badge-size / 8);
+  border-radius: 50%;
+  color: $_color-ui-bg;
+  font-size: $_font-size--small;
+  line-height: $_badge-size;
+  text-align: center;
+  vertical-align: top;
+  white-space: nowrap;
+  background-color: $_color-link;
+}

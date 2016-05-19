@@ -20,23 +20,23 @@
 }
 
 html {
-  font-size: $font-size;
+  font-size: $_font-size;
   line-height: 1.7;
-  @include mq(lg) {
-    font-size: $font-size--lg;
+  @include _mq-up(lg) {
+    font-size: $_font-size--large;
   }
 }
 
 body {
-  color: $color-text;
-  font-family: $font-sans-serif-1;
+  color: $_color-text;
+  font-family: $_font-family-sans-serif-1;
   font-weight: 400;
-  background-color: $color-bg;
   /* アンチエイリアスを指定する */
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
   /* メトリクスカーニングを指定する */
   font-kerning: normal;
+  background-color: $_color-bg;
 }
 
 h1, h2, h3, h4, h5, h6 {
@@ -54,7 +54,7 @@ h5, .u-h5 {}
 h6, .u-h6 {}
 
 ul, ol {
-  margin-left: 1.5rem;
+  padding-left: 1.5rem;
 }
 /**
  * ネストされたリストのマージンをリセットします。
@@ -82,13 +82,13 @@ th {
 
 a {
   text-decoration: underline;
-  color: $color-link;
+  color: $_color-link;
   &:visited {
-    color: $color-link--visited;
+    color: $_color-link--visited;
   }
-  @include on-event {
+  @include _on-event {
     text-decoration: underline;
-    color: $color-link--hover;
+    color: $_color-link--hover;
   }
 }
 
@@ -112,6 +112,24 @@ a {
   font-style: normal;
 }
 
+code,
+pre {
+    font-family: Consolas, Menlo, Courier, monospace;
+}
+
+code {
+  padding: 0.2em;
+  border-radius: $_radius;
+  font-size: $_font-size--small;
+  background-color: rgba(0,0,0,0.06);
+}
+
+pre code {
+  padding: 0;
+  font-size: $_font-size--small;
+  background-color: inherit;
+}
+
 h1, h2, h3, h4, h5, h6,
 ul, ol, dl,
 blockquote, p, address,
@@ -119,5 +137,6 @@ hr,
 table,
 fieldset, figure,
 pre {
-  margin-bottom: $spacing-outer;
+  margin-top: 0;
+  margin-bottom: $_white-space;
 }

@@ -1,0 +1,55 @@
+ /* #Split
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: split
+name: split
+categories: [component]
+---
+
+定義リストをブロックからインラインにするオブジェクトです。
+デフォルトで`.c-split__name`が10文字を越えるとレイアウトが崩れます。
+
+Modifierは以下のとおりです。
+
+* ブロックから横並び`--inline`
+
+```block
+<dl class="c-split c-split--inline-md">
+  <dt class="c-split__name">c-split__name1</dt>
+  <dd class="c-split__value">c-split__value1</dd>
+  <dt class="c-split__name">c-split__name2</dt>
+  <dd class="c-split__value">c-split__value2</dd>
+</dl>
+```
+*/
+$_split-padding: $_white-space--small / 2 !default;
+$_split-name-size: 10em !default;
+.c-split {
+  margin: 0;
+  padding: 0;
+}
+
+.c-split__name {
+  padding-top: $_split-padding;
+}
+
+.c-split__value {
+  margin-left: 0;
+  padding-bottom: $_split-padding;
+}
+
+$_split-namespace: '.c-split';
+$_split-modifier-namespace: '.c-split--inline';
+$_split-bp: $_breakpoint-up;
+@each $suffix, $value in $_split-bp {
+  @media #{$value} {
+    #{$_split-modifier-namespace}-#{$suffix} > #{$_split-namespace}__name {
+      float: left;
+      clear: both;
+    }
+    #{$_split-modifier-namespace}-#{$suffix} > #{$_split-namespace}__value {
+      padding: $_split-padding 0 $_split-padding $_split-name-size;
+    }
+  }
+}

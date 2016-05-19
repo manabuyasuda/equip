@@ -1,0 +1,6 @@
+// @desc - 渡した引数から単位を取り除きます。
+// @param {Number}
+// @example - _strip-unit(24rem); => 24
+@function _strip-unit($n) {
+  @return $n / ($n * 0 + 1);
+}

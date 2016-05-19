@@ -1,0 +1,13 @@
+// @desc - '$z-index'のkeyから値を返します。
+// @param {String}
+// @see - foundation/variable/_z-index.scss
+// @author - Hugo Giraudel
+// @link http://www.sitepoint.com/better-solution-managing-z-index-sass/
+// @example - _z-index(default) => 1
+@function _z-index($layer) {
+  @if not map-has-key($_z-index, $layer) {
+    @error 'There is no layer named `#{$layer}` in $_z-index. '
+         + 'Layer should be one of #{map-keys($_z-index)}.';
+  }
+  @return map-get($_z-index, $layer);
+}

@@ -325,166 +325,62 @@ objectレイヤーのcomponentとprojectレイヤーにはグリッドやボタ�
 
 foundation/mixinレイヤーには汎用的に使えるいくつかのmixinが定義されています。グローバル変数を使っているものもあるので、foundation/variableレイヤーも確認してください。
 
-* メディアクエリ（`min-width`）を挿入する`mq()`
-* メディアクエリ（`max-width`）を挿入する`mqd()`
-* グリッドの横幅（パーセンテージ）を指定する`cal()`
-* グリッドの親要素になる`grid()`
-* グリッドの子要素になる`grid__item()`
-* clearfixを作る`cf()`
-* 横幅の制限とセンタリングをする`wrapper()`
-* メディアオブジェクトの親要素になる`media()`
-* メディアオブジェクトの子要素になる`media__item()`
-* レスポンシブな背景画像のベースになる`fluid()`
-* レスポンシブなclassを生成する`responsive()`
-* 表示を消しスクリーンリーダーにだけ読まれる`sr-only()`
-* キャレット（&lt;）を生成する`caret()`
-* アニメーションするハンバーガーボタンを生成する`burger()`
-* クローズボタン（x）を生成する`close()`
-
-メディアクエリを指定するmixin。
+変数と関数はすべて`_`からはじまります。名前の区切りは`-`です。
 
 ```scss
-// input
-html {
-  font-size: 14px;
-  @include mq(md) {
-    font-size: 16px;
+// 変数
+$_max-width
+
+// function
+_z-index()
+
+// mixin
+_mq-up()
+```
+
+
+ブレイクポイントはMapタイプの変数で定義されています。
+
+```scss
+// min-width
+$_breakpoint-up: (
+  'sm': 'screen and (min-width: 400px)',
+  'md': 'screen and (min-width: 768px)',
+  'lg': 'screen and (min-width: 1000px)',
+  'xl': 'screen and (min-width: 1200px)',
+) !default;
+
+// max-width
+$_breakpoint-down: (
+  'sm': 'screen and (max-width: 399px)',
+  'md': 'screen and (max-width: 767px)',
+  'lg': 'screen and (max-width: 999px)',
+  'xl': 'screen and (max-width: 1199px)',
+) !default;
+```
+
+呼び出すときは`_mq-up()`で`min-width`が、`_mq-down()`で`max-width`が出力されます。mixinの引数に変数のキーを渡すと、それに対応した値が返ります。
+
+```scss
+.foo {
+  color: red;
+  @include _mq-up(sm) {
+    color: blue;
   }
 }
 
-/* output */
-html {
-  font-size: 14px;
+// @example css - CSS output
+.foo {
+  color: red;
 }
-
-@media screen and (min-width: 768px) {
-  html {
-    font-size: 16px;
+@media screen and (min-width: 400px) {
+  .foo {
+    color: blue;
   }
 }
 ```
 
-2カラムのグリッドレイアウトサンプル。
-
-```scss
-// input
-.wrapper {
-   @include wrapper(1200px, 1em);
-}
-
-.grid {
-  @include grid;
-}
-
-.grid__item1 {
-  @include grid__item(1em);
-  @include mq(md) {
-    @include col(8);
-  }
-}
-
-.grid__item2 {
-  @include grid__item(1em);
-  @include mq(md) {
-    @include col(4);
-  }
-}
-
-/* output */
-.wrapper {
-  width: 100%;
-  max-width: 1200px;
-  margin-right: auto;
-  margin-left: auto;
-  padding-right: 1em;
-  padding-left: 1em;
-}
-
-.grid {
-  display: block;
-  margin: 0;
-  padding: 0;
-  font-size: 0;
-  list-style-type: none;
-}
-
-.grid__item1 {
-  display: inline-block;
-  width: 100%;
-  padding-left: 1em;
-  font-size: 1rem;
-  vertical-align: top;
-}
-@media screen and (min-width: 768px) {
-  .grid__item1 {
-    width: 66.66667%;
-  }
-}
-
-.grid__item2 {
-  display: inline-block;
-  width: 100%;
-  padding-left: 1em;
-  font-size: 1rem;
-  vertical-align: top;
-}
-@media screen and (min-width: 768px) {
-  .grid__item2 {
-    width: 33.33333%;
-  }
-}
-```
-
-メディアオブジェクトのサンプル。
-
-```scss
-// input
-.media {
-   @include media;
-}
-
-.media__item {
-   @include media__item(1em, middle);
-   @include mq(md) {
-      &:not(:first-of-type) {
-         padding-left: 2em;
-      }
-   }
-}
-
-/* output */
-.media {
-  display: table;
-  width: 100%;
-  margin: 0;
-  padding: 0;
-}
-
-.media__item {
-  display: table-cell;
-  margin: 0;
-  padding: 0;
-  vertical-align: middle;
-}
-.media:not(:first-child) {
-  padding-left: 1em;
-}
-.media > :first-child {
-  margin-top: 0;
-}
-.media > :last-child {
-  margin-bottom: 0;
-}
-.media > img {
-  display: block;
-  max-width: none;
-}
-@media screen and (min-width: 768px) {
-  .media__item:not(:first-of-type) {
-    padding-left: 2em;
-  }
-}
-```
+その他にもclearfixを呼び出す`_clearfix()`やレスポンシブに対応したクラスを生成する`_responsive()`、マウスオーバーなどのイベントを一括で指定する`_on-event`などがあります。
 
 SassはCSSにコンパイルされるときに「autoprefixer」でベンダープレフィックスの自動付与、「csscomb」で整形とプロパティの並び替えが実行されます。また、CSSファイルと同じディレクトリにsourcemapsが出力されます。
 

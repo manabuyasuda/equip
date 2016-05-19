@@ -1,16 +1,12 @@
-//
-// #Color
-//
+// base color
+$_color-text: #000 !default;
+$_color-bg: #fff !default;
 
-// ベース
-$color-text: #333 !default;
-$color-bg: #fff !default;
+// link color
+$_color-link: #2b70ba !default;
+$_color-link--visited: null !default;
+$_color-link--hover: lighten($_color-link, 15%) !default;
 
-// アンカータグ
-$color-link: #2b70ba !default;
-$color-link--visited: null !default;
-$color-link--hover: lighten($color-link, 15%) !default;
-
-// コンポーネントのベースカラー
-$color-ui-border: #ccc !default;
-$color-ui-bg: #fff !default;
+// component color
+$_color-ui-border: #ddd !default;
+$_color-ui-bg: #fff !default;

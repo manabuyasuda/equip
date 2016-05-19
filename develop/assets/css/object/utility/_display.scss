@@ -16,18 +16,18 @@ categories: [utility]
 <p><code>$-md</code>以降になると、<span class="u-db-md">ここから改行されます。</span></p>
 ```
 */
-@include responsive(".u-dn") {
+@include _responsive(".u-dn") {
   display: none !important;
 }
 
-@include responsive(".u-db") {
+@include _responsive(".u-db") {
   display: block !important;
 }
 
-@include responsive(".u-di") {
+@include _responsive(".u-di") {
   display: inline !important;
 }
 
-@include responsive(".u-dib") {
+@include _responsive(".u-dib") {
   display: inline-block !important;
 }

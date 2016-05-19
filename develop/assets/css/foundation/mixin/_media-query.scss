@@ -1,18 +1,18 @@
 //
-// #media query
+// #Media query
 //
 
 // @desc - メディアクエリを挿入します。
-// @prop - 引数に変数のキーワードを渡します。
-// @see - $breakpoints
+// @param {String} - 引数に変数のキーワードを渡します。
+// @see - foundation/variable/_breakpoint.scss
 // @example scss - Usage
 // .foo {
-//     color: red;
-//     @include mq(sm) {
-//         color: blue;
-//     }
+//   color: red;
+//   @include _mq-up(sm) {
+//     color: blue;
+//   }
 // }
-//
+
 // @example css - CSS output
 // .foo {
 //   color: red;
@@ -22,32 +22,31 @@
 //     color: blue;
 //   }
 // }
-@mixin mq($breakpoint) {
-  @if $breakpoint == "x2" {
-    @media screen and (-webkit-min-device-pixel-ratio: 2), screen and (min-resolution: 192dpi), screen and (min-resolution: 2dppx) {
-      @content;
-    }
-  }
-  @else if map-has-key($breakpoints, $breakpoint) {
-    @media #{inspect(map-get($breakpoints, $breakpoint))} {
+
+// @desc - メディアクエリを`min-width`で挿入します。
+// @param {String} - 引数に変数のキーワードを渡します。
+// @see - $_breakpoint-up
+@mixin _mq-up($breakpoint) {
+  @if map-has-key($_breakpoint-up, $breakpoint) {
+    @media #{inspect(map-get($_breakpoint-up, $breakpoint))} {
       @content;
     }
   } @else {
     @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-    + "Please make sure it is defined in `$breakpoints` map.";
+    + "Please make sure it is defined in `$_breakpoint-up` map.";
   }
 }
 
 // @desc - メディアクエリを`max-width`で挿入します。
 // @prop - 引数に変数のキーワードを渡します。
-// @see - $breakpoints-down
-@mixin mqd($breakpoint) {
-  @if map-has-key($breakpoints-down, $breakpoint) {
-    @media #{inspect(map-get($breakpoints-down, $breakpoint))} {
+// @see - $_breakpoint-down
+@mixin _mq-down($breakpoint) {
+  @if map-has-key($_breakpoint-down, $breakpoint) {
+    @media #{inspect(map-get($_breakpoint-down, $breakpoint))} {
       @content;
     }
   } @else {
     @warn "Unfortunately, no value could be retrieved from `#{$breakpoint}`. "
-    + "Please make sure it is defined in `$breakpoints-down` map.";
+    + "Please make sure it is defined in `$_breakpoint-down` map.";
   }
 }

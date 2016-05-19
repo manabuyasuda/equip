@@ -7,29 +7,35 @@ name: grid
 categories: [component]
 ---
 
-グリッドレイアウトオブジェクトです。`width`の変更はUtilityレイヤーで指定してください。
+グリッドレイアウトオブジェクトです。`width`の変更はUtilityレイヤーで指定します。
+
+Modifierは以下のとおりです。
+
+* ガターの追加 `--small`, `--medium`, `--large`
+* text-alignの変更 `--middle`, `--bottom`
+* 配置を反転 `--rev`
 
 ```block
 <div class="c-wrapper">
   <div class="c-grid c-grid--medium" style="margin-bottom:1rem;">
-    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">c-grid__item u-8of12-md</div>
-    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">c-grid__item u-4of12-md</div>
+    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid__item u-8of12-md</div></div>
+    <div class="c-grid__item u-4of12-md"><div style="background-color:lightblue;">c-grid__item u-4of12-md</div></div>
   </div>
 
   <div class="c-grid c-grid--rev c-grid--medium" style="margin-bottom:1rem;">
-    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">c-grid--rev c-grid__item u-8of12-md</div>
-    <div class="c-grid__item u-4of12-md" style="background-color:lightgreen;">c-grid--rev c-grid__item u-4of12-md</div>
+    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid--rev c-grid__item u-8of12-md</div></div>
+    <div class="c-grid__item u-4of12-md"><div style="background-color:lightblue;">c-grid--rev c-grid__item u-4of12-md</div></div>
   </div>
 
   <div class="c-grid c-grid--center c-grid--medium">
-    <div class="c-grid__item u-8of12-md" style="background-color:lightblue;">c-grid--center c-grid__item u-8of12-md</div>
+    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid--center c-grid__item u-8of12-md</div></div>
   </div>
 </div>
 ```
 */
-$grid-gutter: $spacing-inner--large !default;
-$grid-gutter-small: ($grid-gutter / 2) !default;
-$grid-gutter-large: ($grid-gutter * 2) !default;
+$_grid-gutter: $_white-space !default;
+$_grid-gutter-small: ($_grid-gutter / 2) !default;
+$_grid-gutter-large: ($_grid-gutter * 2) !default;
 
 .c-grid {
   display: block;
@@ -42,6 +48,7 @@ $grid-gutter-large: ($grid-gutter * 2) !default;
 .c-grid__item {
   display: inline-block;
   width: 100%;
+  font-size: medium;
   font-size: 1rem;
   vertical-align: top;
 }
@@ -50,23 +57,23 @@ $grid-gutter-large: ($grid-gutter * 2) !default;
  * ガターを3つのパリエーションから選択します。
  */
 .c-grid--small {
-  margin-left: -$grid-gutter-small;
+  margin-left: -$_grid-gutter-small;
   > .c-grid__item {
-    padding-left: $grid-gutter-small;
+    padding-left: $_grid-gutter-small;
   }
 }
 
 .c-grid--medium {
-  margin-left: -$grid-gutter;
+  margin-left: -$_grid-gutter;
   > .c-grid__item {
-    padding-left: $grid-gutter;
+    padding-left: $_grid-gutter;
   }
 }
 
 .c-grid--large {
-  margin-left: -$grid-gutter-large;
+  margin-left: -$_grid-gutter-large;
   > .c-grid__item {
-    padding-left: $grid-gutter-large;
+    padding-left: $_grid-gutter-large;
   }
 }
 
@@ -105,7 +112,7 @@ $grid-gutter-large: ($grid-gutter * 2) !default;
 /**
  * 要素を右から配置させます（HTMLの記述を反転させた状態でレイアウトされます）。
  */
-@include responsive('.c-grid--rev') {
+@include _responsive('.c-grid--rev') {
   text-align: left;
   direction: rtl;
   > .c-grid__item {

@@ -9,34 +9,38 @@ categories: [component]
 
 横幅を制限するオブジェクトです。
 
+Modifierは以下のとおりです。
+
+* 左右の余白を追加 `--pad-small`, `--pad-medium`, `--pad-large`
+
 ```block
 <div class="c-wrapper">横幅を制限するオブジェクトです。</div>
 <div class="c-wrapper c-wrapper--pad-medium">横幅を制限するオブジェクトです。</div>
 <div class="c-wrapper u-8of12">横幅を制限するオブジェクトです。</div>
 ```
 */
-$wrapper-padding: $spacing-inner !default;
-$wrapper-padding-small: ($wrapper-padding / 2) !default;
-$wrapper-padding-large: ($wrapper-padding * 2) !default;
+$_wrapper-padding: $_white-space !default;
+$_wrapper-padding-small: ($_wrapper-padding / 2) !default;
+$_wrapper-padding-large: ($_wrapper-padding * 2) !default;
 
 .c-wrapper {
   width: 100%;
-  max-width: $max-width;
+  max-width: $_max-width;
   margin-right: auto;
   margin-left: auto;
 }
 
 .c-wrapper--pad-small {
-  padding-right: $wrapper-padding-small;
-  padding-left: $wrapper-padding-small;
+  padding-right: $_wrapper-padding-small;
+  padding-left: $_wrapper-padding-small;
 }
 
 .c-wrapper--pad-medium {
-  padding-right: $wrapper-padding;
-  padding-left: $wrapper-padding;
+  padding-right: $_wrapper-padding;
+  padding-left: $_wrapper-padding;
 }
 
 .c-wrapper--pad-large {
-  padding-right: $wrapper-padding-large;
-  padding-left: $wrapper-padding-large;
+  padding-right: $_wrapper-padding-large;
+  padding-left: $_wrapper-padding-large;
 }

@@ -1,7 +1,3 @@
-//
-// #Font
-//
-
 // font-familyを定義しています。WindowsとMacで指定する名前が微妙に変わるので、
 // 半角スペースなどを変更しないようにしてください。
 
@@ -11,10 +7,10 @@
 // HelveticaはWindowsではArialとして表示される。
 // 和文書体は游ゴシックかヒラギノ角ゴ、游書体はWindowsのChromeで薄く表示される。
 // MS書体はアンチエイリアスが効かないために指定せず、メイリオを指定する。
-$font-sans-serif-1: "Helvetica Neue", Helvetica, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-$font-sans-serif-2: "Helvetica Neue", Helvetica, "游ゴシック", YuGothic, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-$font-sans-serif-3: Verdana, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
-$font-sans-serif-4: Verdana, "游ゴシック", YuGothic, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif;
+$_font-family-sans-serif-1: "Helvetica Neue", Helvetica, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !default;
+$_font-family-sans-serif-2: "Helvetica Neue", Helvetica, "游ゴシック", YuGothic, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !default;
+$_font-family-sans-serif-3: Verdana, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !default;
+$_font-family-sans-serif-4: Verdana, "游ゴシック", YuGothic, "Hiragino Sans", "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !default;
 
 // ## 明朝とserif
 // 欧文書体は"Times New Roman"か"Georgia"。
@@ -22,10 +18,10 @@ $font-sans-serif-4: Verdana, "游ゴシック", YuGothic, "Hiragino Sans", "Hira
 // 古いWindows用に"HG明朝E"（Officeをインストールしていれば使える）、フォールバックとしてメイリオ。
 // "ＭＳ Ｐ明朝"はアンチエイリアスが効かないので指定しない。
 // Androidは明朝体に非対応。
-$font-serif-1: "Times New Roman", "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif;
-$font-serif-2: "Times New Roman", "游明朝", "YuMincho", "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif;
-$font-serif-3: Georgia, "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif;
-$font-serif-4: Georgia, "游明朝", "YuMincho", "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif;
+$_font-family-serif-1: "Times New Roman", "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif !default;
+$_font-family-serif-2: "Times New Roman", "游明朝", "YuMincho", "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif !default;
+$_font-family-serif-3: Georgia, "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif !default;
+$_font-family-serif-4: Georgia, "游明朝", "YuMincho", "Hiragino Mincho ProN", "HG明朝E", Meiryo, serif !default;
 
 // ## Macで追加できるフォント
 // ヒラギノ丸ゴ→ "ヒラギノ丸ゴ ProN", "Hiragino Maru Gothic ProN"

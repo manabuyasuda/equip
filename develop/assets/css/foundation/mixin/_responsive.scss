@@ -1,0 +1,29 @@
+// @desc - class名とルールセットを指定することで、レスポンシブに対応したスタイルを生成します。
+// @param {String} - 共通のclass名をクウォートとドットをつけて渡します（e.g. `.foo`）。
+// @param {Strind} - 使用するブレイクポイントを定義した変数を渡します。
+// @see - foundation/variable/_breakpoint.scss
+// @example scss - Usage
+// @include _responsive(".display-none") {
+//   display: none;
+// }
+// @example css - CSS output
+// .display-none {
+//   display: none;
+// }
+// @media screen and (min-width: 400px) {
+//   .display-none-sm {
+//     display: none;
+//   }
+// }
+@mixin _responsive($class, $bp: $_breakpoint-up) {
+  #{$class} {
+    @content;
+  }
+  @each $suffix, $value in $bp {
+    @media #{$value} {
+      #{$class}-#{$suffix} {
+        @content;
+      }
+    }
+  }
+}
