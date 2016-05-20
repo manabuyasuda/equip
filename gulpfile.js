@@ -24,7 +24,7 @@ var develop = {
   'data': 'develop/assets/data/',
   'sass': 'develop/**/*.scss',
   'minifyCss': 'develop/assets/css/*.scss',
-  'js': 'develop/assets/js/*.js',
+  'js': ['develop//**/*.js', '!' + 'develop/assets/js/vendor/**/*.js'],
   'vendor': 'develop/assets/js/vendor/**/*.js',
   'image': 'develop/**/*.{png,jpg,gif,svg}',
   'imagemin': 'release/**/*.{png,jpg,gif,svg}'
@@ -37,7 +37,6 @@ var release = {
   'root': 'release/',
   'html': 'release/',
   'minifyCss': 'release/assets/css/',
-  'js': 'release/assets/js/',
   'vendor': 'release/assets/js/vendor/'
 }
 
@@ -113,8 +112,8 @@ gulp.task('minifyCss', function(){
  * デフォルトjsファイルとjQueryをリリースディレクトリに出力します。
  */
 gulp.task('js', function() {
-  return gulp.src(develop.js)
-    .pipe(gulp.dest(release.js))
+  return gulp.src(develop.js, {base: develop.root})
+    .pipe(gulp.dest(release.root))
     .pipe(browserSync.reload({stream: true}));
 });
 

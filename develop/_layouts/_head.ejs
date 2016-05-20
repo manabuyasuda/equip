@@ -7,29 +7,28 @@
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <% if(page.title) { %><title><%= page.title %> | <%= site.name %></title><% } else { %><title><%= site.name %></title><% } %>
     <meta name="description" content="<%= page.description %>">
-    <meta name="keywords" content="<%= page.keywords %>">
-    <meta name="author" content="<%= site.author %>">
+    <meta name="keywords" content="<%= page.keywords %>"><% if(site.author) { %>
+    <meta name="author" content="<%= site.author %>"><% } %>
 
     <link rel="stylesheet" href="<%= page.path %>assets/css/style<%= site.css %>"><% if(page.css) { %>
     <link rel="stylesheet" href="<%= page.css %>"><% } %>
 
-    <link rel="shortcut icon" href="<%= site.favicon %>">
-    <link rel="apple-touch-icon" sizes="180x180" href="<%= site.appleIcon %>">
-    <meta name="apple-mobile-web-app-title" content="<%= site.appTitle %>">
-    <meta name="format-detection" content="telephone=no">
-    <link rel="canonical" href="<%= site.rootURL %>">
+    <meta name="format-detection" content="telephone=no"><% if(site.favicon) { %>
+    <link rel="shortcut icon" href="<%= site.favicon %>"><% } %><% if(site.appleIcon) { %>
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= site.appleIcon %>"><% } %><% if(site.appTitle) { %>
+    <meta name="apple-mobile-web-app-title" content="<%= site.appTitle %>"><% } %>
 
     <!-- OGP -->
     <meta property="og:title" content="<% if(page.title) { %><%= page.title %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
     <meta property="og:type" content="<%= page.ogpType %>">
-    <meta property="og:image" content="<% if(page.ogpImage) { %><%= page.ogpImage %><% } else { %><%= site.ogpImage %><% } %>">
+    <meta property="og:image" content="<%= page.ogpImage %>">
     <meta property="og:url" content="<%= site.rootURL %><%= page.url %>">
     <meta property="og:description" content="<%= page.description %>">
     <meta property="og:site_name" content="<%= site.name %>">
     <meta property="og:locale" content="ja_JP">
     <% if(site.facebookAppId) { %><meta property="fb:app_id" content="<%= site.facebookAppId %>"><% } else if(site.facebookAdmins) { %><meta property="fb:admins" content="<%= site.facebookAdmins -%>"><% } %>
-    <meta name="twitter:card" content="<%= site.twitterCard %>">
-    <meta name="twitter:site" content="<%= site.twitterSite %>">
+    <meta name="twitter:card" content="<%= site.twitterCard %>"><% if(site.twitterSite) { %>
+    <meta name="twitter:site" content="<%= site.twitterSite %>"><% } %>
     <!-- / OGP -->
 
   </head>

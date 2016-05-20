@@ -7,7 +7,8 @@
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<%= page.path %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
     <script src="<%= page.path %>assets/js/vendor/vendor.js"></script>
-    <script src="<%= page.path %>assets/js/index.js"></script>
+    <script src="<%= page.path %>assets/js/index.js"></script><% if(page.js) { %>
+    <script src="<%= page.js %>"></script><% } %>
     <!-- / JavaScript -->
 
     <!-- Google Analytics -->

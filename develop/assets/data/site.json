@@ -2,16 +2,16 @@
   "name": "site name",
   "description": "site description",
   "keywords": "keyword1, keyword2",
-  "author": "Manabu Yasuda",
+  "author": "",
   "rootURL": "http://example.com/",
   "css": ".css",
   "ogpImage": "http://example.com/images/og-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",
   "twitterCard": "summary",
-  "twitterSite": "@",
-  "favicon": "http://example.com/images/favicon.ico",
-  "appleIcon": "http://example.com/images/apple-icon.ico",
-  "appTitle": "site name",
-  "analyticsId": "UA-XXXXX-X"
+  "twitterSite": "",
+  "favicon": "",
+  "appleIcon": "",
+  "appTitle": "",
+  "analyticsId": ""
 }

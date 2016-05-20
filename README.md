@@ -43,18 +43,18 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 
 * `site.name`はサイトの名前を記述します。（`title`要素に使用されます）
 * `site.description`はサイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）
-* `site.keywords`はサイトのキーワードを記述します。GoogleとYahoo!の検索エンジンは読んでいませんが、できれば記述しておきます。（`meta`要素内の`name`属性に使用されます）
-* `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。（`meta`要素内の`name`属性に使用されます）
-* `site.rootURL`はそのサイトの絶対パスを記述します。似たようなURLが複数ある場合やモバイルとPC向けのURLが違う場合などに使われるようです。（`canonical`属性やOGPの`og:url`に使用されます）
-* `site.css`はassetsディレクトリｄえ読み込むCSSファイルの拡張子を記述します。`gulp release`タスクを実行すると、minify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。
+* `site.keywords`はサイトのキーワードを記述します。（`meta`要素内の`name`属性に使用されます）
+* `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。※省略可能（`meta`要素内の`name`属性に使用されます）
+* `site.rootURL`はそのサイトの絶対パスを記述します。（`canonical`属性やOGPの`og:url`に使用されます）
+* `site.css`はassetsディレクトリで読み込むCSSファイルの拡張子を記述します。`gulp release`タスクを実行すると、minify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。
 * `site.ogpImage`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
-* `site.facebookAdmins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）
-* `site.facebookAppId`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`site.facebookAdmins`か`site.facebookAppId`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）
+* `site.facebookAdmins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）※省略可能
+* `site.facebookAppId`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`site.facebookAdmins`か`site.facebookAppId`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）※省略可能
 * `site.twitterCard`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
-* `site.twitterSite`Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。（OGPの`twitter:site`で使用されます）
-* `site.favicon`はファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。（`shortcut icon`に使用されます）
-* `site.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。（`apple-touch-icon`で使用されます）
-* `site.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
+* `site.twitterSite`Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。※省略可能（OGPの`twitter:site`で使用されます）
+* `site.favicon`はファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。※省略可能（`shortcut icon`に使用されます）
+* `site.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。※省略可能（`apple-touch-icon`で使用されます）
+* `site.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。※省略可能[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
 * `site.analyticsId`はGoogle Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。
 
 ```json
@@ -62,18 +62,18 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
   "name": "site name",
   "description": "site description",
   "keywords": "keyword1, keyword2",
-  "author": "Manabu Yasuda",
+  "author": "",
   "rootURL": "http://example.com/",
   "css": ".css",
   "ogpImage": "http://example.com/images/og-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",
   "twitterCard": "summary",
-  "twitterSite": "@",
-  "favicon": "http://example.com/images/favicon.ico",
-  "appleIcon": "http://example.com/images/apple-icon.ico",
-  "appTitle": "site name",
-  "analyticsId": "UA-XXXXX-X"
+  "twitterSite": "",
+  "favicon": "",
+  "appleIcon": "",
+  "appTitle": "",
+  "analyticsId": ""
 }
 ```
 
@@ -139,6 +139,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageData.url`はmetaタグの絶対パスで使用されています。
 * `pageData.path`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `pageData.css`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
+* `pageData.js`はページ専用のjsファイルを作成したい場合に指定します。js/single.jsのように記述します。
 * `pageData.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
 * ``pageData.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
 
@@ -152,6 +153,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
   url: "index.html",
   path: "",
   css: "",
+  js: "",
   ogpType: "website",
   ogpImage: site.ogpImage
 };
@@ -161,6 +163,7 @@ index.ejsには下記のように変数が定義されているので、ペー�
     <article>contents here</article>
 
 <%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
+
 ```
 
 `include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: pageData,`は各index.ejsの変数（`pageData`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合（スペースが入っていることに注意）、以下のように出力されます。
@@ -181,6 +184,7 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
   url: "child-page1/index.html",
   path: "../",
   css: "",
+  js: "",
   ogpType: "article",
   ogpImage: site.ogpImage
 };
@@ -190,7 +194,6 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
     <article>contents here</article>
 
 <%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
-
 ```
 
 ```js
@@ -203,6 +206,7 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
   url: "grandchild-page/index.html",
   path: "../../",
   css: "",
+  js: "",
   ogpType: "article",
   ogpImage: site.ogpImage
 };
@@ -280,7 +284,8 @@ _layout/_footer.ejsには共通で使用するフッターとスクリプトが�
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<%= page.path %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
     <script src="<%= page.path %>assets/js/vendor/vendor.js"></script>
-    <script src="<%= page.path %>assets/js/index.js"></script>
+    <script src="<%= page.path %>assets/js/index.js"></script><% if(page.js) { %>
+    <script src="<%= page.js %>"></script><% } %>
     <!-- / JavaScript -->
 
     <!-- Google Analytics -->
@@ -385,7 +390,7 @@ $_breakpoint-down: (
 SassはCSSにコンパイルされるときに「autoprefixer」でベンダープレフィックスの自動付与、「csscomb」で整形とプロパティの並び替えが実行されます。また、CSSファイルと同じディレクトリにsourcemapsが出力されます。
 
 ### js
-JavaScriptはassets/js/vendorディレクトリにjQueryプラグインなどのファイルを保存します。連結されて`vendor.js`として出力されます。minifyはされません。それ以外のassets/jsディレクトリにあるファイルはそのままの階層で出力されます。
+JavaScriptはassets/js/vendorディレクトリにjQueryプラグインなどのファイルを保存します。連結されて`vendor.js`として出力されます。minifyはされません。それ以外のjsファイルはそのままの階層で出力されます。
 
 
 ## スタイルガイドの生成
