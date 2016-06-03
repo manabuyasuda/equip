@@ -64,6 +64,11 @@ categories: [object]
 
 `block`で囲んだエリアはHTMLとシンタックスハイライトの両方が出力されます。
 
+## index.md
+develop/assets/css/index.mdはスタイルガイドのトップページになります。
+
+スタイルガイドのコメントと同じように記述することができます。デフォルトではstyle.scssの内容を貼付けてあります。
+
 ## styleguide.css
 hologram/template/css/styleguide.cssにはスタイルガイドで使用するスタイルが指定されています。
 

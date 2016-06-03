@@ -158,7 +158,7 @@ gulp.task('imagemin', function() {
  * Hologramでスタイルガイドを生成します。
  * 設定はhologram_config.ymlに記述しています。
  */
-gulp.task('hologram', function() {
+gulp.task('styleguide', function() {
   gulp.src('hologram/hologram_config.yml')
     .pipe(hologram({bundler:true}));
 });
