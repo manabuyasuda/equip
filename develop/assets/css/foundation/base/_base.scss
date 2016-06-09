@@ -9,7 +9,7 @@
  * `padding`と`border`を`width`に含めます。
  * https://css-tricks.com/inheriting-box-sizing-probably-slightly-better-best-practice/
  */
- html {
+html {
   box-sizing: border-box;
 }
 
@@ -59,7 +59,7 @@ ul, ol {
 /**
  * ネストされたリストのマージンをリセットします。
  */
- li {
+li {
   > ul, > ol {
     margin-bottom: 0;
   }
@@ -68,7 +68,7 @@ ul, ol {
 /**
  * `dt`と`dd`の左端を揃えます。
  */
- dd {
+dd {
   margin-left: 0;
 }
 
@@ -95,7 +95,7 @@ a {
 /**
  * フルードイメージにします。
  */
- img {
+img {
   max-width: 100%;
   height: auto;
   vertical-align: middle;
@@ -104,11 +104,11 @@ a {
 /**
  * 日本語では斜体を使用しないためリセットします。
  */
- i,
- cite,
- em,
- address,
- dfn {
+i,
+cite,
+em,
+address,
+dfn {
   font-style: normal;
 }
 
