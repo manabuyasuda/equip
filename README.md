@@ -35,7 +35,7 @@ gulp release
 いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
 
 ## EJS
-develop/index.ejsがトップページになります。develop/_layoutディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
+develop/index.ejsがトップページになります。develop/_partialsディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
 
 ### data(json)
 
