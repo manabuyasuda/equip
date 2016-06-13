@@ -1,5 +1,5 @@
 <% var pageData = {
-  title: "grandchild-page",
+  title: "grandchild-page1",
   description: "grandchild page description",
   keywords: site.keywords,
   class: "grandchild-page",
@@ -12,8 +12,9 @@
   ogpImage: site.ogpImage
 };
 -%>
-<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>

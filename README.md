@@ -158,12 +158,11 @@ index.ejsには下記のように変数が定義されているので、ペー�
   ogpImage: site.ogpImage
 };
 -%>
-<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
-
+<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
 `include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: pageData,`は各index.ejsの変数（`pageData`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合（スペースが入っていることに注意）、以下のように出力されます。
@@ -189,16 +188,17 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
   ogpImage: site.ogpImage
 };
 -%>
-<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
 ```js
 <% var pageData = {
-  title: "grandchild-page",
+  title: "grandchild-page1",
   description: "grandchild page description",
   keywords: site.keywords,
   class: "grandchild-page",
@@ -211,16 +211,21 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
   ogpImage: site.ogpImage
 };
 -%>
-<%- include(pageData.path + '_layouts/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_layouts/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_layouts/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
+
+ルーディレクトリのindex.ejsファイル以外はパンくずリストをインクルードします。デフォルトでは`pageTitle: pageData.title`のようにファイルのタイトルがパンくずリストのタイトルになるようになっています。
+
+変更する場合は`pageTitle: '任意のタイトル'`のようにします。
 
 ### _header.ejs
 
-_layout/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
+_partials/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
 
 * `fileName`は各ページのフォルダ名を記述します。（index.ejsの`page.current`と一致した場合は`.is-current`が付きます）
 * `pageName`にナビゲーションに表示するページ名を記述します。
@@ -267,7 +272,7 @@ if (typeof modifier === undefined) { var modifier = ''; }
 
 ### _footer.ejs
 
-_layout/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
+_partials/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
 
 * jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
 * jQueryプラグインなどはassets/js/vendorディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`vendor.js`として出力されます。
@@ -301,6 +306,25 @@ _layout/_footer.ejsには共通で使用するフッターとスクリプトが�
     <!-- / Google Analytics -->
   </body>
 </html>
+```
+
+### _breadcrumb.ejs
+
+_partials/_breadcrumb.ejsには各ディレクトリ共通で使用するパンくずリストが定義されています。
+
+```js
+<% if (typeof pageTitle === undefined) { var pageTitle = ''; } -%>
+<% if (typeof modifier === undefined) { var modifier = ''; } -%>
+    <ol class="p-breadcrumb<%= modifier %>">
+      <li class="p-breadcrumb__item"><a href="../" class="p-breadcrumb__link">Home</a></li><% if(pageTitle) { %>
+      <li class="p-breadcrumb__item"><%- pageTitle %></li><% } %>
+    </ol>
+```
+
+_header.ejsや_footer.ejsと同じようにindex.ejsからmodifierの指定ができます。
+
+```js
+<%- include(pageData.path + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
 ```
 
 ## assets
