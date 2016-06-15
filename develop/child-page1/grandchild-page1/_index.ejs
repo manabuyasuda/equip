@@ -1,20 +1,23 @@
-<% var pageData = {
+<%
+var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
+var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
+var pageData = {
   title: "grandchild-page1",
   description: "grandchild page description",
   keywords: site.keywords,
   class: "grandchild-page",
   current: "grandchild-page",
-  url: "grandchild-page/index.html",
-  path: "../../",
   css: "",
   js: "",
   ogpType: "article",
-  ogpImage: site.ogpImage
+  ogpImage: site.ogpImage,
+  absolutePath: absolutePath,
+  relativePath: relativePath
 };
 -%>
-<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
 <%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>

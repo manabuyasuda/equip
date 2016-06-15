@@ -22,7 +22,7 @@
     <meta property="og:title" content="<% if(page.title) { %><%= page.title %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
     <meta property="og:type" content="<%= page.ogpType %>">
     <meta property="og:image" content="<%= page.ogpImage %>">
-    <meta property="og:url" content="<%= site.rootURL %><%= page.url %>">
+    <meta property="og:url" content="<%= site.rootURL %><%= page.absolutePath %>">
     <meta property="og:description" content="<%= page.description %>">
     <meta property="og:site_name" content="<%= site.name %>">
     <meta property="og:locale" content="ja_JP">

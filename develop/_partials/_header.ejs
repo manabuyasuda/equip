@@ -16,20 +16,20 @@ aClass = "main-nav__link";
 if (typeof modifier === undefined) { var modifier = ''; }
 -%>
     <header class="header<%= modifier %>">
-      <h1><a href="<% if(page.path) { %><%= page.path %>index.html<% } %>"><%= site.name %></a></h1>
+      <h1><a href="<% if(page.relativePath) { %><%= page.relativePath %>index.html<% } %>"><%= site.name %></a></h1>
       <nav>
-        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.current === nav.fileName) { %><% if(page.path === "../") { %>
+        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.current === nav.fileName) { %><% if(page.relativePath === "../") { %>
           <li class="<%= liClass %>">
             <a href="" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="<%= page.path.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
+            <a href="<%= page.relativePath.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } %><% } else if(page.current === "") { %>
           <li class="<%= liClass %>">
             <a href="<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="<%= page.path %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
+            <a href="<%= page.relativePath %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } %><% }) %>
         </ul>
       </nav>

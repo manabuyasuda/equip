@@ -56,6 +56,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 * `site.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。※省略可能（`apple-touch-icon`で使用されます）
 * `site.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。※省略可能[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
 * `site.analyticsId`はGoogle Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。
+* `site.developDir`は開発用ディレクトリ名を記述します。ファイルのパスを取得するのに使用されます。
 
 ```json
 {
@@ -73,7 +74,8 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
   "favicon": "",
   "appleIcon": "",
   "appTitle": "",
-  "analyticsId": ""
+  "analyticsId": "",
+  "developDir": "develop/"
 }
 ```
 
@@ -95,11 +97,11 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 jsonファイルを追加する場合はgulpfile.jsにも追加する必要があります。`develop.data`でdataディレクトリへのパスを取得できます。
 
 ```js
-    .pipe(ejs({
-      site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
-      sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json')),
-      sample2: JSON.parse(fs.readFileSync(develop.data + 'sample2.json'))
-      },
+.pipe(ejs({
+　　site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
+　　sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json')),
+　　sample2: JSON.parse(fs.readFileSync(develop.data + 'sample2.json'))
+},
 ```
 
 ejsファイルでは`forEach()`を使用してデータを取得し、ループを回します。
@@ -136,33 +138,36 @@ index.ejsには下記のように変数が定義されているので、ペー�
 * `pageData.keywords`はそのページのキーワードを記述します。
 * `pageData.class`は`body`要素にclassを指定できます。
 * `page.current`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
-* `pageData.url`はmetaタグの絶対パスで使用されています。
-* `pageData.path`は下層ページで使用し、パスを追加したい場合に階層の深さにあわせて指定します。
 * `pageData.css`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
 * `pageData.js`はページ専用のjsファイルを作成したい場合に指定します。js/single.jsのように記述します。
 * `pageData.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
 * ``pageData.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
+* `pageData.absolutePath`はファイルごとのルートパス格納しています。metaタグの絶対パスで使用されています。
+* `pageData.relativePath`はファイルごとの相対パスを格納しています。
 
 ```js
-<% var pageData = {
+<%
+var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
+var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
+var pageData = {
   title: "top page",
   description: site.description,
   keywords: site.keywords,
   class: "top",
   current: "",
-  url: "index.html",
-  path: "",
   css: "",
   js: "",
   ogpType: "website",
-  ogpImage: site.ogpImage
+  ogpImage: site.ogpImage,
+  absolutePath: absolutePath,
+  relativePath: relativePath
 };
 -%>
-<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
 `include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: pageData,`は各index.ejsの変数（`pageData`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合（スペースが入っていることに注意）、以下のように出力されます。
@@ -174,49 +179,55 @@ index.ejsには下記のように変数が定義されているので、ペー�
 develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレクトリの_index.ejsは下層ページを作る場合に使用します（フォルダごとコピーして使いまわします）。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
 
 ```js
-<% var pageData = {
+<%
+var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
+var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
+var pageData = {
   title: "child page1",
   description: "child page1 description",
   keywords: site.keywords,
   class: "child-page1",
   current: "child-page1",
-  url: "child-page1/index.html",
-  path: "../",
   css: "",
   js: "",
   ogpType: "article",
-  ogpImage: site.ogpImage
+  ogpImage: site.ogpImage,
+  absolutePath: absolutePath,
+  relativePath: relativePath
 };
 -%>
-<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
 ```js
-<% var pageData = {
+<%
+var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
+var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
+var pageData = {
   title: "grandchild-page1",
   description: "grandchild page description",
   keywords: site.keywords,
   class: "grandchild-page",
   current: "grandchild-page",
-  url: "grandchild-page/index.html",
-  path: "../../",
   css: "",
   js: "",
   ogpType: "article",
-  ogpImage: site.ogpImage
+  ogpImage: site.ogpImage,
+  absolutePath: absolutePath,
+  relativePath: relativePath
 };
 -%>
-<%- include(pageData.path + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.path + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
 <%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.path + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
 ```
 
 ルーディレクトリのindex.ejsファイル以外はパンくずリストをインクルードします。デフォルトでは`pageTitle: pageData.title`のようにファイルのタイトルがパンくずリストのタイトルになるようになっています。
@@ -250,20 +261,20 @@ aClass = "main-nav__link";
 if (typeof modifier === undefined) { var modifier = ''; }
 -%>
     <header class="header<%= modifier %>">
-      <h1><a href="<% if(page.path) { %><%= page.path %>index.html<% } %>"><%= site.name %></a></h1>
+      <h1><a href="<% if(page.relativePath) { %><%= page.relativePath %>index.html<% } %>"><%= site.name %></a></h1>
       <nav>
-        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.current === nav.fileName) { %><% if(page.path === "../") { %>
+        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.current === nav.fileName) { %><% if(page.relativePath === "../") { %>
           <li class="<%= liClass %>">
             <a href="" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="<%= page.path.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
+            <a href="<%= page.relativePath.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } %><% } else if(page.current === "") { %>
           <li class="<%= liClass %>">
             <a href="<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
-            <a href="<%= page.path %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
+            <a href="<%= page.relativePath %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } %><% }) %>
         </ul>
       </nav>
@@ -287,9 +298,9 @@ _partials/_footer.ejsには共通で使用するフッターとスクリプト�
 
     <!-- JavaScript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="<%= page.path %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
-    <script src="<%= page.path %>assets/js/vendor/vendor.js"></script>
-    <script src="<%= page.path %>assets/js/index.js"></script><% if(page.js) { %>
+    <script>window.jQuery || document.write('<script src="/assets/js/jquery-2.2.0.min.js"><\/script>')</script>
+    <script src="/assets/js/vendor/vendor.js"></script>
+    <script src="/assets/js/index.js"></script><% if(page.js) { %>
     <script src="<%= page.js %>"></script><% } %>
     <!-- / JavaScript -->
 
@@ -316,7 +327,8 @@ _partials/_breadcrumb.ejsには各ディレクトリ共通で使用するパン�
 <% if (typeof pageTitle === undefined) { var pageTitle = ''; } -%>
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
     <ol class="p-breadcrumb<%= modifier %>">
-      <li class="p-breadcrumb__item"><a href="../" class="p-breadcrumb__link">Home</a></li><% if(pageTitle) { %>
+      <li class="p-breadcrumb__item"><a href="../../" class="p-breadcrumb__link">Home</a></li>
+      <li class="p-breadcrumb__item"><a href="../" class="p-breadcrumb__link">child page1</a></li><% if(pageTitle) { %>
       <li class="p-breadcrumb__item"><%- pageTitle %></li><% } %>
     </ol>
 ```
@@ -324,7 +336,7 @@ _partials/_breadcrumb.ejsには各ディレクトリ共通で使用するパン�
 _header.ejsや_footer.ejsと同じようにindex.ejsからmodifierの指定ができます。
 
 ```js
-<%- include(pageData.path + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
 ```
 
 ## assets

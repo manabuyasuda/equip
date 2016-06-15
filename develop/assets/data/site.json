@@ -13,5 +13,6 @@
   "favicon": "",
   "appleIcon": "",
   "appTitle": "",
-  "analyticsId": ""
+  "analyticsId": "",
+  "developDir": "develop/"
 }
