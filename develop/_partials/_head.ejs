@@ -10,8 +10,8 @@
     <meta name="keywords" content="<%= page.keywords %>"><% if(site.author) { %>
     <meta name="author" content="<%= site.author %>"><% } %>
 
-    <link rel="stylesheet" href="<%= page.path %>assets/css/style<%= site.css %>"><% if(page.css) { %>
-    <link rel="stylesheet" href="<%= page.css %>"><% } %>
+    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %>
+    <link rel="stylesheet" href="<%= page.singleCss %>"><% } %>
 
     <meta name="format-detection" content="telephone=no"><% if(site.favicon) { %>
     <link rel="shortcut icon" href="<%= site.favicon %>"><% } %><% if(site.appleIcon) { %>
@@ -22,7 +22,7 @@
     <meta property="og:title" content="<% if(page.title) { %><%= page.title %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
     <meta property="og:type" content="<%= page.ogpType %>">
     <meta property="og:image" content="<%= page.ogpImage %>">
-    <meta property="og:url" content="<%= site.rootURL %><%= page.absolutePath %>">
+    <meta property="og:url" content="<%= site.rootUrl %><%= page.absolutePath %>">
     <meta property="og:description" content="<%= page.description %>">
     <meta property="og:site_name" content="<%= site.name %>">
     <meta property="og:locale" content="ja_JP">
@@ -32,4 +32,4 @@
     <!-- / OGP -->
 
   </head>
-  <% if(page.class) { %><body class="<%= page.class %><%= modifier %>"><% } else { %><body><% } %>
+  <% if(page.bodyClass) { %><body class="<%= page.bodyClass %><%= modifier %>"><% } else { %><body><% } %>

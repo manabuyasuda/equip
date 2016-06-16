@@ -1,23 +1,23 @@
 <%
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
-var pageData = {
-  title: "child page1",
-  description: "child page1 description",
+var page = {
+  title: "ページのタイトル",
+  description: "ページの概要",
   keywords: site.keywords,
-  class: "child-page1",
-  current: "child-page1",
-  css: "",
-  js: "",
+  bodyClass: "",
+  currentNav: "child-page1",
+  singleCss: "",
+  singleJs: "",
   ogpType: "article",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
 };
 -%>
-<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>

@@ -1,22 +1,22 @@
 <%
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
-var pageData = {
-  title: "top page",
+var page = {
+  title: "ページのタイトル",
   description: site.description,
   keywords: site.keywords,
-  class: "top",
-  current: "",
-  css: "",
-  js: "",
+  bodyClass: "",
+  currentNav: "",
+  singleCss: "",
+  singleJs: "",
   ogpType: "website",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
 };
 -%>
-<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>

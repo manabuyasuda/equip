@@ -35,7 +35,7 @@ gulp release
 いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
 
 ## EJS
-develop/index.ejsがトップページになります。develop/_partialsディレクトリにある_head.ejsと_footer.ejsがテンプレートになります。基本的にindex.ejs以外は変更する必要はありません（必要のないmetaタグは削除しても大丈夫です）。
+develop/index.ejsがトップページになります。develop/_partialsディレクトリ内にグローバルに使用するテンプレートを保存します。
 
 ### data(json)
 
@@ -45,7 +45,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 * `site.description`はサイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）
 * `site.keywords`はサイトのキーワードを記述します。（`meta`要素内の`name`属性に使用されます）
 * `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。※省略可能（`meta`要素内の`name`属性に使用されます）
-* `site.rootURL`はそのサイトの絶対パスを記述します。（`canonical`属性やOGPの`og:url`に使用されます）
+* `site.rootUrl`はそのサイトの絶対パス（`http`で始まりドメイン名+`/`で終わる）を記述します。（OGPの`og:url`に使用されます）
 * `site.css`はassetsディレクトリで読み込むCSSファイルの拡張子を記述します。`gulp release`タスクを実行すると、minify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。
 * `site.ogpImage`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
 * `site.facebookAdmins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）※省略可能
@@ -60,17 +60,17 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 
 ```json
 {
-  "name": "site name",
-  "description": "site description",
-  "keywords": "keyword1, keyword2",
-  "author": "",
-  "rootURL": "http://example.com/",
+  "name": "サイトのタイトル",
+  "description": "サイトの概要",
+  "keywords": "サイトのキーワード1, サイトのキーワード2",
+  "author": "サイトの運営者名",
+  "rootUrl": "http://example.com/",
   "css": ".css",
   "ogpImage": "http://example.com/images/og-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",
   "twitterCard": "summary",
-  "twitterSite": "",
+  "twitterSite": "@",
   "favicon": "",
   "appleIcon": "",
   "appTitle": "",
@@ -131,46 +131,46 @@ ejsファイルでは`forEach()`を使用してデータを取得し、ループ
 
 ### index.ejs
 
-index.ejsには下記のように変数が定義されているので、ページごとに変更することができます。index.ejsでは`pageData.title`、インクルードしている_head.ejsや_footer.ejsなどでは`page.title`のように呼び出すことができます。
+index.ejsには変更が必要なものや変更ができるものについての変数が定義されているので、ページごとに変更することができます。変数はindex.ejs、インクルードしている_head.ejsや_footer.ejsなどで`page.title`のように呼び出すことができます。
 
-* `pageData.title`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
-* `pageData.desctiption`はそのページの説明を記述します。
-* `pageData.keywords`はそのページのキーワードを記述します。
-* `pageData.class`は`body`要素にclassを指定できます。
-* `page.current`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
-* `pageData.css`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
-* `pageData.js`はページ専用のjsファイルを作成したい場合に指定します。js/single.jsのように記述します。
-* `pageData.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
-* ``pageData.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
-* `pageData.absolutePath`はファイルごとのルートパス格納しています。metaタグの絶対パスで使用されています。
+* `page.title`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
+* `page.desctiption`はそのページの説明を記述します。
+* `page.keywords`はそのページのキーワードを記述します。
+* `page.bodyClass`は`body`要素にclassを指定できます。
+* `page.currentNav`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
+* `page.singleCss`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
+* `page.singleJs`はページ専用のjsファイルを作成したい場合に指定します。js/single.jsのように記述します。
+* `page.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
+* ``page.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
+* `page.absolutePath`はファイルごとの`/`を含まないルートパスを格納しています。metaタグの絶対パスで使用されています。
 * `pageData.relativePath`はファイルごとの相対パスを格納しています。
 
 ```js
 <%
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
-var pageData = {
-  title: "top page",
+var page = {
+  title: "ページのタイトル",
   description: site.description,
   keywords: site.keywords,
-  class: "top",
-  current: "",
-  css: "",
-  js: "",
+  bodyClass: "",
+  currentNav: "",
+  singleCss: "",
+  singleJs: "",
   ogpType: "website",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
 };
 -%>
-<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
 ```
 
-`include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: pageData,`は各index.ejsの変数（`pageData`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合（スペースが入っていることに注意）、以下のように出力されます。
+`include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: page,`は各index.ejsの変数（`page`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合（スペースが入っていることに注意）、以下のように出力されます。
 
 ```html
 <header class="header header--fixed">
@@ -182,63 +182,105 @@ develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレ�
 <%
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
-var pageData = {
-  title: "child page1",
-  description: "child page1 description",
+var page = {
+  title: "ページのタイトル",
+  description: "ページの概要",
   keywords: site.keywords,
-  class: "child-page1",
-  current: "child-page1",
-  css: "",
-  js: "",
+  bodyClass: "",
+  currentNav: "child-page1",
+  singleCss: "",
+  singleJs: "",
   ogpType: "article",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
 };
 -%>
-<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
 ```
 
 ```js
 <%
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
-var pageData = {
-  title: "grandchild-page1",
-  description: "grandchild page description",
+var page = {
+  title: "ページのタイトル",
+  description: "ページの概要",
   keywords: site.keywords,
-  class: "grandchild-page",
-  current: "grandchild-page",
-  css: "",
-  js: "",
+  bodyClass: "",
+  currentNav: "child-page1",
+  singleCss: "",
+  singleJs: "",
   ogpType: "article",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
 };
 -%>
-<%- include(pageData.relativePath + '_partials/_head.ejs', {page: pageData, modifier: ''}); %>
-<%- include(pageData.relativePath + '_partials/_header.ejs', {page: pageData, modifier: ''}); %>
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
     <article>contents here</article>
 
-<%- include(pageData.relativePath + '_partials/_footer.ejs', {page: pageData, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
 ```
 
-ルーディレクトリのindex.ejsファイル以外はパンくずリストをインクルードします。デフォルトでは`pageTitle: pageData.title`のようにファイルのタイトルがパンくずリストのタイトルになるようになっています。
+ルーディレクトリのindex.ejsファイル以外はパンくずリストをインクルードします。デフォルトでは`pageTitle: page.title`のようにファイルのタイトルがパンくずリストのタイトルになるようになっています。
 
 変更する場合は`pageTitle: '任意のタイトル'`のようにします。
+
+### _head.ejs
+
+_partials/_head.ejsには共通で使用するメタタグなどが定義されています。基本的に変更する必要はなく、site.jsonやindex.ejsの設定によって要素を削除したりしています。
+
+```js
+<% if (typeof modifier === undefined) { var modifier = ''; } -%>
+<!DOCTYPE html>
+<html>
+  <head prefix="og: http://ogp.me/ns# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <% if(page.title) { %><title><%= page.title %> | <%= site.name %></title><% } else { %><title><%= site.name %></title><% } %>
+    <meta name="description" content="<%= page.description %>">
+    <meta name="keywords" content="<%= page.keywords %>"><% if(site.author) { %>
+    <meta name="author" content="<%= site.author %>"><% } %>
+
+    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %>
+    <link rel="stylesheet" href="<%= page.singleCss %>"><% } %>
+
+    <meta name="format-detection" content="telephone=no"><% if(site.favicon) { %>
+    <link rel="shortcut icon" href="<%= site.favicon %>"><% } %><% if(site.appleIcon) { %>
+    <link rel="apple-touch-icon" sizes="180x180" href="<%= site.appleIcon %>"><% } %><% if(site.appTitle) { %>
+    <meta name="apple-mobile-web-app-title" content="<%= site.appTitle %>"><% } %>
+
+    <!-- OGP -->
+    <meta property="og:title" content="<% if(page.title) { %><%= page.title %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
+    <meta property="og:type" content="<%= page.ogpType %>">
+    <meta property="og:image" content="<%= page.ogpImage %>">
+    <meta property="og:url" content="<%= site.rootUrl %><%= page.absolutePath %>">
+    <meta property="og:description" content="<%= page.description %>">
+    <meta property="og:site_name" content="<%= site.name %>">
+    <meta property="og:locale" content="ja_JP">
+    <% if(site.facebookAppId) { %><meta property="fb:app_id" content="<%= site.facebookAppId %>"><% } else if(site.facebookAdmins) { %><meta property="fb:admins" content="<%= site.facebookAdmins -%>"><% } %>
+    <meta name="twitter:card" content="<%= site.twitterCard %>"><% if(site.twitterSite) { %>
+    <meta name="twitter:site" content="<%= site.twitterSite %>"><% } %>
+    <!-- / OGP -->
+
+  </head>
+  <% if(page.bodyClass) { %><body class="<%= page.bodyClass %><%= modifier %>"><% } else { %><body><% } %>
+```
 
 ### _header.ejs
 
 _partials/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
 
-* `fileName`は各ページのフォルダ名を記述します。（index.ejsの`page.current`と一致した場合は`.is-current`が付きます）
+* `fileName`は各ページのフォルダ名を記述します。（index.ejsの`page.currentNav`と一致した場合は`.is-current`が付きます）
 * `pageName`にナビゲーションに表示するページ名を記述します。
 * `ulClass`などは`ul`要素、`li`要素、`a`要素に指定するクラス名を記述します。
 
@@ -263,13 +305,13 @@ if (typeof modifier === undefined) { var modifier = ''; }
     <header class="header<%= modifier %>">
       <h1><a href="<% if(page.relativePath) { %><%= page.relativePath %>index.html<% } %>"><%= site.name %></a></h1>
       <nav>
-        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.current === nav.fileName) { %><% if(page.relativePath === "../") { %>
+        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.currentNav === nav.fileName) { %><% if(page.relativePath === "../") { %>
           <li class="<%= liClass %>">
-            <a href="" class="<%= aClass %> is-current"><%= nav.pageName %></a>
+            <a href="./" class="<%= aClass %> is-current"><%= nav.pageName %></a>
           </li><% } else { %>
           <li class="<%= liClass %>">
             <a href="<%= page.relativePath.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
-          </li><% } %><% } else if(page.current === "") { %>
+          </li><% } %><% } else if(page.currentNav === "") { %>
           <li class="<%= liClass %>">
             <a href="<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
           </li><% } else { %>
@@ -298,10 +340,10 @@ _partials/_footer.ejsには共通で使用するフッターとスクリプト�
 
     <!-- JavaScript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
-    <script>window.jQuery || document.write('<script src="/assets/js/jquery-2.2.0.min.js"><\/script>')</script>
-    <script src="/assets/js/vendor/vendor.js"></script>
-    <script src="/assets/js/index.js"></script><% if(page.js) { %>
-    <script src="<%= page.js %>"></script><% } %>
+    <script>window.jQuery || document.write('<script src="<%= page.relativePath %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
+    <script src="<%= page.relativePath %>assets/js/vendor/vendor.js"></script>
+    <script src="<%= page.relativePath %>assets/js/index.js"></script><% if(page.singleJs) { %>
+    <script src="<%= page.singleJs %>"></script><% } %>
     <!-- / JavaScript -->
 
     <!-- Google Analytics -->
@@ -327,8 +369,7 @@ _partials/_breadcrumb.ejsには各ディレクトリ共通で使用するパン�
 <% if (typeof pageTitle === undefined) { var pageTitle = ''; } -%>
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
     <ol class="p-breadcrumb<%= modifier %>">
-      <li class="p-breadcrumb__item"><a href="../../" class="p-breadcrumb__link">Home</a></li>
-      <li class="p-breadcrumb__item"><a href="../" class="p-breadcrumb__link">child page1</a></li><% if(pageTitle) { %>
+      <li class="p-breadcrumb__item"><a href="../" class="p-breadcrumb__link">Home</a></li><% if(pageTitle) { %>
       <li class="p-breadcrumb__item"><%- pageTitle %></li><% } %>
     </ol>
 ```
@@ -336,8 +377,10 @@ _partials/_breadcrumb.ejsには各ディレクトリ共通で使用するパン�
 _header.ejsや_footer.ejsと同じようにindex.ejsからmodifierの指定ができます。
 
 ```js
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: pageData, pageTitle: pageData.title, modifier: ''}); %>
+<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
 ```
+
+`/page/index.ejs`でインクルードするファイルは`/_partials/_breadcrumb.ejs`となります。
 
 ## assets
 developディレクトリ直下は基本的にEJSのために使用します。それ以外のファイルはdevelop/assetsディレクトリで管理をしていきます。ページ専用のCSSや画像フォルダはassetsディレクトリに置かなくても大丈夫です。
