@@ -155,7 +155,7 @@ var page = {
   keywords: site.keywords,
   bodyClass: "",
   currentNav: "",
-  singleCss: "",
+  singleCss: "css/single.css",
   singleJs: "",
   ogpType: "website",
   ogpImage: site.ogpImage,
@@ -176,7 +176,7 @@ var page = {
 <header class="header header--fixed">
 ```
 
-develop/child-page1ディレクトリとchild-page1/grandchild-page1/ディレクトリの_index.ejsは下層ページを作る場合に使用します（フォルダごとコピーして使いまわします）。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
+下層ページのejsファイルはdevelop/page1ディレクトリをコピーして使いまわします。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
 
 ```js
 <%
@@ -187,34 +187,8 @@ var page = {
   description: "ページの概要",
   keywords: site.keywords,
   bodyClass: "",
-  currentNav: "child-page1",
-  singleCss: "",
-  singleJs: "",
-  ogpType: "article",
-  ogpImage: site.ogpImage,
-  absolutePath: absolutePath,
-  relativePath: relativePath
-};
--%>
-<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
-<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
-    <article>contents here</article>
-
-<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
-```
-
-```js
-<%
-var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
-var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
-var page = {
-  title: "ページのタイトル",
-  description: "ページの概要",
-  keywords: site.keywords,
-  bodyClass: "",
-  currentNav: "child-page1",
-  singleCss: "",
+  currentNav: "page1",
+  singleCss: "css/single.css",
   singleJs: "",
   ogpType: "article",
   ogpImage: site.ogpImage,
@@ -236,7 +210,7 @@ var page = {
 
 ### _head.ejs
 
-_partials/_head.ejsには共通で使用するメタタグなどが定義されています。基本的に変更する必要はなく、site.jsonやindex.ejsの設定によって要素を削除したりしています。
+develop/_partials/_head.ejsには共通で使用するメタタグなどが定義されています。基本的に変更する必要はなく、site.jsonやindex.ejsの設定によって要素を削除したりしています。
 
 ```js
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
@@ -278,7 +252,7 @@ _partials/_head.ejsには共通で使用するメタタグなどが定義され�
 
 ### _header.ejs
 
-_partials/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
+vedelop/_partials/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
 
 * `fileName`は各ページのフォルダ名を記述します。（index.ejsの`page.currentNav`と一致した場合は`.is-current`が付きます）
 * `pageName`にナビゲーションに表示するページ名を記述します。
@@ -291,9 +265,9 @@ _partials/_header.ejsには共通で使用するメインナビゲーション�
 // index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
 // `a`タグ内にテキストを追加する場合のコード。https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d
 navs = [
-  { fileName: "child-page1", pageName: "child page1"},
-  { fileName: "child-page2", pageName: "child page2"},
-  { fileName: "child-page3", pageName: "child page3"},
+  { fileName: "page1", pageName: "page1"},
+  { fileName: "page2", pageName: "page2"},
+  { fileName: "page3", pageName: "page3"},
 ]
 // `ul`, `li`, `a`要素に記述するクラス名をそれぞれ定義します。
 ulClass = "main-nav";
@@ -325,7 +299,7 @@ if (typeof modifier === undefined) { var modifier = ''; }
 
 ### _footer.ejs
 
-_partials/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
+develop/_partials/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
 
 * jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
 * jQueryプラグインなどはassets/js/vendorディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`vendor.js`として出力されます。
@@ -467,6 +441,18 @@ $_breakpoint-down: (
 その他にもclearfixを呼び出す`_clearfix()`やレスポンシブに対応したクラスを生成する`_responsive()`、マウスオーバーなどのイベントを一括で指定する`_on-event`などがあります。
 
 SassはCSSにコンパイルされるときに「autoprefixer」でベンダープレフィックスの自動付与、「csscomb」で整形とプロパティの並び替えが実行されます。また、CSSファイルと同じディレクトリにsourcemapsが出力されます。
+
+develop/assets/css/_single.scssはFoundationレイヤーにあるfunction、Variable、Mixinレイヤーをインポートしています。HTML専用のCSSファイルには以下のように記述して_single.scssをインポートします。
+
+```scss
+/* =============================================================================
+   #Single
+   ========================================================================== */
+// プロジェクト共通のグローバル変数と関数をインポートします。
+@import "../assets/css/_single";
+```
+
+function、Variable、Mixinレイヤーにファイルを追加したときには_single.scssにも追記をしてください。
 
 ### js
 JavaScriptはassets/js/vendorディレクトリにjQueryプラグインなどのファイルを保存します。連結されて`vendor.js`として出力されます。minifyはされません。それ以外のjsファイルはそのままの階層で出力されます。
