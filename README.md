@@ -37,6 +37,8 @@ gulp release
 ## EJS
 develop/index.ejsがトップページになります。develop/_partialsディレクトリ内にグローバルに使用するテンプレートを保存します。
 
+新規案件でルートディレクトリに制作していくことを想定していますが、そうではない場合でも使えるように基本的に相対パスで記述します。ただし、グローバルナビゲーションで使い回しができるようにすると複雑になってしまうため、必要最低限であればルート相対パスで記述することもできます。
+
 ### data(json)
 
 develop/assets/data/site.jsonにサイト共通の値が指定されています。サイトの名前やOGPの指定などがありますので、最初に確認をして、変更してください。site.jsonは`site.name`のように呼び出すことができます。
@@ -56,7 +58,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
 * `site.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。※省略可能（`apple-touch-icon`で使用されます）
 * `site.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。※省略可能[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
 * `site.analyticsId`はGoogle Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。
-* `site.developDir`は開発用ディレクトリ名を記述します。ファイルのパスを取得するのに使用されます。
+* `site.developDir`は開発用ディレクトリ名を記述します。ファイルのルートパスを取得するのに使用されます。例えばdevelop/page1が開発用のルートディレクトリになるのであれば`"develop/page1/"`と変更します。
 
 ```json
 {
@@ -198,7 +200,7 @@ var page = {
 -%>
 <%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
 <%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
+<%- include('_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
     <article>contents here</article>
 
 <%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
@@ -297,6 +299,8 @@ if (typeof modifier === undefined) { var modifier = ''; }
     </header>
 ```
 
+グローバルナビゲーションは条件分岐が多く複雑になってしまうため、ルート相対パスに書き換えることも可能です。ただし、階層の変更があった場合に修正が必要になります（ファイル名やフォルダ名の変更はパスの種類に関わらず修正が必要）。
+
 ### _footer.ejs
 
 develop/_partials/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
@@ -351,7 +355,7 @@ _partials/_breadcrumb.ejsには各ディレクトリ共通で使用するパン�
 _header.ejsや_footer.ejsと同じようにindex.ejsからmodifierの指定ができます。
 
 ```js
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
+<%- include('_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
 ```
 
 `/page/index.ejs`でインクルードするファイルは`/_partials/_breadcrumb.ejs`となります。

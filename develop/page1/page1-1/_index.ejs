@@ -17,7 +17,7 @@ var page = {
 -%>
 <%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
 <%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
-<%- include('../' + '_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
+<%- include('_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
     <article>contents here</article>
 
 <%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
