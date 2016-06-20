@@ -24,8 +24,8 @@ var develop = {
   'data': 'develop/assets/data/',
   'sass': 'develop/**/*.scss',
   'minifyCss': 'develop/assets/css/*.scss',
-  'js': ['develop//**/*.js', '!' + 'develop/assets/js/vendor/**/*.js'],
-  'vendor': 'develop/assets/js/vendor/**/*.js',
+  'js': ['develop//**/*.js', '!' + 'develop/assets/js/bundle/**/*.js'],
+  'vendor': 'develop/assets/js/bundle/**/*.js',
   'image': 'develop/**/*.{png,jpg,gif,svg}',
   'imagemin': 'release/**/*.{png,jpg,gif,svg}'
 }
@@ -37,7 +37,7 @@ var release = {
   'root': 'release/',
   'html': 'release/',
   'minifyCss': 'release/assets/css/',
-  'vendor': 'release/assets/js/vendor/'
+  'bundleJs': 'release/assets/js/bundle/'
 }
 
 var AUTOPREFIXER_BROWSERS = [
@@ -123,9 +123,9 @@ gulp.task('js', function() {
 gulp.task('vendor', function() {
   return gulp.src(develop.vendor)
     .pipe(sourcemaps.init())
-    .pipe(concat('vendor.js'))
+    .pipe(concat('bundle.js'))
     .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.vendor))
+    .pipe(gulp.dest(release.bundleJs))
     .pipe(browserSync.reload({stream: true}));
 });
 
