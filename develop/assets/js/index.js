@@ -31,14 +31,11 @@ $(function() {
     // オフセット位置の取得
     // var offsetHeight = $('.foo').outerHeight();
     var offset = 0;
-
     $targetClass.on('click', function(e) {
       e.preventDefault();
       $('html, body').animate({ scrollTop: offset}, speed, animation);
     });
   }
   jsScrollTop();
-
-
 
 });
