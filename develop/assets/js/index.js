@@ -24,7 +24,7 @@ $(function() {
    * ページトップへ戻るリンクです。固定表示しているナビゲーションがある場合は、
    * `offsetHeight`で要素の高さを取得して、`offset`に渡してください。
    */
-  function jsScrollTop() {
+  function scrollTop() {
     var $targetClass = $('.js-scroll-top');
     var speed = 500;
     var animation = 'linear';
@@ -36,6 +36,6 @@ $(function() {
       $('html, body').animate({ scrollTop: offset}, speed, animation);
     });
   }
-  jsScrollTop();
+  scrollTop();
 
 });
