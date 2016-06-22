@@ -10,7 +10,7 @@ $(function() {
    */
   function navCurrentPage() {
     var current = 'is-current';
-    var $targetLink = $('.p-gnav');
+    var $targetLink = $('.p-global-nav');
     if(location.pathname != '/') {
       $targetLink.find('a[href^="/' + location.pathname.split("/")[1] + '"]').addClass(current);
     } else {

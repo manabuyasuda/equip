@@ -145,7 +145,7 @@ index.ejsには変更が必要なものや変更ができるものについて�
 * `page.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
 * ``page.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
 * `page.absolutePath`はファイルごとの`/`を含まないルートパスを格納しています。metaタグの絶対パスで使用されています。
-* `pageData.relativePath`はファイルごとの相対パスを格納しています。
+* `page.relativePath`はファイルごとの相対パスを格納しています。
 
 ```js
 <%
@@ -254,52 +254,24 @@ develop/_partials/_head.ejsには共通で使用するメタタグなどが定�
 
 ### _header.ejs
 
-vedelop/_partials/_header.ejsには共通で使用するメインナビゲーションが定義されています。`a`タグにテキストを追加する場合のコードサンプルは[Gist](https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d)を参照してください。
+vedelop/_partials/_header.ejsには共通で使用するメインナビゲーションが定義されています。グローバルナビゲーションは条件分岐が多く複雑になってしまうため、ルート相対パスで指定をします。
 
-* `fileName`は各ページのフォルダ名を記述します。（index.ejsの`page.currentNav`と一致した場合は`.is-current`が付きます）
-* `pageName`にナビゲーションに表示するページ名を記述します。
-* `ulClass`などは`ul`要素、`li`要素、`a`要素に指定するクラス名を記述します。
 
 ```js
-<% var
-// `fileName`にページのフォルダ名を記述します。
-// `pageName`にナビゲーションに表示するページ名を記述します。
-// index.ejsの`pageCurrent`と`name`が同じ場合は`.is-current`が付きます。
-// `a`タグ内にテキストを追加する場合のコード。https://gist.github.com/manabuyasuda/fccdf47895871ae2e20d
-navs = [
-  { fileName: "page1", pageName: "page1"},
-  { fileName: "page2", pageName: "page2"},
-  { fileName: "page3", pageName: "page3"},
-]
-// `ul`, `li`, `a`要素に記述するクラス名をそれぞれ定義します。
-ulClass = "main-nav";
-liClass = "main-nav__item";
-aClass = "main-nav__link";
-
-if (typeof modifier === undefined) { var modifier = ''; }
--%>
+<% if (typeof modifier === undefined) { var modifier = ''; } -%>
     <header class="header<%= modifier %>">
-      <h1><a href="<% if(page.relativePath) { %><%= page.relativePath %>index.html<% } %>"><%= site.name %></a></h1>
+      <h1><a href="/"><%= site.name %></a></h1>
+
       <nav>
-        <ul class="<%= ulClass %>"><% navs.forEach(function(nav) { %><% if(page.currentNav === nav.fileName) { %><% if(page.relativePath === "../") { %>
-          <li class="<%= liClass %>">
-            <a href="./" class="<%= aClass %> is-current"><%= nav.pageName %></a>
-          </li><% } else { %>
-          <li class="<%= liClass %>">
-            <a href="<%= page.relativePath.slice(3) %>index.html" class="<%= aClass %> is-current"><%= nav.pageName %></a>
-          </li><% } %><% } else if(page.currentNav === "") { %>
-          <li class="<%= liClass %>">
-            <a href="<%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
-          </li><% } else { %>
-          <li class="<%= liClass %>">
-            <a href="<%= page.relativePath %><%= nav.fileName %>/index.html" class="<%= aClass %>"><%= nav.pageName %></a>
-          </li><% } %><% }) %>
+        <ul class="p-global-nav">
+          <li class="p-global-nav__item"><a href="/" class="p-global-nav__link">home</a></li>
+          <li class="p-global-nav__item"><a href="/page1" class="p-global-nav__link">page1</a></li>
+          <li class="p-global-nav__item"><a href="/page2" class="p-global-nav__link">page2</a></li>
+          <li class="p-global-nav__item"><a href="/page3" class="p-global-nav__link">page3</a></li>
         </ul>
       </nav>
     </header>
 ```
-
-グローバルナビゲーションは条件分岐が多く複雑になってしまうため、ルート相対パスに書き換えることも可能です。ただし、階層の変更があった場合に修正が必要になります（ファイル名やフォルダ名の変更はパスの種類に関わらず修正が必要）。
 
 ### _footer.ejs
 
