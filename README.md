@@ -139,9 +139,8 @@ index.ejsには変更が必要なものや変更ができるものについて�
 * `page.desctiption`はそのページの説明を記述します。
 * `page.keywords`はそのページのキーワードを記述します。
 * `page.bodyClass`は`body`要素にclassを指定できます。
-* `page.currentNav`はそのページのフォルダ名を記述します（トップページは空にしておきます）。
-* `page.singleCss`はページ専用のscssファイルを作成したい場合に指定します。css/single.scssを作成した場合は`css/single.css`と記述します。index.ejsと同じ階層にscssファイルを作成します。
-* `page.singleJs`はページ専用のjsファイルを作成したい場合に指定します。js/single.jsのように記述します。
+* `page.singleCss`はページ専用のcssファイルを作成したい場合に指定します。`["../common/css/category.css", "css/single.css"]`のように配列でパスを渡します。
+* `page.singleJs`はページ専用のjsファイルを作成したい場合に指定します。`["../common/js/category.js", "js/single.js"]`のように配列でパスを渡します。
 * `page.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
 * ``page.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
 * `page.absolutePath`はファイルごとの`/`を含まないルートパスを格納しています。metaタグの絶対パスで使用されています。
@@ -152,24 +151,23 @@ index.ejsには変更が必要なものや変更ができるものについて�
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
-  title: "ページのタイトル",
+  title: "",
   description: site.description,
   keywords: site.keywords,
   bodyClass: "",
-  currentNav: "",
-  singleCss: "css/single.css",
-  singleJs: "",
+  singleCss: [],
+  singleJs: [],
   ogpType: "website",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
 };
 -%>
-<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
-<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
-    <article>contents here</article>
+<%- include(page.relativePath + '_partials/_head', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_header', {page: page, modifier: ''}); %>
+    <article>contents</article>
 
-<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_footer', {page: page, modifier: ''}); %>
 ```
 
 `include()`の第一引数はすべてのindex.ejs共通です。第二引数の1つ目の`page: page,`は各index.ejsの変数（`page`）をインクルードするファイルに渡しています。2つ目の`modifier: ''`はインクルードするファイルにclass属性を付け加えたい場合に指定します。例えば_header.ejsのインクルードで`modifier: ' header--fixed'`と渡した場合（スペースが入っていることに注意）、以下のように出力されます。
@@ -187,23 +185,22 @@ var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
   title: "ページのタイトル",
   description: "ページの概要",
-  keywords: site.keywords,
+  keywords: "ページのキーワード1, ページのキーワード2",
   bodyClass: "",
-  currentNav: "page1",
-  singleCss: "css/single.css",
-  singleJs: "",
+  singleCss: [],
+  singleJs: [],
   ogpType: "article",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
 };
 -%>
-<%- include(page.relativePath + '_partials/_head.ejs', {page: page, modifier: ''}); %>
-<%- include(page.relativePath + '_partials/_header.ejs', {page: page, modifier: ''}); %>
-<%- include('_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
-    <article>contents here</article>
+<%- include(page.relativePath + '_partials/_head', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_header', {page: page, modifier: ''}); %>
+<%- include('_partials/_breadcrumb', {page: page, pageTitle: page.title, modifier: ''}); %>
+    <article>contents</article>
 
-<%- include(page.relativePath + '_partials/_footer.ejs', {page: page, modifier: ''}); %>
+<%- include(page.relativePath + '_partials/_footer', {page: page, modifier: ''}); %>
 ```
 
 ルーディレクトリのindex.ejsファイル以外はパンくずリストをインクルードします。デフォルトでは`pageTitle: page.title`のようにファイルのタイトルがパンくずリストのタイトルになるようになっています。
@@ -218,7 +215,7 @@ develop/_partials/_head.ejsには共通で使用するメタタグなどが定�
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
 <!DOCTYPE html>
 <html>
-  <head prefix="og: http://ogp.me/ns# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -227,8 +224,8 @@ develop/_partials/_head.ejsには共通で使用するメタタグなどが定�
     <meta name="keywords" content="<%= page.keywords %>"><% if(site.author) { %>
     <meta name="author" content="<%= site.author %>"><% } %>
 
-    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %>
-    <link rel="stylesheet" href="<%= page.singleCss %>"><% } %>
+    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %><% page.singleCss.forEach(function(data) { %>
+    <link rel="stylesheet" href="<%= data %>"><% }); %><% } %>
 
     <meta name="format-detection" content="telephone=no"><% if(site.favicon) { %>
     <link rel="shortcut icon" href="<%= site.favicon %>"><% } %><% if(site.appleIcon) { %>
@@ -275,12 +272,7 @@ vedelop/_partials/_header.ejsには共通で使用するメインナビゲーシ
 
 ### _footer.ejs
 
-develop/_partials/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。
-
-* jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
-* jQueryプラグインなどはassets/js/vendorディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`vendor.js`として出力されます。
-* 自作のスクリプトやjQueryプラグインなどのトリガーはassets/jsディレクトリの`index.js`（名前は変更可能）に記述してください。
-* Google Analyticsを使用しない場合はエラーになってしまうので削除してください。
+develop/_partials/_footer.ejsには共通で使用するフッターとスクリプトが定義されています。Google Analyticsを使用しない場合はエラーになってしまうので削除してください。
 
 ```js
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
@@ -291,9 +283,9 @@ develop/_partials/_footer.ejsには共通で使用するフッターとスクリ
     <!-- JavaScript -->
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<%= page.relativePath %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
-    <script src="<%= page.relativePath %>assets/js/vendor/vendor.js"></script>
-    <script src="<%= page.relativePath %>assets/js/index.js"></script><% if(page.singleJs) { %>
-    <script src="<%= page.singleJs %>"></script><% } %>
+    <script src="<%= page.relativePath %>assets/js/bundle/bundle.js"></script>
+    <script src="<%= page.relativePath %>assets/js/index.js"></script><% if(page.singleJs) { %><% page.singleJs.forEach(function(data) { %>
+    <script src="<%= data %>"></script><% }); %><% } %>
     <!-- / JavaScript -->
 
     <!-- Google Analytics -->
@@ -320,17 +312,17 @@ _partials/_breadcrumb.ejsには各ディレクトリ共通で使用するパン�
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
     <ol class="p-breadcrumb<%= modifier %>">
       <li class="p-breadcrumb__item"><a href="../" class="p-breadcrumb__link">Home</a></li><% if(pageTitle) { %>
-      <li class="p-breadcrumb__item"><%- pageTitle %></li><% } %>
+      <li class="p-breadcrumb__item"><%= pageTitle %></li><% } %>
     </ol>
 ```
 
 _header.ejsや_footer.ejsと同じようにindex.ejsからmodifierの指定ができます。
 
 ```js
-<%- include('_partials/_breadcrumb.ejs', {page: page, pageTitle: page.title, modifier: ''}); %>
+<%- include('_partials/_breadcrumb', {page: page, pageTitle: page.title, modifier: ''}); %>
 ```
 
-`/page/index.ejs`でインクルードするファイルは`/_partials/_breadcrumb.ejs`となります。
+`/page/index.ejs`でインクルードするファイルは`/_partials/_breadcrumb`となります。
 
 ## assets
 developディレクトリ直下は基本的にEJSのために使用します。それ以外のファイルはdevelop/assetsディレクトリで管理をしていきます。ページ専用のCSSや画像フォルダはassetsディレクトリに置かなくても大丈夫です。
@@ -431,7 +423,11 @@ develop/assets/css/_single.scssはFoundationレイヤーにあるfunction、Vari
 function、Variable、Mixinレイヤーにファイルを追加したときには_single.scssにも追記をしてください。
 
 ### js
-JavaScriptはassets/js/vendorディレクトリにjQueryプラグインなどのファイルを保存します。連結されて`vendor.js`として出力されます。minifyはされません。それ以外のjsファイルはそのままの階層で出力されます。
+JavaScriptはassets/js/bundleディレクトリにjQueryプラグインやライブラリなどのファイルを保存します。連結されて`bundle.js`として出力されます。minifyはされません。それ以外のjsファイルはそのままの階層で出力されます。
+
+* jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
+* jQueryプラグインなどはassets/js/bundleディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`bundle.js`として出力されます。
+* 自作のスクリプトやjQueryプラグインなどのトリガーはassets/js/index.js（名前は変更可能）に記述してください。
 
 
 ## スタイルガイドの生成

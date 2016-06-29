@@ -1,7 +1,7 @@
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
 <!DOCTYPE html>
 <html>
-  <head prefix="og: http://ogp.me/ns# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
+  <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
@@ -10,8 +10,8 @@
     <meta name="keywords" content="<%= page.keywords %>"><% if(site.author) { %>
     <meta name="author" content="<%= site.author %>"><% } %>
 
-    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %>
-    <link rel="stylesheet" href="<%= page.singleCss %>"><% } %>
+    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %><% page.singleCss.forEach(function(data) { %>
+    <link rel="stylesheet" href="<%= data %>"><% }); %><% } %>
 
     <meta name="format-detection" content="telephone=no"><% if(site.favicon) { %>
     <link rel="shortcut icon" href="<%= site.favicon %>"><% } %><% if(site.appleIcon) { %>
