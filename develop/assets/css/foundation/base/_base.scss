@@ -30,7 +30,7 @@ html {
 body {
   color: $_color-text;
   font-family: $_font-family-sans-serif-1;
-  font-weight: 400;
+  font-weight: $_font-weight-normal;
   /* アンチエイリアスを指定する */
   -webkit-font-smoothing: subpixel-antialiased;
   -moz-osx-font-smoothing: auto;
@@ -41,7 +41,7 @@ body {
 
 h1, h2, h3, h4, h5, h6 {
   font-family: inherit;
-  font-weight: 600;
+  font-weight: $_font-weight-bold;
   line-height: 1.4;
   color: inherit;
 }

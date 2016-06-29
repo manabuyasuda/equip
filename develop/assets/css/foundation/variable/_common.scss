@@ -9,6 +9,11 @@ $_font-size: 15px !default;
 $_font-size--large: 16px !default;
 $_font-size--small: 0.8em !default;
 
+// base font-weight
+$_font-weight-light: 300;
+$_font-weight-normal: 500;
+$_font-weight-bold: 600;
+
 // base Rounded corners
 $_radius: 3px !default;
 

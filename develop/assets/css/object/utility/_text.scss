@@ -37,15 +37,15 @@ categories: [utility]
 
 /* font-weightを指定します。 */
 .u-text-light {
-  font-weight: 300 !important;
+  font-weight: $_font-weight-light !important;
 }
 
 .u-text-normal {
-  font-weight: 400 !important;
+  font-weight: $_font-weight-normal !important;
 }
 
 .u-text-bold {
-  font-weight: 600 !important;
+  font-weight: $_font-weight-bold !important;
 }
 
 /* 先頭の1文字目を1文字分字下げします。 */
