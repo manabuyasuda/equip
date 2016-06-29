@@ -43,22 +43,24 @@ develop/index.ejsがトップページになります。develop/_partialsディ�
 
 develop/assets/data/site.jsonにサイト共通の値が指定されています。サイトの名前やOGPの指定などがありますので、最初に確認をして、変更してください。site.jsonは`site.name`のように呼び出すことができます。
 
-* `site.name`はサイトの名前を記述します。（`title`要素に使用されます）
-* `site.description`はサイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）
-* `site.keywords`はサイトのキーワードを記述します。（`meta`要素内の`name`属性に使用されます）
-* `site.author`はその文書の作者名（そのサイトの運営者・運営社）を記述します。※省略可能（`meta`要素内の`name`属性に使用されます）
-* `site.rootUrl`はそのサイトの絶対パス（`http`で始まりドメイン名+`/`で終わる）を記述します。（OGPの`og:url`に使用されます）
-* `site.css`はassetsディレクトリで読み込むCSSファイルの拡張子を記述します。`gulp release`タスクを実行すると、minify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。
-* `site.ogpImage`はシェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）
-* `site.facebookAdmins`はFacebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）※省略可能
-* `site.facebookAppId`はFacebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`site.facebookAdmins`か`site.facebookAppId`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）※省略可能
-* `site.twitterCard`は[Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）
-* `site.twitterSite`Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。※省略可能（OGPの`twitter:site`で使用されます）
-* `site.favicon`はファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。※省略可能（`shortcut icon`に使用されます）
-* `site.appleIcon`はiPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。※省略可能（`apple-touch-icon`で使用されます）
-* `site.appTitle`はホームアイコンを保存するときのタイトルの初期値を記述します。※省略可能[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）
-* `site.analyticsId`はGoogle Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。
-* `site.developDir`は開発用ディレクトリ名を記述します。ファイルのルートパスを取得するのに使用されます。例えばdevelop/page1が開発用のルートディレクトリになるのであれば`"develop/page1/"`と変更します。
+| 変数名                	| 説明                                                                                                                                                                                                                                                                                                                                                                         	|
+|-----------------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
+| `site.name`           	| サイトの名前を記述します。（`title`要素に使用されます）                                                                                                                                                                                                                                                                                                                      	|
+| `site.description`    	| サイトの簡単な説明を記述します。（`meta`要素内の`name`属性に使用されます）                                                                                                                                                                                                                                                                                                   	|
+| `site.keywords`       	| サイトのキーワードを記述します。（`meta`要素内の`name`属性に使用されます）                                                                                                                                                                                                                                                                                                   	|
+| `site.author`         	| その文書の作者名（そのサイトの運営者・運営社）を記述します。※省略可能（`meta`要素内の`name`属性に使用されます）                                                                                                                                                                                                                                                              	|
+| `site.rootUrl`        	| そのサイトの絶対パス（`http`で始まりドメイン名+`/`で終わる）を記述します。（OGPの`og:url`に使用されます）                                                                                                                                                                                                                                                                    	|
+| `site.css`            	| assetsディレクトリで読み込むCSSファイルの拡張子を記述します。`gulp release`タスクを実行すると、minify（圧縮）したCSSファイルが生成されます。名前は`~.min.css`になります、minifyしたCSSファイルを読み込む場合は`.min.css`と記述します。                                                                                                                                       	|
+| `site.ogpImage`       	| シェアされたときのサムネイル画像を絶対パスで記述します。（OGPの`og:image`で使用されます）                                                                                                                                                                                                                                                                                    	|
+| `site.facebookAdmins` 	| Facebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。Facebook insightsのデータの閲覧権限を与える個人のFacebookアカウントID（カンマで区切ると複数人に権限を与えられる）を記述します。`site.facebookAppId`か`site.facebookAdmins`のどちらかを記述します。（OGPの`fb:admins`に使用されます）※省略可能 	|
+| `site.facebookAppId`  	| Facebook insightsのデータの閲覧権限を与えるアプリ（サイト）のIDを記述します。`site.facebookAdmins`か`site.facebookAppId`のどちらかを記述します。（OGPの`fb:app_id`に使用されます）※省略可能                                                                                                                                                                                  	|
+| `site.twitterCard`    	| [Twitterでツイートされたときのスタイル](https://dev.twitter.com/ja/cards/getting-started)を指定します。（OGPの`twitter:card`で使用されます）                                                                                                                                                                                                                                 	|
+| `site.twitterSite`    	| Twitterでツイートされたときに表示するTwitterアカウントを@をつけて記述します。※省略可能（OGPの`twitter:site`で使用されます）                                                                                                                                                                                                                                                  	|
+| `site.favicon`        	| ファビコンに使用する画像を絶対パスで記述します。[.ico形式に変換した16px×16pxと32px×32pxのマルチアイコン](http://liginc.co.jp/web/design/material/16853)にするのが良いようです。※省略可能（`shortcut icon`に使用されます）                                                                                                                                                    	|
+| `site.appleIcon`      	| iPhoneでホーム画面に追加したときに使用される画像（ホームアイコン）を絶対パスで記述します。iPhone 6 Plusで180px、iPhone 6と5で120pxが適合するサイズです。※省略可能（`apple-touch-icon`で使用されます）                                                                                                                                                                        	|
+| `site.appTitle`       	| ホームアイコンを保存するときのタイトルの初期値を記述します。※省略可能[日本語は6文字以内、英語は13文字以内にすると省略されないようです](https://hyper-text.org/archives/2012/09/iphone-5-ios-6-html5-developers.shtml)。（`apple-mobile-web-app-title`に使用されます）                                                                                                        	|
+| `site.analyticsId`    	| Google Analyticsの[トラッキングID](https://support.google.com/analytics/answer/1032385?hl=ja)を記述します。                                                                                                                                                                                                                                                                  	|
+| `site.developDir`     	| 開発用ディレクトリ名を記述します。ファイルのルートパスを取得するのに使用されます。例えばdevelop/page1が開発用のルートディレクトリになるのであれば`"develop/page1/"`と変更します。                                                                                                                                                                                            	|
 
 ```json
 {
@@ -135,16 +137,19 @@ ejsファイルでは`forEach()`を使用してデータを取得し、ループ
 
 index.ejsには変更が必要なものや変更ができるものについての変数が定義されているので、ページごとに変更することができます。変数はindex.ejs、インクルードしている_head.ejsや_footer.ejsなどで`page.title`のように呼び出すことができます。
 
-* `page.title`はそのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。
-* `page.desctiption`はそのページの説明を記述します。
-* `page.keywords`はそのページのキーワードを記述します。
-* `page.bodyClass`は`body`要素にclassを指定できます。
-* `page.singleCss`はページ専用のcssファイルを作成したい場合に指定します。`["../common/css/category.css", "css/single.css"]`のように配列でパスを渡します。
-* `page.singleJs`はページ専用のjsファイルを作成したい場合に指定します。`["../common/js/category.js", "js/single.js"]`のように配列でパスを渡します。
-* `page.ogpType`はOGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。
-* ``page.ogpImage`はOGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。
-* `page.absolutePath`はファイルごとの`/`を含まないルートパスを格納しています。metaタグの絶対パスで使用されています。
-* `page.relativePath`はファイルごとの相対パスを格納しています。
+| 変数名             	| 説明                                                                                                                                  	|
+|--------------------	|---------------------------------------------------------------------------------------------------------------------------------------	|
+| `page.title`       	| そのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。                            	|
+| `page.desctiption` 	| そのページの説明を記述します。                                                                                                        	|
+| `page.keywords`    	| そのページのキーワードを記述します。                                                                                                  	|
+| `page.bodyClass`   	| `body`要素にclassを指定できます。                                                                                                     	|
+| `page.singleCss`   	| ページ専用のcssファイルを作成したい場合に指定します。`["../common/css/category.css", "css/single.css"]`のように配列でパスを渡します。 	|
+| `page.singleJs`   	| ページ専用のjsファイルを作成したい場合に指定します。`["../common/js/category.js", "js/single.js"]`のように配列でパスを渡します。 	|
+| `page.ogpType`   	| OGPで使用されていて、トップページはwebsite、それ以外の記事はarticleを指定します。 	|
+| `page.ogpImage`   	| OGPで使用されていて、サイト共通であれば`site.ogpImage`を指定、個別に設定したい場合は`'http://example.com/images/og-image.jpg'`のように絶対パスで指定します。 	|
+| `page.absolutePath`   	| ファイルごとの`/`を含まないルートパスを格納しています。metaタグの絶対パスで使用されています。 	|
+| `page.relativePath`   	| ファイルごとの相対パスを格納しています。 	|
+
 
 ```js
 <%
