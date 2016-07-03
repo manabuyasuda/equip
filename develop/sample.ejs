@@ -2,13 +2,13 @@
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
-  title: "",
-  description: site.description,
+  title: "ページのタイトル",
+  description: "ページの概要",
   keywords: "",
   bodyClass: "",
   singleCss: [],
   singleJs: [],
-  ogpType: "website",
+  ogpType: "article",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath

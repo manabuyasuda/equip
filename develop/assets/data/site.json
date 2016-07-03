@@ -2,7 +2,7 @@
   "name": "サイトのタイトル",
   "description": "サイトの概要",
   "keywords": "サイトのキーワード1, サイトのキーワード2",
-  "author": "サイトの運営者名",
+  "author": "",
   "rootUrl": "http://example.com/",
   "css": ".css",
   "ogpImage": "http://example.com/images/og-image.jpg",

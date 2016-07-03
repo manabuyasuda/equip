@@ -7,6 +7,11 @@
 * Browsersyncを利用したライブリロード
 * [Hologram](http://trulia.github.io/hologram/)を利用したスタイルガイドの生成
 
+コーディングルールは以下のリンクをベースにします。
+
+* [CSSコーディングルール](https://github.com/manabuyasuda/styleguide/blob/master/css-coding-rule.md)
+* [画像の命名規則](https://github.com/manabuyasuda/styleguide/blob/master/image-naming-rule.md)
+
 ## 始め方とGulpタスク
 npmでパッケージをインストールします。
 
@@ -39,9 +44,9 @@ develop/index.ejsがトップページになります。develop/_partialsディ�
 
 新規案件でルートディレクトリに制作していくことを想定していますが、そうではない場合でも使えるように基本的に相対パスで記述します。ただし、グローバルナビゲーションで使い回しができるようにすると複雑になってしまうため、必要最低限であればルート相対パスで記述することもできます。
 
-### data(json)
+### site.json
 
-develop/assets/data/site.jsonにサイト共通の値が指定されています。サイトの名前やOGPの指定などがありますので、最初に確認をして、変更してください。site.jsonは`site.name`のように呼び出すことができます。
+develop/assets/data/site.jsonにサイト共通の値が指定されています。サイトの名前やOGPの指定などがありますので、最初に確認をして、変更してください。site.jsonの値は`site.name`のように呼び出すことができます。
 
 | 変数名                	| 説明                                                                                                                                                                                                                                                                                                                                                                         	|
 |-----------------------	|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------	|
@@ -67,7 +72,7 @@ develop/assets/data/site.jsonにサイト共通の値が指定されています
   "name": "サイトのタイトル",
   "description": "サイトの概要",
   "keywords": "サイトのキーワード1, サイトのキーワード2",
-  "author": "サイトの運営者名",
+  "author": "",
   "rootUrl": "http://example.com/",
   "css": ".css",
   "ogpImage": "http://example.com/images/og-image.jpg",
@@ -135,13 +140,13 @@ ejsファイルでは`forEach()`を使用してデータを取得し、ループ
 
 ### index.ejs
 
-index.ejsには変更が必要なものや変更ができるものについての変数が定義されているので、ページごとに変更することができます。変数はindex.ejs、インクルードしている_head.ejsや_footer.ejsなどで`page.title`のように呼び出すことができます。
+index.ejsには変更が必要なものや変更ができるものについての変数が定義されているので、ページごとに変更することができます。変数はindex.ejsとインクルードしている_head.ejsや_footer.ejsなどで`page.title`のように呼び出すことができます。
 
 | 変数名             	| 説明                                                                                                                                  	|
 |--------------------	|---------------------------------------------------------------------------------------------------------------------------------------	|
 | `page.title`       	| そのページの名前を記述します。空にするとサイトタイトルだけ、記述するとサイトタイトルと一緒に出力されます。                            	|
 | `page.desctiption` 	| そのページの説明を記述します。                                                                                                        	|
-| `page.keywords`    	| そのページのキーワードを記述します。                                                                                                  	|
+| `page.keywords`    	| そのページのキーワードを記述します。`"ページのキーワード1, ページのキーワード2"`のようにクウォーテーション内でカンマ区切りで指定します。                                                                                                  	|
 | `page.bodyClass`   	| `body`要素にclassを指定できます。                                                                                                     	|
 | `page.singleCss`   	| ページ専用のcssファイルを作成したい場合に指定します。`["../common/css/category.css", "css/single.css"]`のように配列でパスを渡します。 	|
 | `page.singleJs`   	| ページ専用のjsファイルを作成したい場合に指定します。`["../common/js/category.js", "js/single.js"]`のように配列でパスを渡します。 	|
@@ -158,7 +163,7 @@ var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
   title: "",
   description: site.description,
-  keywords: site.keywords,
+  keywords: "",
   bodyClass: "",
   singleCss: [],
   singleJs: [],
@@ -181,7 +186,9 @@ var page = {
 <header class="header header--fixed">
 ```
 
-下層ページのejsファイルはdevelop/page1ディレクトリをコピーして使いまわします。_index.ejsのようにアンダースコアをつけると出力されません。変数は下記のように変更して使います。
+ルートディレクトリのindex.html以外にファイルを作成したり場合は_sample.ejsをコピーして使いまわします。sample.ejsのようにアンダースコアを外すとHTMLとして出力されるようになります。
+
+下層ページのejsファイルはdevelop/page1ディレクトリをコピーして使いまわします。変数は下記のように変更して使います。
 
 ```js
 <%
@@ -190,7 +197,7 @@ var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
   title: "ページのタイトル",
   description: "ページの概要",
-  keywords: "ページのキーワード1, ページのキーワード2",
+  keywords: "",
   bodyClass: "",
   singleCss: [],
   singleJs: [],
@@ -219,14 +226,14 @@ develop/_partials/_head.ejsには共通で使用するメタタグなどが定�
 ```js
 <% if (typeof modifier === undefined) { var modifier = ''; } -%>
 <!DOCTYPE html>
-<html>
+<html lang="ja">
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <% if(page.title) { %><title><%= page.title %> | <%= site.name %></title><% } else { %><title><%= site.name %></title><% } %>
-    <meta name="description" content="<%= page.description %>">
-    <meta name="keywords" content="<%= page.keywords %>"><% if(site.author) { %>
+    <meta name="description" content="<%= page.description %>"><% if(page.keywords) { %>
+    <meta name="keywords" content="<%= page.keywords %>"><% } %><% if(site.author) { %>
     <meta name="author" content="<%= site.author %>"><% } %>
 
     <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %><% page.singleCss.forEach(function(data) { %>
@@ -244,7 +251,7 @@ develop/_partials/_head.ejsには共通で使用するメタタグなどが定�
     <meta property="og:url" content="<%= site.rootUrl %><%= page.absolutePath %>">
     <meta property="og:description" content="<%= page.description %>">
     <meta property="og:site_name" content="<%= site.name %>">
-    <meta property="og:locale" content="ja_JP">
+    <meta property="og:locale" content="ja">
     <% if(site.facebookAppId) { %><meta property="fb:app_id" content="<%= site.facebookAppId %>"><% } else if(site.facebookAdmins) { %><meta property="fb:admins" content="<%= site.facebookAdmins -%>"><% } %>
     <meta name="twitter:card" content="<%= site.twitterCard %>"><% if(site.twitterSite) { %>
     <meta name="twitter:site" content="<%= site.twitterSite %>"><% } %>
