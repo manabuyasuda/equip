@@ -6,7 +6,6 @@
  *   currentScrollHeight = isScrollHeight();
  * }, 200));
  */
-// var currentScrollHeight;
 function isScrollHeight() {
   return window.pageYOffset;
 }
