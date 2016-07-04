@@ -3,6 +3,24 @@
  */
 $(function() {
 
+  var BREAK_POINT_SM = 400;
+  var BREAK_POINT_MD = 768;
+  var BREAK_POINT_LG = 1000;
+  var BREAK_POINT_XL = 1200;
+
+  // 変数`currentScreenWidth`に現在のスクリーンサイズ（横幅）を格納する。
+  var currentScreenWidth = isScreenWidth();
+  $(window).on('resize', debounce(function() {
+    currentScreenWidth = isScreenWidth();
+  }, 200));
+
+  // 変数`currentScrollHeight`に現在のスクロール量を格納する。
+  var currentScrollHeight = isScrollHeight();
+  $(window).on('scroll', throttle(function() {
+    currentScrollHeight = isScrollHeight();
+  }, 200));
+
+
   /**
    * 表示しているページと同じか、共通の親ディレクトリを持つリンクにクラスを追加します。
    * パスは（`/`で始める）ルート相対パスで記述します。
@@ -18,6 +36,7 @@ $(function() {
     }
   }
   navCurrentPage();
+
 
   /**
    *
