@@ -24,10 +24,9 @@ var develop = {
   'data': 'develop/assets/data/',
   'sass': 'develop/**/*.scss',
   'minifyCss': 'develop/assets/css/*.scss',
-  'js': ['develop//**/*.js', '!' + 'develop/assets/js/bundle/**/*.js'],
-  'vendor': 'develop/assets/js/bundle/**/*.js',
-  'image': 'develop/**/*.{png,jpg,gif,svg}',
-  'imagemin': 'release/**/*.{png,jpg,gif,svg}'
+  'js': ['develop/**/*.js', '!' + 'develop/assets/js/bundle/**/*.js'],
+  'bundleJs': 'develop/assets/js/bundle/**/*.js',
+  'image': 'develop/**/*.{png,jpg,gif,svg}'
 }
 
 /**
@@ -62,15 +61,15 @@ var AUTOPREFIXER_BROWSERS = [
 var fs = require('fs');
 gulp.task('ejs', function() {
   return gulp.src(develop.ejs)
-    .pipe(ejs({
-      site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
-      sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json'))
-      },
-      {ext: '.html'}
-        ))
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-    .pipe(gulp.dest(release.html))
-    .pipe(browserSync.reload({stream: true}));
+  .pipe(ejs({
+    site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
+    sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json'))
+    },
+    {ext: '.html'}
+  ))
+  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(gulp.dest(release.html))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 /**
@@ -79,16 +78,16 @@ gulp.task('ejs', function() {
  */
 gulp.task('sass', function(){
   return gulp.src(develop.sass, {base: develop.root})
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-    .pipe(autoprefixer({
-      browsers: AUTOPREFIXER_BROWSERS,
-    }))
-    .pipe(csscomb())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.root))
-    .pipe(browserSync.reload({stream: true}));
+  .pipe(sourcemaps.init())
+  .pipe(sass().on('error', sass.logError))
+  .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
+  .pipe(autoprefixer({
+    browsers: AUTOPREFIXER_BROWSERS,
+  }))
+  .pipe(csscomb())
+  .pipe(sourcemaps.write('.'))
+  .pipe(gulp.dest(release.root))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 /**
@@ -96,16 +95,16 @@ gulp.task('sass', function(){
  */
 gulp.task('minifyCss', function(){
   return gulp.src(develop.minifyCss)
-    .pipe(sourcemaps.init())
-    .pipe(sass().on('error', sass.logError))
-    .pipe(autoprefixer({
-      browsers: AUTOPREFIXER_BROWSERS,
-    }))
-    .pipe(csscomb())
-    .pipe(rename({suffix: '.min'}))
-    .pipe(cleanCss())
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.minifyCss));
+  .pipe(sourcemaps.init())
+  .pipe(sass().on('error', sass.logError))
+  .pipe(autoprefixer({
+    browsers: AUTOPREFIXER_BROWSERS,
+  }))
+  .pipe(csscomb())
+  .pipe(rename({suffix: '.min'}))
+  .pipe(cleanCss())
+  .pipe(sourcemaps.write('.'))
+  .pipe(gulp.dest(release.minifyCss));
 });
 
 /**
@@ -113,45 +112,37 @@ gulp.task('minifyCss', function(){
  */
 gulp.task('js', function() {
   return gulp.src(develop.js, {base: develop.root})
-    .pipe(gulp.dest(release.root))
-    .pipe(browserSync.reload({stream: true}));
+  .pipe(gulp.dest(release.root))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 /**
  * デベロップディレクトリにあるjQueryプラグインなどのファイルを連結してリリースディレクトリに出力します。
  */
-gulp.task('vendor', function() {
-  return gulp.src(develop.vendor)
-    .pipe(sourcemaps.init())
-    .pipe(concat('bundle.js'))
-    .pipe(sourcemaps.write('.'))
-    .pipe(gulp.dest(release.bundleJs))
-    .pipe(browserSync.reload({stream: true}));
+gulp.task('bundleJs', function() {
+  return gulp.src(develop.bundleJs)
+  .pipe(sourcemaps.init())
+  .pipe(concat('bundle.js'))
+  .pipe(sourcemaps.write('.'))
+  .pipe(gulp.dest(release.bundleJs))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 /**
- * デベロップディレクトリの画像を階層構造を維持したまま、リリースディレクトリに出力します。
+ * デベロップディレクトリの画像を圧縮、
+ * 階層構造を維持したまま、リリースディレクトリに出力します。
  */
 gulp.task('image', function() {
-  return gulp.src(develop.image, {base: develop.root})
-    .pipe(gulp.dest(release.root))
-    .pipe(browserSync.reload({stream: true}));
-});
-
-/**
- * リリースディレクトリの画像をすべて圧縮します。
- */
-gulp.task('imagemin', function() {
-  return gulp.src(develop.imagemin, {base: release.root})
-    .pipe(imagemin({
-      // jpgをロスレス圧縮（画質を落とさず、メタデータを削除）。
-      progressive: true,
-      // gifをインターレースgifにします。
-      interlaced: true,
-      // PNGファイルの圧縮率（7が最高）を指定します。
-      optimizationLevel: 7
-    }))
-    .pipe(gulp.dest(release.root));
+  return gulp.src(develop.image)
+  .pipe(imagemin({
+    // jpgをロスレス圧縮（画質を落とさず、メタデータを削除）。
+    progressive: true,
+    // gifをインターレースgifにします。
+    interlaced: true,
+    // PNGファイルの圧縮率（7が最高）を指定します。
+    optimizationLevel: 7
+  }))
+  .pipe(gulp.dest(release.root));
 });
 
 /**
@@ -160,7 +151,7 @@ gulp.task('imagemin', function() {
  */
 gulp.task('styleguide', function() {
   gulp.src('hologram/hologram_config.yml')
-    .pipe(hologram({bundler:true}));
+  .pipe(hologram({bundler:true}));
 });
 
 /**
@@ -173,7 +164,7 @@ gulp.task('clean', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮は`release`タスクでおこないます）。
  */
-gulp.task('build', ['ejs', 'sass', 'js', 'vendor', 'image']);
+gulp.task('build', ['ejs', 'sass', 'js', 'bundleJs', 'image']);
 
 /**
  * watchタスクを指定します。
@@ -182,7 +173,7 @@ gulp.task('watch', ['build'],function() {
   gulp.watch(develop.ejs, ['ejs']);
   gulp.watch(develop.sass, ['sass']);
   gulp.watch(develop.js, ['js']);
-  gulp.watch(develop.vendor, ['vendor']);
+  gulp.watch(develop.bundleJs, ['bundleJs']);
   gulp.watch(develop.image, ['image']);
 });
 
@@ -226,7 +217,6 @@ gulp.task('develop', ['clean'], function() {
  */
 gulp.task('release', ['clean'], function() {
   runSequence(
-    ['ejs', 'sass', 'minifyCss', 'js', 'vendor', 'image'],
-    'imagemin'
+    ['ejs', 'sass', 'minifyCss', 'js', 'bundleJs', 'image']
   )
 });
