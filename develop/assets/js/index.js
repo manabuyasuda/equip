@@ -2,22 +2,25 @@
  * Index.js
  */
 $(function() {
+  // グローバル変数は`NS`名前空間をスコープにします。
+  var NS = NS || {};
 
+  // ブレイクポイントを定数で管理します。
   var BREAK_POINT_SM = 400;
   var BREAK_POINT_MD = 768;
   var BREAK_POINT_LG = 1000;
   var BREAK_POINT_XL = 1200;
 
-  // 変数`currentScreenWidth`に現在のスクリーンサイズ（横幅）を格納する。
-  var currentScreenWidth = isScreenWidth();
+  // `NS.viewportWidth`に現在のviewportの横幅を格納する。
+  NS.viewportWidth = window.innerWidth;
   $(window).on('resize', debounce(function() {
-    currentScreenWidth = isScreenWidth();
+    NS.viewportWidth = window.innerWidth;
   }, 200));
 
-  // 変数`currentScrollHeight`に現在のスクロール量を格納する。
-  var currentScrollHeight = isScrollHeight();
+  // 変数`scrollPosition`に現在のスクロール量（位置）を格納する。
+  NS.scrollPosition = window.pageYOffset;
   $(window).on('scroll', throttle(function() {
-    currentScrollHeight = isScrollHeight();
+    NS.scrollPosition = window.pageYOffset;
   }, 200));
 
 
@@ -25,36 +28,32 @@ $(function() {
    * 表示しているページと同じか、共通の親ディレクトリを持つリンクにクラスを追加します。
    * パスは（`/`で始める）ルート相対パスで記述します。
    * `current`と`$targetLink`は任意のクラス名を指定してください。
+   * ナビゲーションにトップページが含まれていない場合は`else`以降を削除します。
    */
-  function navCurrentPage() {
+  function navCurrentLink() {
     var current = 'is-current';
-    var $targetLink = $('.p-global-nav');
+    var $targetLink = $('.js-nav-current');
     if(location.pathname != '/') {
       $targetLink.find('a[href^="/' + location.pathname.split("/")[1] + '"]').addClass(current);
     } else {
       $targetLink.find('a:eq(0)').addClass(current);
     }
   }
-  navCurrentPage();
+  navCurrentLink();
 
 
   /**
-   *
-   * ページトップへ戻るリンクです。固定表示しているナビゲーションがある場合は、
-   * `offsetHeight`で要素の高さを取得して、`offset`に渡してください。
+   * ページトップへ戻るリンクをアニメーションさせます。。
    */
-  function scrollTop() {
+  function navScrollTop() {
     var $targetClass = $('.js-scroll-top');
-    var speed = 500;
-    var animation = 'linear';
-    // オフセット位置の取得
-    // var offsetHeight = $('.foo').outerHeight();
-    var offset = 0;
+    var speed = 500; // アニメーションスピード(ms)
+    var animation = 'linear'; // 'linear' or 'swing'
     $targetClass.on('click', function(e) {
       e.preventDefault();
-      $('html, body').animate({ scrollTop: offset}, speed, animation);
+      $('html, body').animate({ scrollTop: 0}, speed, animation);
     });
   }
-  scrollTop();
+  navScrollTop();
 
 });
