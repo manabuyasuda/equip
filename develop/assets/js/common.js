@@ -1,15 +1,15 @@
 /**
- * Index.js
+ * common.js
  */
 $(function() {
-  // グローバル変数は`NS`名前空間をスコープにします。
+  // 共通の変数は`NS`名前空間をスコープにします。
   var NS = NS || {};
 
   // ブレイクポイントを定数で管理します。
-  var BREAK_POINT_SM = 400;
-  var BREAK_POINT_MD = 768;
-  var BREAK_POINT_LG = 1000;
-  var BREAK_POINT_XL = 1200;
+  NS.BREAK_POINT_SM = 400;
+  NS.BREAK_POINT_MD = 768;
+  NS.BREAK_POINT_LG = 1000;
+  NS.BREAK_POINT_XL = 1200;
 
   // `NS.viewportWidth`に現在のviewportの横幅を格納する。
   NS.viewportWidth = window.innerWidth;
