@@ -236,7 +236,7 @@ develop/_partials/_head.ejsには共通で使用するメタタグなどが定�
     <meta name="keywords" content="<%= page.keywords %>"><% } %><% if(site.author) { %>
     <meta name="author" content="<%= site.author %>"><% } %>
 
-    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/style<%= site.css %>"><% if(page.singleCss) { %><% page.singleCss.forEach(function(data) { %>
+    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/common<%= site.css %>"><% if(page.singleCss) { %><% page.singleCss.forEach(function(data) { %>
     <link rel="stylesheet" href="<%= data %>"><% }); %><% } %>
 
     <meta name="format-detection" content="telephone=no"><% if(site.favicon) { %>
@@ -296,7 +296,7 @@ develop/_partials/_footer.ejsには共通で使用するフッターとスクリ
     <script src="//ajax.googleapis.com/ajax/libs/jquery/2.2.0/jquery.min.js"></script>
     <script>window.jQuery || document.write('<script src="<%= page.relativePath %>assets/js/jquery-2.2.0.min.js"><\/script>')</script>
     <script src="<%= page.relativePath %>assets/js/bundle/bundle.js"></script>
-    <script src="<%= page.relativePath %>assets/js/index.js"></script><% if(page.singleJs) { %><% page.singleJs.forEach(function(data) { %>
+    <script src="<%= page.relativePath %>assets/js/common.js"></script><% if(page.singleJs) { %><% page.singleJs.forEach(function(data) { %>
     <script src="<%= data %>"></script><% }); %><% } %>
     <!-- / JavaScript -->
 
@@ -426,7 +426,7 @@ develop/assets/css/_single.scssはFoundationレイヤーにあるfunction、Vari
 
 ```scss
 /* =============================================================================
-   #Single
+   #Index
    ========================================================================== */
 // プロジェクト共通のグローバル変数と関数をインポートします。
 @import "../assets/css/_single";
@@ -439,7 +439,7 @@ JavaScriptはassets/js/bundleディレクトリにjQueryプラグインやライ
 
 * jQueryはCDNとフォールバックの読み込みをしています。2.0系を読み込んでいるのでIE9以降からの対応になります。
 * jQueryプラグインなどはassets/js/bundleディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`bundle.js`として出力されます。
-* 自作のスクリプトやjQueryプラグインなどのトリガーはassets/js/index.js（名前は変更可能）に記述してください。
+* 自作のスクリプトやjQueryプラグインなどのトリガーはassets/js/common.js（名前は変更可能）に記述してください。
 
 
 ## スタイルガイドの生成
