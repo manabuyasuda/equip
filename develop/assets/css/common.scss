@@ -38,9 +38,11 @@
  * wrapper...最大幅を指定します。
  * grid...グリッドレイアウトを指定します。
  * media...画像とテキストが横並びになるオブジェクトです。
+ * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
  * card...カードタイプのオブジェクトです。
  * split...定義リストをブロックからインラインにするオブジェクトです。
  * button...ボタンのデフォルトスタイルです。
+ * ratio...アスペクト比を固定したまま伸縮させます。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
  *
  * PROJECT
@@ -135,9 +137,11 @@
 @import "object/component/_wrapper";
 @import "object/component/_grid";
 @import "object/component/_media";
+@import "object/component/_list-unstyled";
 @import "object/component/_card";
 @import "object/component/_split";
 @import "object/component/_button";
+@import "object/component/_ratio";
 @import "object/component/_embed";
 
 /* -----------------------------------------------------------------------------

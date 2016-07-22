@@ -1,0 +1,23 @@
+ /* #List-unstyled
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: list-unstyled
+name: list-unstyled
+categories: [component]
+---
+
+`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
+
+```block
+<ul class="c-list-unstyled">
+  <li>リスト1</li>
+  <li>リスト2</li>
+  <li>リスト3</li>
+</ul>
+```
+*/
+.c-list-unstyled {
+  padding-left: 0;
+  list-style-type: none;
+}

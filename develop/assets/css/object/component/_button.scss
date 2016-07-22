@@ -48,6 +48,7 @@ $_button-pill-round: 3em !default;
   @include _on-event {
     text-decoration: none;
   }
+  &:disabled,
   &.is-disabled {
     opacity: 0.5;
     pointer-events: none;
