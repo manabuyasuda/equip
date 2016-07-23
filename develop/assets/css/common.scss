@@ -53,6 +53,7 @@
  *
  * UTILITY
  * text...テキストのスタイルに関する汎用クラスです。
+ * margin...マージンで余白の管理をします。常にした方向にだけ余白をとります。
  * display...要素の表示や改行をコントロールする場合に使用します。
  * width...おもにグリッドで使用する`width`を指定する汎用クラスです。
  */
@@ -169,6 +170,7 @@
  * プレフィックス（接頭辞）として`u-`をつけます。
  */
 @import "object/utility/_text";
+@import "object/utility/_margin";
 @import "object/utility/_display";
 @import "object/utility/_width";
 
