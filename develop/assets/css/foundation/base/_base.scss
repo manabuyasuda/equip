@@ -20,10 +20,10 @@ html {
 }
 
 html {
-  font-size: $_font-size;
+  font-size: map-get($_font-size, sm);
   line-height: 1.7;
-  @include _mq-up(lg) {
-    font-size: $_font-size--large;
+  @include _mq-up(md) {
+    font-size: map-get($_font-size, md);
   }
 }
 

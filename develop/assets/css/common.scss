@@ -3,6 +3,8 @@
 /**
  * FUNCTION
  * strip-unit...pxやremなどの単位を取り除きます。
+ * em...pxをemに変換します。
+ * rem...pxをremに変換します。
  * color...明度を基準に色を変更します。
  * z-index...z-indexの並び順を管理します。
  * tracking...Photoshopのカーニングをemに変換します。
@@ -74,6 +76,8 @@
  * 変数と関数には接頭辞として`_`がついています。
  */
 @import "foundation/function/_strip-unit";
+@import "foundation/function/_em";
+@import "foundation/function/_rem";
 @import "foundation/function/_color";
 @import "foundation/function/_z-index";
 @import "foundation/function/_tracking";

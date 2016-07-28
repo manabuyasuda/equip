@@ -1,0 +1,8 @@
+// @desc - pxをremに変換します。
+// @param {Number} - 指定したいピクセル値。
+// @param {String} $key [sm] - 指定するブレイクポイントを`$_font-size`のキーで指定。
+// @example - _rem(15px) => 1rem
+@function _rem($px, $key: 'sm') {
+  $value: map-get($_font-size, $key);
+  @return ($px / $value) * 1rem;
+}
