@@ -355,6 +355,7 @@ cssディレクトリは[FLOCSS](https://github.com/hiloki/flocss)をベース�
 1. Object（プロジェクトにおけるビジュアルパターン）
  1. component（多くのプロジェクトで横断的に再利用のできるような、小さな単位のモジュール）
  1. project（プロジェクト固有のパターンで、コンテンツを構成する要素）
+ 1. scope（ページ単位でスタイルを指定する）
  1. utility（いわゆる汎用クラスで、ほとんどの場合は単一のスタイル）
 
 レイヤーを追加する場合は[CSS Styleguide](https://github.com/manabuyasuda/styleguide/blob/master/css-styleguide.md#flocss)を参照してください。
