@@ -2,31 +2,33 @@
 
 ```scss
 /**
- * FUNCTION
- * strip-unit...pxやremなどの単位を取り除きます。
- * color...明度を基準に色を変更します。
- * z-index...z-indexの並び順を管理します。
- * tracking...Photoshopのカーニングをemに変換します。
- *
  * VARIABLE
- * common...グローバルに使用するサイズや数値に関する変数です。
+ * global...サイト全体に使用するサイズや数値に関する変数です。
  * breakpoint...メディアクエリで使用するブレイクポイントです。
  * font-family...font-family指定をまとめています。
  * color...グローバルに使用する色指定です。
  * z-index...z-indexの並び順を管理します。
  * easing...cubic-bezier関数を使用したタイミング関数を定義しています。
  *
+ * FUNCTION
+ * strip-unit...pxやremなどの単位を取り除きます。
+ * em...pxをemに変換します。
+ * rem...pxをremに変換します。
+ * tint...白色を加えて明度を明るくします。
+ * shade...黒色を加えて明度を暗くします。
+ * z-index...z-indexの並び順を管理します。
+ * tracking...Photoshopのカーニングをemに変換します。
+ *
  * MIXIN
- * media-query...メディアクエリを呼び出します。
+ * mq-up...メディアクエリを`min-width`で挿入します。
+ * mq-down...メディアクエリを`max-width`で挿入します。
  * responsive...レスポンシブ対応クラスを生成します。
  * clearfix...floatの解除をします。
  * on-event...:hover, :active, :focusをまとめて指定します。
  * sr-only...非表示にしてスクリーンリーダーにだけ読み上げさせます。
  *
- * VENDOR
- * normalize...Normalize.cssをインポートしています。
- *
  * BASE
+ * normalize...Normalize.cssをインポートしています。
  * base...タイプセレクタと属性セレクタのデフォルトスタイルです。
  *
  * LAYOUT
@@ -34,61 +36,81 @@
  * footer...フッターエリアのコンテナブロックのスタイルです。
  * main...コンテンツエリアのコンテナブロックのスタイルです。
  * sidebar...サイドバーエリアのコンテナブロックのスタイルです。
+ * section...`<section>`要素を使うようなセクションの余白を管理します。
  *
  * COMPONENT
  * wrapper...最大幅を指定します。
  * grid...グリッドレイアウトを指定します。
  * media...画像とテキストが横並びになるオブジェクトです。
- * card...カードタイプのオブジェクトです。
- * split...定義リストをブロックからインラインにするオブジェクトです。
- * button...ボタンのデフォルトスタイルです。
+ * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
+ * ratio...アスペクト比を固定したまま伸縮させます。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
  *
  * PROJECT
  * icon...アイコンフォントです。
- * breadcrumb...パンくずリストです。
- * label...インラインのラベルです。
+ * button...ボタンコンポーネントです。
+ * breadcrumb...パンくずリストコンポーネントです。
+ * label...インラインのラベルコンポーネントです。
  * badge...投稿数のような数値を表示するバッジコンポーネントです。
+ * card...カードタイプのコンポーネントです。
+ * split...定義リストをブロックからインラインにするコンポーネントです。
+ *
+ * SCOPE
+ * blog...ブログページのスタイルです。
  *
  * UTILITY
  * text...テキストのスタイルに関する汎用クラスです。
+ * margin...マージンで余白の管理をします。常に下方向にだけ余白をとります。
  * display...要素の表示や改行をコントロールする場合に使用します。
  * width...おもにグリッドで使用する`width`を指定する汎用クラスです。
  */
-```
+ ```
 
 ## CSS構成
 
 ```scss
+/**
+ * このスタイルシートは[FLOCSS](https://github.com/hiloki/flocss)をベースにしています。
+ * 定義されているレイヤー以外にもThemeやTestなどのレイヤーを追加することもできます。
+ * 詳しくは[CSSコーディングルール](https://github.com/manabuyasuda/styleguide/blob/master/css-coding-rule.md#flocss)を参照してください。
+ */
+
 /* =============================================================================
    #Foundation
    ========================================================================== */
-/**
- * FoundationレイヤーではSassの変数や関数、`html`や`body`のような広範囲にわたるベーススタイル、
- * `h2`や`ul`のような基本的なタイプセレクタのデフォルトスタイルを定義します。
- * 装飾的なスタイルは避けて、できる限り低詳細度に保ちます。idセレクタやclassセレクタは使用しません。
- * 変数と関数には接頭辞として`_`がついています。
- */
-@import "foundation/function/_strip-unit";
-@import "foundation/function/_color";
-@import "foundation/function/_z-index";
-@import "foundation/function/_tracking";
-
-@import "foundation/variable/_common";
+//
+// Sassの変数と関数を定義します。
+// 変数は用途ごとにモジュール化、関数は機能ごとにモジュール化します。
+// プレフィックス（接頭辞）として`_`をつけます。
+//
+@import "foundation/variable/_global";
 @import "foundation/variable/_breakpoint";
 @import "foundation/variable/_font-family";
 @import "foundation/variable/_color";
 @import "foundation/variable/_z-index";
 @import "foundation/variable/_easing";
 
-@import "foundation/mixin/_media-query";
+@import "foundation/function/_strip-unit";
+@import "foundation/function/_em";
+@import "foundation/function/_rem";
+@import "foundation/function/_tint";
+@import "foundation/function/_shade";
+@import "foundation/function/_z-index";
+@import "foundation/function/_tracking";
+
+@import "foundation/mixin/_mq-up";
+@import "foundation/mixin/_mq-down";
 @import "foundation/mixin/_responsive";
 @import "foundation/mixin/_clearfix";
 @import "foundation/mixin/_on-event";
 @import "foundation/mixin/_sr-only";
 
-@import "foundation/vendor/_normalize";
-
+/**
+ * Foundationレイヤーでは`html`や`body`のような広範囲にわたるベーススタイル、
+ * `h2`や`ul`のような基本的なタイプセレクタのデフォルトスタイルを定義します。
+ * 装飾的なスタイルは避けて、できる限り低詳細度に保ちます。idセレクタやclassセレクタは使用しません。
+ */
+@import "foundation/base/_normalize";
 @import "foundation/base/_base";
 
 /* =============================================================================
@@ -105,20 +127,24 @@
 @import "layout/_footer";
 @import "layout/_main";
 @import "layout/_sidebar";
+@import "layout/_section";
 
 /* =============================================================================
    #Object
    ========================================================================== */
 /**
  * Objectレイヤーはプロジェクトにおけるビジュアルパターンです。抽象度や詳細度、
- * 拡張性などによって、3つのレイヤーにわけられます。
+ * 拡張性などによって、4つのレイヤーにわけられます。
  * それぞれのレイヤーにはプレフィックス（接頭辞）をつけます。
  * 1. Component（`c-`）
  * 2. Project（`p-`）
- * 3. Utility（`u-`）
+ * 3. Scope(`s-`)
+ * 4. Utility（`u-`）
  *
- * ランディングページのようにページ特有のスタイルを多く含む場合は、ページ専用のCSSファイルを作成します。
- * ページ専用のスタイルは、そのページにだけ読み込ませ、プレフィックス（接頭辞）をつけないことで名前の重複を防ぎます。
+ * ランディングページのようにページ特有のスタイルを多く含む場合は、
+ * ページ専用のCSSファイルを作成することもできます。
+ * ページ専用のスタイルは、そのページにだけ読み込ませることでスコープをつくり、
+ * プレフィックス（接頭辞）をつけないことで名前の重複を防ぎます。
  */
 
 /* -----------------------------------------------------------------------------
@@ -128,30 +154,45 @@
  * Componentレイヤーは多くのプロジェクトで横断的に再利用のできるような、小さな単位のモジュール（機能）です。
  * OOCSSの構造（structure）の機能を担うため、装飾的なスタイルをできるだけ含めないようにします。
  * また、`width`や`margin`といったレイアウトに影響を与えるプロパティもできるだけ含めないようにします。
- * 例えばbuttonのベーススタイルやgridやmediaといったレイアウトパターンが該当します。
+ * 例えばgridやmediaといったレイアウトパターンが該当します。
  * プレフィックス（接頭辞）として`c-`をつけます。
  */
 @import "object/component/_wrapper";
 @import "object/component/_grid";
 @import "object/component/_media";
-@import "object/component/_card";
-@import "object/component/_split";
-@import "object/component/_button";
+@import "object/component/_list-unstyled";
 @import "object/component/_embed";
+@import "object/component/_ratio";
 
 /* -----------------------------------------------------------------------------
    #Project
    -------------------------------------------------------------------------- */
 /**
  * Projectレイヤーはプロジェクト固有のパターンで、コンテンツを構成する要素です。
- * 記事の一覧やあるページにだけ使用するパターンなどで、追加するほとんどのスタイルはこのレイヤーになります。
- * もし、このレイヤーの3箇所で同じパターンが使われていたら、Componentとしてまとめられないかを検討しましょう。
+ * 具体的なスタイルを持ち、複数のページで使い回せるコンポーネントです。
+ * もし、このレイヤーの3箇所で同じパターンが使われていたら、別のコンポーネントとしてまとめられないかを検討しましょう。
+ * もし、ページ専用のスタイルで3箇所同じパターンが使われていたら、このProjectレイヤーでまとめられないかを検討しましょう。
  * プレフィックス（接頭辞）として`p-`をつけます。
  */
 @import "object/project/_icon";
+@import "object/project/_button";
 @import "object/project/_breadcrumb";
 @import "object/project/_label";
 @import "object/project/_badge";
+@import "object/project/_card";
+@import "object/project/_split";
+
+/* -----------------------------------------------------------------------------
+   #Scope
+   -------------------------------------------------------------------------- */
+/**
+ * ComponentレイヤーやProjectレイヤーのようにコンポーネント単位ではなく、
+ * ページ単位でのスタイルを指定します。
+ * 例えばブログページのスタイルとして_blog.scssを作成します。
+ * このレイヤーでは`.s-page-name p`のような要素セレクタとの結合子も使うこともできます。
+ * プレフィックス（接頭辞）として`s-`をつけます。
+ */
+@import "object/scope/_blog";
 
 /* -----------------------------------------------------------------------------
    #Utility
@@ -163,6 +204,7 @@
  * プレフィックス（接頭辞）として`u-`をつけます。
  */
 @import "object/utility/_text";
+@import "object/utility/_margin";
 @import "object/utility/_display";
 @import "object/utility/_width";
 ```
