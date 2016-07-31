@@ -19,7 +19,8 @@
  * tracking...Photoshopのカーニングをemに変換します。
  *
  * MIXIN
- * media-query...メディアクエリを呼び出します。
+ * mq-up...メディアクエリを`min-width`で挿入します。
+ * mq-down...メディアクエリを`max-width`で挿入します。
  * responsive...レスポンシブ対応クラスを生成します。
  * clearfix...floatの解除をします。
  * on-event...:hover, :active, :focusをまとめて指定します。
@@ -92,7 +93,8 @@
 @import "foundation/function/_z-index";
 @import "foundation/function/_tracking";
 
-@import "foundation/mixin/_media-query";
+@import "foundation/mixin/_mq-up";
+@import "foundation/mixin/_mq-down";
 @import "foundation/mixin/_responsive";
 @import "foundation/mixin/_clearfix";
 @import "foundation/mixin/_on-event";

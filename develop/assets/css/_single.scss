@@ -21,7 +21,8 @@
 @import "foundation/function/_z-index";
 @import "foundation/function/_tracking";
 
-@import "foundation/mixin/_media-query";
+@import "foundation/mixin/_mq-up";
+@import "foundation/mixin/_mq-down";
 @import "foundation/mixin/_responsive";
 @import "foundation/mixin/_clearfix";
 @import "foundation/mixin/_on-event";
