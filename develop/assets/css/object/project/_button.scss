@@ -4,10 +4,10 @@
 ---
 title: button
 name: button
-categories: [component]
+categories: [project]
 ---
 
-ベーシックなボタンオブジェクトです。
+ボタンコンポーネントです。
 
 Modifierは以下のとおりです。
 
@@ -16,21 +16,21 @@ Modifierは以下のとおりです。
 * 楕円 `--pill`, `--pill-right`, `--pill-center`, `--pill-left`
 
 ```block
-<p><button class="c-button c-button-example">button &lt;button&gt;</button></p>
-<p><a class="c-button c-button--full c-button-example">button full &lt;a&gt;</a></p>
+<p><button class="p-button">button &lt;button&gt;</button></p>
+<p><a class="p-button p-button--full">button full &lt;a&gt;</a></p>
 
-<p><input type="button" class="c-button c-button--pill c-button-example" value="button pill &lt;input&gt;"></button></p>
+<p><input type="button" class="p-button p-button--pill" value="button pill &lt;input&gt;"></button></p>
 <p>
-  <button class="c-button c-button--pill-left c-button-example">button pill left</button>
-  <button class="c-button c-button--pill-center c-button-example">button pill center</button>
-  <button class="c-button c-button--pill-right c-button-example">button pill right</button>
+  <button class="p-button p-button--pill-left">button pill left</button>
+  <button class="p-button p-button--pill-center">button pill center</button>
+  <button class="p-button p-button--pill-right">button pill right</button>
 </p>
 ```
 */
 $_button-pill-base: 0 !default;
 $_button-pill-round: 3em !default;
 
-.c-button {
+.p-button {
   display: inline-block;
   margin: 0;
   padding: 0.75em;
@@ -55,40 +55,29 @@ $_button-pill-round: 3em !default;
   }
 }
 
-.c-button--full {
+.p-button--full {
   width: 100%;
 }
 
-.c-button--circle {
+.p-button--circle {
   border-radius: 50%;
 }
 
 /**
  * カプセル状の錠剤のような形をしたボタンコンポーネントです。
  */
-.c-button--pill {
+.p-button--pill {
   border-radius: $_button-pill-round;
 }
 
-.c-button--pill-right {
+.p-button--pill-right {
   border-radius: $_button-pill-base $_button-pill-round $_button-pill-round $_button-pill-base;
 }
 
-.c-button--pill-center {
+.p-button--pill-center {
   border-radius: $_button-pill-base;
 }
 
-.c-button--pill-left {
+.p-button--pill-left {
   border-radius: $_button-pill-round $_button-pill-base $_button-pill-base $_button-pill-round;
-}
-
-.c-button-example {
-  color: #fff;
-  background-color: $_color-link;
-  border: 1px solid darken($_color-link, 0.6);
-  @include _on-event {
-    color: $_color-link;
-    background-color: #fff;
-    border: 1px solid darken($_color-link, 0.6);
-  }
 }

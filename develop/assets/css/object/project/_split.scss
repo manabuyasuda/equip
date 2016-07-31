@@ -4,43 +4,43 @@
 ---
 title: split
 name: split
-categories: [component]
+categories: [project]
 ---
 
-定義リストをブロックからインラインにするオブジェクトです。
-デフォルトで`.c-split__name`が10文字を越えるとレイアウトが崩れます。
+定義リストをブロックからインラインにするコンポーネントです。
+デフォルトで`.p-split__name`が10文字を越えるとレイアウトが崩れます。
 
 Modifierは以下のとおりです。
 
 * ブロックから横並び`--inline`
 
 ```block
-<dl class="c-split c-split--inline-md">
-  <dt class="c-split__name">c-split__name1</dt>
-  <dd class="c-split__value">c-split__value1</dd>
-  <dt class="c-split__name">c-split__name2</dt>
-  <dd class="c-split__value">c-split__value2</dd>
+<dl class="p-split p-split--inline-md">
+  <dt class="p-split__name">p-split__name1</dt>
+  <dd class="p-split__value">p-split__value1</dd>
+  <dt class="p-split__name">p-split__name2</dt>
+  <dd class="p-split__value">p-split__value2</dd>
 </dl>
 ```
 */
 $_split-padding: $_white-space--small / 2 !default;
 $_split-name-size: 10em !default;
-.c-split {
+.p-split {
   margin: 0;
   padding: 0;
 }
 
-.c-split__name {
+.p-split__name {
   padding-top: $_split-padding;
 }
 
-.c-split__value {
+.p-split__value {
   margin-left: 0;
   padding-bottom: $_split-padding;
 }
 
-$_split-namespace: '.c-split';
-$_split-modifier-namespace: '.c-split--inline';
+$_split-namespace: '.p-split';
+$_split-modifier-namespace: '.p-split--inline';
 $_split-bp: $_breakpoint-up;
 @each $suffix, $value in $_split-bp {
   @media #{$value} {
