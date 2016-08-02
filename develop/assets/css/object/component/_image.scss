@@ -1,0 +1,35 @@
+ /* #Image
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: image
+name: image
+categories: [component]
+---
+
+
+```block
+<div class="c-wrapper">
+  <img src="http://lorempixel.com/150/150/" class="c-image-center c-image-retina">
+  <img src="http://lorempixel.com/150/150/" class="c-image-right c-image-circle">
+</div>
+```
+*/
+.c-image-center {
+  display: block;
+  margin: auto;
+}
+
+.c-image-right {
+  display: block;
+  margin: auto;
+  margin-right: 0;
+}
+
+.c-image-circle {
+  border-radius: 50%;
+}
+
+.c-image-retina {
+  zoom: 0.5;
+}

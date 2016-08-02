@@ -16,6 +16,11 @@ var page = {
 -%>
 <%- include(page.relativePath + '_partials/_head', {page: page, modifier: ''}); %>
 <%- include(page.relativePath + '_partials/_header', {page: page, modifier: ''}); %>
-    <article>contents</article>
+
+
+    <div class="c-wrapper">
+      <img src="http://lorempixel.com/150/150/" class="c-image-center c-image-retina">
+      <img src="http://lorempixel.com/150/150/" class="c-image-right c-image-circle">
+    </div>
 
 <%- include(page.relativePath + '_partials/_footer', {page: page, modifier: ''}); %>
