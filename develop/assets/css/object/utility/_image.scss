@@ -1,0 +1,29 @@
+ /* #Image
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: image
+name: image
+categories: [utillity]
+---
+
+画像を中央配置や右端揃えにします。
+
+```block
+<div class="c-wrapper">
+  <img src="http://lorempixel.com/150/150/">
+  <img src="http://lorempixel.com/150/150/" class="u-image-center">
+  <img src="http://lorempixel.com/150/150/" class="u-image-right">
+</div>
+```
+*/
+.u-image-center {
+  display: block !important;
+  margin: auto !important;
+}
+
+.u-image-right {
+  display: block !important;
+  margin: auto !important;
+  margin-right: 0 !important;
+}

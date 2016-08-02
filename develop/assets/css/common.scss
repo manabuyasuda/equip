@@ -157,7 +157,6 @@
 @import "object/component/_media";
 @import "object/component/_list-unstyled";
 @import "object/component/_embed";
-@import "object/component/_image";
 
 /* -----------------------------------------------------------------------------
    #Project
@@ -202,6 +201,7 @@
  * プレフィックス（接頭辞）として`u-`をつけます。
  */
 @import "object/utility/_text";
+@import "object/utility/_image";
 @import "object/utility/_margin";
 @import "object/utility/_display";
 @import "object/utility/_width";
