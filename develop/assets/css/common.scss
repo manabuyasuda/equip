@@ -42,7 +42,6 @@
  * grid...グリッドレイアウトを指定します。
  * media...画像とテキストが横並びになるオブジェクトです。
  * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
- * ratio...アスペクト比を固定したまま伸縮させます。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
  *
  * PROJECT
@@ -158,7 +157,6 @@
 @import "object/component/_media";
 @import "object/component/_list-unstyled";
 @import "object/component/_embed";
-@import "object/component/_ratio";
 
 /* -----------------------------------------------------------------------------
    #Project
