@@ -43,6 +43,7 @@
  * media...画像とテキストが横並びになるオブジェクトです。
  * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
+ * table...tableのレイアウトアルゴリズムの変更、余白の変更をします。
  *
  * PROJECT
  * icon...アイコンフォントです。
@@ -159,6 +160,7 @@
 @import "object/component/_media";
 @import "object/component/_list-unstyled";
 @import "object/component/_embed";
+@import "object/component/_table";
 
 /* -----------------------------------------------------------------------------
    #Project
@@ -198,7 +200,8 @@
 /**
  * Utilityレイヤーはいわゆる汎用クラスで、ほとんどの場合は単一のスタイルをもっています。
  * コンポーネント間の間隔を調整したり、BEMのModifierが増えすぎるのを防ぎます。
- * `.mb10`のような具体的な名前より、`.mb-small`のような相対的な名前を推奨します。
+ * `.mb10`のような具体的な名前より`.mb-small`のような相対的な名前にしたり、
+ * pxよりもemや%で指定することを推奨します。
  * 確実にスタイルを適応させるために`!important`を使用します。
  * プレフィックス（接頭辞）として`u-`をつけます。
  */
@@ -208,3 +211,4 @@
 @import "object/utility/_display";
 @import "object/utility/_width";
 @import "object/utility/_offset";
+@import "object/utility/_percent";

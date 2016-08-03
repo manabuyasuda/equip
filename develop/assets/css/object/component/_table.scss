@@ -1,0 +1,61 @@
+ /* #Table
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: table
+name: table
+categories: [component]
+---
+
+tableのレイアウトアルゴリズム（`table-layout`）の変更、
+`<th>`と`<td>`のpaddingなどを変更します。
+
+Modifierは以下のとおりです。
+
+* セルの余白を変更 `--small`, `--large`
+
+```block
+<div class="c-wrapper">
+  <table class="c-table c-table--fixed">
+    <tr>
+      <th class="u-percent50">th1</th>
+      <th>th2</th>
+      <th>th3</th>
+    </tr>
+    <tr>
+      <td>td1</td>
+      <td>td2</td>
+      <td>td3</td>
+    </tr>
+  </table>
+</div>
+```
+*/
+.c-table {
+  width: 100%;
+  th,
+  td {
+    padding: 1em;
+  }
+}
+
+/**
+ * セルを均等にします。`width`を1つだけ指定した場合は、残りのセルが均等になります。
+ */
+.c-table--fixed {
+  table-layout: fixed;
+}
+
+.c-table--small {
+  th,
+  td {
+    padding: 0.5em;
+  }
+}
+
+.c-table--large {
+  th,
+  td {
+    padding: 1.5em;
+  }
+}

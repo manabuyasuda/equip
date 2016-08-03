@@ -10,8 +10,8 @@ categories: [project]
 カードタイプのコンポーネントです。
 
 ```block
-<div class="c-grid c-grid--small">
-  <div class="c-grid__item u-6of12-md">
+<div class="c-layout c-layout--small">
+  <div class="c-layout__item u-6of12-md">
     <div class="p-card">
       <img src="http://lorempixel.com/640/340/" class="p-card__image-top">
       <div class="p-card__body">
@@ -28,7 +28,7 @@ categories: [project]
     </div>
   </div>
 
-  <div class="c-grid__item u-6of12-md">
+  <div class="c-layout__item u-6of12-md">
     <div class="p-card">
       <div class="p-card__head">
         <h2>Card Object</h2>

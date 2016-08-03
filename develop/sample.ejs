@@ -19,8 +19,18 @@ var page = {
 
 
     <div class="c-wrapper">
-      <img src="http://lorempixel.com/150/150/" class="c-image-center c-image-retina">
-      <img src="http://lorempixel.com/150/150/" class="c-image-right c-image-circle">
+      <table class="c-table c-table--medium c-table--fixed">
+        <tr>
+          <th class="u-percent50">th1</th>
+          <th>th2</th>
+          <th>th3</th>
+        </tr>
+        <tr>
+          <td>td1</td>
+          <td>td2</td>
+          <td>td3</td>
+        </tr>
+      </table>
     </div>
 
 <%- include(page.relativePath + '_partials/_footer', {page: page, modifier: ''}); %>
