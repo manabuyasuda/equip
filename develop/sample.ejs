@@ -2,8 +2,8 @@
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
-  title: "ページのタイトル",
-  description: "ページの概要",
+  title: "テスト用ページ",
+  description: "コンポーネントのテストコーディングなどに使用してください。公開時には削除してください。",
   keywords: "",
   bodyClass: "",
   singleCss: [],
@@ -19,18 +19,10 @@ var page = {
 
 
     <div class="c-wrapper">
-      <table class="c-table c-table--medium c-table--fixed">
-        <tr>
-          <th class="u-percent50">th1</th>
-          <th>th2</th>
-          <th>th3</th>
-        </tr>
-        <tr>
-          <td>td1</td>
-          <td>td2</td>
-          <td>td3</td>
-        </tr>
-      </table>
+      <div class="c-layout">
+        <div class="c-layout__item u-8of12-md"></div>
+        <div class="c-layout__item u-4of12-md"></div>
+      </div>
     </div>
 
 <%- include(page.relativePath + '_partials/_footer', {page: page, modifier: ''}); %>
