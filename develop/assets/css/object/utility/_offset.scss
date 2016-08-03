@@ -1,0 +1,48 @@
+ /* #Offset
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: offset
+name: offset
+categories: [utility]
+---
+
+レスポンシブに対応した`margin-right`プロパティを指定する汎用クラスです。
+
+```block
+<div class="c-wrapper">
+  <div class="c-layout c-layout--medium c-layout--center" style="margin-bottom:1rem;">
+    <div class="c-layout__item u-4of12-md u-offset1of12-md"><div style="background-color:lightblue;">c-layout__item u-4of12-md u-offset1of12-md</div></div>
+    <div class="c-layout__item u-4of12-md"><div style="background-color:lightblue;">c-layout__item u-4of12-md</div></div>
+  </div>
+</div>
+```
+*/
+// 取得したいカラム数をリスト形式で指定します。
+// 例えば`1 2`を指定すると1/1, 1/2, 2/2の`margin-right`を取得できます。
+$_offset-cols: 12 !default;
+
+// @param $cols - `$offset-cols`から取得したいカラム数を取得します。
+// @param $breakpoint(null) - メディアクエリ用のキーワードを渡します。
+// @requires $offset-cols - 取得したいカラム数をリスト形式で指定します。
+@mixin _offset($cols, $breakpoint: null) {
+  @each $col in $cols {
+    @for $i from 1 through $col {
+      .u-offset#{$i}of#{$col}#{$breakpoint} {
+        margin-right: percentage($i / $col) !important;
+      }
+    }
+  }
+}
+
+// ブレイクポイントのないclassを生成します。
+// @requires - $width-cols
+@include _offset($_offset-cols);
+
+// ブレイクポイント付きのclassを生成します。
+// @requires - $breakpoints
+@each $name, $breakpoint in $_breakpoint-up {
+  @media #{$breakpoint} {
+    @include _offset($_offset-cols, -#{$name})
+  }
+}

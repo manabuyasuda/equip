@@ -13,18 +13,18 @@ categories: [utility]
 
 ```block
 <div class="c-wrapper">
-  <div class="c-grid c-grid--medium" style="margin-bottom:1rem;">
-    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid__item u-8of12-md</div></div>
-    <div class="c-grid__item u-4of12-md"><div style="background-color:lightblue;">c-grid__item u-4of12-md</div></div>
+  <div class="c-layout c-layout--medium" style="margin-bottom:1rem;">
+    <div class="c-layout__item u-8of12-md"><div style="background-color:lightblue;">c-layout__item u-8of12-md</div></div>
+    <div class="c-layout__item u-4of12-md"><div style="background-color:lightblue;">c-layout__item u-4of12-md</div></div>
   </div>
 
-  <div class="c-grid c-grid--rev c-grid--medium" style="margin-bottom:1rem;">
-    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid--rev c-grid__item u-8of12-md</div></div>
-    <div class="c-grid__item u-4of12-md"><div style="background-color:lightblue;">c-grid--rev c-grid__item u-4of12-md</div></div>
+  <div class="c-layout c-layout--rev c-layout--medium" style="margin-bottom:1rem;">
+    <div class="c-layout__item u-8of12-md"><div style="background-color:lightblue;">c-layout--rev c-layout__item u-8of12-md</div></div>
+    <div class="c-layout__item u-4of12-md"><div style="background-color:lightblue;">c-layout--rev c-layout__item u-4of12-md</div></div>
   </div>
 
-  <div class="c-grid c-grid--center c-grid--medium">
-    <div class="c-grid__item u-8of12-md"><div style="background-color:lightblue;">c-grid--center c-grid__item u-8of12-md</div></div>
+  <div class="c-layout c-layout--center c-layout--medium">
+    <div class="c-layout__item u-8of12-md"><div style="background-color:lightblue;">c-layout--center c-layout__item u-8of12-md</div></div>
   </div>
 </div>
 ```

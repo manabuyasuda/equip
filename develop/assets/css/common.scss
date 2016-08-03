@@ -39,7 +39,7 @@
  *
  * COMPONENT
  * wrapper...最大幅を指定します。
- * grid...グリッドレイアウトを指定します。
+ * layout...汎用的なレイアウトオブジェクトです。グリッドレイアウトなどに使用できます。
  * media...画像とテキストが横並びになるオブジェクトです。
  * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
@@ -62,6 +62,7 @@
  * margin...マージンで余白の管理をします。常に下方向にだけ余白をとります。
  * display...要素の表示や改行をコントロールする場合に使用します。
  * width...おもにグリッドで使用する`width`を指定する汎用クラスです。
+ * offset...おもにグリッドで使用する`margin-right`を指定する汎用クラスです。
  */
 
 /**
@@ -154,7 +155,7 @@
  * プレフィックス（接頭辞）として`c-`をつけます。
  */
 @import "object/component/_wrapper";
-@import "object/component/_grid";
+@import "object/component/_layout";
 @import "object/component/_media";
 @import "object/component/_list-unstyled";
 @import "object/component/_embed";
@@ -206,3 +207,4 @@
 @import "object/utility/_margin";
 @import "object/utility/_display";
 @import "object/utility/_width";
+@import "object/utility/_offset";
