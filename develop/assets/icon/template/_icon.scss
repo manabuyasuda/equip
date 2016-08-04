@@ -24,19 +24,19 @@ categories: [project]
 //   }
 // }
 @font-face {
-  font-family: "iconfont";
-  src: url('../font/iconfont.eot');
-  src: url('../font/iconfont.eot?#iefix') format('eot'),
-    url('../font/iconfont.woff') format('woff'),
-    url('../font/iconfont.ttf') format('truetype'),
-    url('../font/iconfont.svg#iconfont') format('svg');
+  font-family: "<%= fontName %>";
+  src: url('<%= fontPath %><%= fontName %>.eot');
+  src: url('<%= fontPath %><%= fontName %>.eot?#iefix') format('eot'),
+    url('<%= fontPath %><%= fontName %>.woff') format('woff'),
+    url('<%= fontPath %><%= fontName %>.ttf') format('truetype'),
+    url('<%= fontPath %><%= fontName %>.svg#<%= fontName %>') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 // アイコンフォントのベーススタイル
 @mixin icon {
-  font-family: "iconfont";
+  font-family: "<%= fontName %>";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -59,11 +59,8 @@ categories: [project]
 
 @function icon-char($filename) {
   $char: "";
-
-  @if $filename == angle-down { $char: "\E001"; }
-  @if $filename == angle-left { $char: "\E002"; }
-  @if $filename == angle-right { $char: "\E003"; }
-  @if $filename == angle-up { $char: "\E004"; }
+<% _.each(glyphs, function(glyph) { %>
+  @if $filename == <%= glyph.fileName %> { $char: "\<%= glyph.codePoint %>"; }<% }); %>
 
   @return $char;
 }
@@ -72,7 +69,5 @@ categories: [project]
   & { content: icon-char($filename); }
 }
 
-.p-icon--angle-down:before { @include icon-name(angle-down); }
-.p-icon--angle-left:before { @include icon-name(angle-left); }
-.p-icon--angle-right:before { @include icon-name(angle-right); }
-.p-icon--angle-up:before { @include icon-name(angle-up); }
+<% _.each(glyphs, function(glyph) { %>.p-icon--<%= glyph.fileName %>:before { @include icon-name(<%= glyph.fileName %>); }
+<% }); %>

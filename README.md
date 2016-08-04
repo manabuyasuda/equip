@@ -2,8 +2,9 @@
 静的サイトを効率良く作るためのテンプレートです。以下のような特徴があります。
 
 * [EJS](http://ejs.co/)でヘッダーなどの共通部分のテンプレート化、JSONを利用したデータの管理
-* [FLOCSS](https://github.com/hiloki/flocss)をベースにしたSassのディレクトリとグリッドやメディアクエリなどの@mixin集
+* [FLOCSS](https://github.com/hiloki/flocss)をベースにしたSassのディレクトリ、レイアウト用コンポーネント、メディアクエリなどの@mixin
 * CSSや画像などのminifyと圧縮
+* アイコンフォントと専用のscssファイルの生成
 * Browsersyncを利用したライブリロード
 * [Hologram](http://trulia.github.io/hologram/)を利用したスタイルガイドの生成
 
@@ -19,23 +20,18 @@ npmでパッケージをインストールします。
 npm install
 ```
 
-開発に使用するGulpタスクは3つあります。
+開発に使用するGulpタスクは2つあります。
 
 ```bash
 gulp
 ```
 
 ```bash
-gulp develop
-```
-
-```bash
 gulp release
 ```
 
-1. `gulp`（EJSとSassのコンパイルとjsと画像のdest、`watch`オプション）
-1. `gulp develop`（デフォルトの`gulp`タスクにbrowser-syncによるライブリロードを追加）
-1. `gulp release`（EJSとSassのコンパイルとjsと画像のdest。画像とCSSは圧縮されます。）
+1. `gulp`（EJSとSassのコンパイル、jsの結合や画像の出力、アイコンフォントの生成、browser-syncによるライブリロード）
+1. `gulp release`（`gulp`タスクに画像とCSSの圧縮を追加。）
 
 いずれも`clean`タスクでreleaseディレクトリがあればいったん削除されます。
 
@@ -442,6 +438,19 @@ JavaScriptはassets/js/bundleディレクトリにjQueryプラグインやライ
 * jQueryプラグインなどはassets/js/bundleディレクトリに保存してください。ディレクトリ内のファイルを自動で連結して`bundle.js`として出力されます。
 * 自作のスクリプトやjQueryプラグインなどのトリガーはassets/js/common.js（名前は変更可能）に記述してください。
 
+
+### アイコンフォント
+develop/assets/iconディレクトリにSVGファイルを保存するとアイコンフォントが自動で生成されます。アイコンフォント専用のscssファイルも同時に生成されます。
+
+* develop/assets/iconにSVGファイルを保存
+* develop/assets/fontにフォントファイルを出力
+* develop/assets/css/object/projectにscssファイルを生成
+* developディレクトリと同じ階層でrelaseディレクトリにフォントファイルがコピー
+
+scssファイルのテンプレートはdevelop/assets/icon/templateに保存されています。適宜変更してください。  
+スタイルの追加はdevelop/assets/css/object/project/_icon-extend.scssにしていきます。
+
+使用しない場合はgulp.fileからタスクを削除してください。
 
 ## スタイルガイドの生成
 スタイルガイドの生成は[Hologram](http://trulia.github.io/hologram/)を使用しています。

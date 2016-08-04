@@ -46,7 +46,8 @@
  * table...tableのレイアウトアルゴリズムの変更、余白の変更をします。
  *
  * PROJECT
- * icon...アイコンフォントです。
+ * icon...アイコンフォントです。テンプレートから自動で生成されます。
+ * icon-extend...アイコンフォントを拡張するModifierです。
  * button...ボタンコンポーネントです。
  * breadcrumb...パンくずリストコンポーネントです。
  * label...インラインのラベルコンポーネントです。
@@ -173,6 +174,7 @@
  * プレフィックス（接頭辞）として`p-`をつけます。
  */
 @import "object/project/_icon";
+@import "object/project/_icon-extend";
 @import "object/project/_button";
 @import "object/project/_breadcrumb";
 @import "object/project/_label";

@@ -1,19 +1,29 @@
 var gulp = require('gulp');
+// EJS
 var ejs = require("gulp-ejs");
+// Sass
 var sass = require('gulp-sass')
 var autoprefixer = require('gulp-autoprefixer');
 var csscomb = require('gulp-csscomb');
 var cleanCss = require('gulp-clean-css')
+// Image
 var imagemin = require('gulp-imagemin');
+// Iconfont
+var iconfont = require('gulp-iconfont');
+var iconfontCss = require('gulp-css-iconfont');
+// Utility
+var rimraf = require('rimraf');
 var rename = require('gulp-rename');
 var concat = require('gulp-concat');
 var sourcemaps = require('gulp-sourcemaps');
-var rimraf = require('rimraf');
 var plumber = require('gulp-plumber');
 var notify = require("gulp-notify");
 var runSequence = require('run-sequence');
+// browser-sync
 var browserSync = require('browser-sync');
+// Styleguide
 var hologram = require('gulp-hologram');
+
 
 /**
  * 開発用のデベロップパス。ディレクトリ名はプロジェクトにあわせて変更します。
@@ -26,7 +36,8 @@ var develop = {
   'minifyCss': 'develop/assets/css/*.scss',
   'js': ['develop/**/*.js', '!' + 'develop/assets/js/bundle/**/*.js'],
   'bundleJs': 'develop/assets/js/bundle/**/*.js',
-  'image': 'develop/**/*.{png,jpg,gif,svg}'
+  'image': 'develop/**/*.{png,jpg,gif,svg}',
+  'iconfont': 'develop/assets/icon/*.svg'
 }
 
 /**
@@ -36,7 +47,8 @@ var release = {
   'root': 'release/',
   'html': 'release/',
   'minifyCss': 'release/assets/css/',
-  'bundleJs': 'release/assets/js/bundle/'
+  'bundleJs': 'release/assets/js/bundle/',
+  'iconfont': 'develop/assets/font/'
 }
 
 var AUTOPREFIXER_BROWSERS = [
@@ -146,6 +158,46 @@ gulp.task('image', function() {
 });
 
 /**
+ * アイコンフォントを作成します。
+ * 開発用ディレクトリのiconディレクトリ内にSVGファイルを保存すると、
+ * assets/fontディレクトリにフォントファイルが、
+ * assets/css/object/projectディレクトリに専用のscssファイルが生成されます。
+ * フォントファイルはリリースディレクトリにコピーされます。
+ */
+gulp.task('createIconfont', function(){
+  var fontName = 'iconfont';
+  return gulp.src(develop.iconfont)
+    .pipe(iconfontCss({
+      fontName: fontName, // 生成されるフォントの名前（iconfontと同じにするため変数化）
+      path: 'develop/assets/icon/template/_icon.scss',  // アイコンフォント用CSSのテンプレートファイル
+      targetPath: '../css/object/project/_icon.scss',  // scssファイルを出力するパス（gulp.destの出力先からみた相対パス）
+      fontPath: '../font/' // 最終的に出力されるCSSからみた、フォントファイルまでの相対パス
+    }))
+    .pipe(iconfont({
+      fontName: fontName,
+      formats: ['ttf', 'eot', 'woff', 'svg'], // 出力するフォントファイルの形式
+      // startUnicode: 0xF001,
+      // appendCodepoints: false
+      // normalize: true,
+      // fontHeight: 500
+    }))
+    .pipe(gulp.dest(release.iconfont));
+});
+
+gulp.task('copyIconfont', function() {
+  return gulp.src('develop/assets/font/*.{woff,eot,svg,ttf}')
+    .pipe(gulp.dest('release/assets/font/'));
+});
+
+gulp.task('iconfont', function() {
+  runSequence(
+    'createIconfont',
+    'copyIconfont'
+  )
+});
+
+
+/**
  * Hologramでスタイルガイドを生成します。
  * 設定はhologram_config.ymlに記述しています。
  */
@@ -164,7 +216,7 @@ gulp.task('clean', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮は`release`タスクでおこないます）。
  */
-gulp.task('build', ['ejs', 'sass', 'js', 'bundleJs', 'image']);
+gulp.task('build', ['ejs', 'sass', 'js', 'bundleJs', 'image', 'iconfont']);
 
 /**
  * watchタスクを指定します。
@@ -175,6 +227,7 @@ gulp.task('watch', ['build'],function() {
   gulp.watch(develop.js, ['js']);
   gulp.watch(develop.bundleJs, ['bundleJs']);
   gulp.watch(develop.image, ['image']);
+  gulp.watch(develop.iconfont, ['iconfont']);
 });
 
 /**
@@ -191,20 +244,10 @@ gulp.task('browser-sync', function() {
 
 /**
  * 開発に使用するタスクです。
- * リリースディレクトリを削除後、`watch`タスクを処理します。
- */
-gulp.task('default', ['clean'], function() {
-  runSequence(
-    'watch'
-  )
-});
-
-/**
- * 開発に使用するタスクです。
  * `gulp`タスクにbrowser-syncを追加します。
  * ローカルサーバーを起動し、リアルタイムに更新を反映させます。
  */
-gulp.task('develop', ['clean'], function() {
+gulp.task('default', ['clean'], function() {
   runSequence(
     'watch',
     'browser-sync'
@@ -217,6 +260,6 @@ gulp.task('develop', ['clean'], function() {
  */
 gulp.task('release', ['clean'], function() {
   runSequence(
-    ['ejs', 'sass', 'minifyCss', 'js', 'bundleJs', 'image']
+    ['ejs', 'sass', 'minifyCss', 'js', 'bundleJs', 'image', 'iconfont']
   )
 });
