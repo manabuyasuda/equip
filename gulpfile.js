@@ -10,7 +10,7 @@ var cleanCss = require('gulp-clean-css')
 var imagemin = require('gulp-imagemin');
 // Iconfont
 var iconfont = require('gulp-iconfont');
-var iconfontCss = require('gulp-css-iconfont');
+var iconfontCss = require('gulp-iconfont-css');
 // Utility
 var rimraf = require('rimraf');
 var rename = require('gulp-rename');
