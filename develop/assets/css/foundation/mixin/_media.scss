@@ -1,0 +1,38 @@
+@mixin _c-media() {
+  display: table;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+@mixin _c-media__image {
+  display: table-cell;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  & > :first-child {
+    margin-top: 0;
+  }
+  & > :last-child {
+    margin-bottom: 0;
+  }
+  > img {
+    display: block;
+    max-width: none;
+  }
+}
+
+@mixin _c-media__body($gutter) {
+  display: table-cell;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+  padding-left: $gutter;
+  vertical-align: top;
+  & > :first-child {
+    margin-top: 0;
+  }
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}

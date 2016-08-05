@@ -56,37 +56,17 @@ $_media-gutter-small: ($_media-gutter / 2) !default;
 $_media-gutter-large: ($_media-gutter * 2) !default;
 
 .c-media {
-  /* 画像とテキストの幅が`.c-media`より狭い場合でも常に横幅いっぱいに表示される。 */
-  display: table;
-  width: 100%;
-  margin: 0;
-  padding: 0;
+  @include _c-media();
 }
 
-.c-media__image,
+.c-media__image {
+  @include _c-media__image();
+}
+
 .c-media__body {
-  display: table-cell;
-  margin: 0;
-  padding: 0;
-  vertical-align: top;
-  & > :first-child {
-    margin-top: 0;
-  }
-  & > :last-child {
-    margin-bottom: 0;
-  }
+  @include _c-media__body($_media-gutter);
 }
 
-/* 画像とテキストの幅が`.c-media`より狭い場合でも常に横幅いっぱいに表示される。 */
-.c-media__body {
-  width: 100%;
-  padding-left: $_media-gutter;
-}
-
-.c-media__image > img {
-  display: block;
-  max-width: none;
-}
 
 /**
  * 垂直位置を2つのパリエーションから選択します（デフォルトは`top`）。

@@ -45,19 +45,11 @@ $_layout-gutter-small: ($_layout-gutter / 2) !default;
 $_layout-gutter-large: ($_layout-gutter * 2) !default;
 
 .c-layout {
-  display: block;
-  margin: 0;
-  padding: 0;
-  font-size: 0;
-  list-style-type: none;
+  @include _c-layout();
 }
 
 .c-layout__item {
-  display: inline-block;
-  width: 100%;
-  font-size: medium;
-  font-size: 1rem;
-  vertical-align: top;
+  @include _c-layout__item();
 }
 
 /**

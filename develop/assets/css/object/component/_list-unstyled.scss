@@ -18,6 +18,5 @@ categories: [component]
 ```
 */
 .c-list-unstyled {
-  padding-left: 0;
-  list-style-type: none;
+  @include _c-list-unstyled();
 }

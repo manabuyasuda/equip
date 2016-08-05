@@ -1,0 +1,15 @@
+@mixin _c-layout() {
+  display: block;
+  margin: 0;
+  padding: 0;
+  font-size: 0;
+  list-style-type: none;
+}
+
+@mixin _c-layout__item() {
+  display: inline-block;
+  width: 100%;
+  font-size: medium;
+  font-size: 1rem;
+  vertical-align: top;
+}
