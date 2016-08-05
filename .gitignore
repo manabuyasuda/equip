@@ -1,6 +1,7 @@
 .git
 .DS_Store
 node_modules
-release
 Gemfile.lock
 styleguide
+develop/assets/font/
+release

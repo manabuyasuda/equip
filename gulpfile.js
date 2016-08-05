@@ -36,7 +36,7 @@ var develop = {
   'minifyCss': 'develop/assets/css/*.scss',
   'js': ['develop/**/*.js', '!' + 'develop/assets/js/bundle/**/*.js'],
   'bundleJs': 'develop/assets/js/bundle/**/*.js',
-  'image': 'develop/**/*.{png,jpg,gif,svg}',
+  'image': ['develop/**/*.{png,jpg,gif,svg}', '!' + 'develop/assets/icon/*.svg', '!' + 'develop/assets/font/*.svg'],
   'iconfont': 'develop/assets/icon/*.svg'
 }
 
@@ -154,7 +154,8 @@ gulp.task('image', function() {
     // PNGファイルの圧縮率（7が最高）を指定します。
     optimizationLevel: 7
   }))
-  .pipe(gulp.dest(release.root));
+  .pipe(gulp.dest(release.root))
+  .pipe(browserSync.reload({stream: true}));
 });
 
 /**
