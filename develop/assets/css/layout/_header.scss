@@ -1,5 +1,32 @@
  /* #Header
    -------------------------------------------------------------------------- */
+/*doc
+---
+title: header
+name: header
+categories: [layout]
+---
+
+`<body>`タグ直下にある`<header>`タグのスタイルです。
+ロゴやグローバルナビゲーションのレイアウトを含むことはできますが、
+コンポーネント自体はobject/projectレイヤーで定義します。
+
+```block
+<body>
+  <header class="l-header">
+    <div class="l-header__logo">
+      <h1 class="p-logo">logo</h1>
+    </div>
+    <nav class="l-header__global-nav">
+      <ul class="p-global-nav">
+        <li></li>
+        <li></li>
+      <ul>
+    </nav>
+  </header>
+</body>
+```
+*/
 .l-header {
 
 }

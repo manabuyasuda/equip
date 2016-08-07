@@ -7,7 +7,7 @@ name: section
 categories: [layout]
 ---
 
-`<section>`要素を使うようなセクションの余白を管理します。
+`<section>`タグを使うようなセクションの余白（`margin`）を管理します。
 コンポーネント単位での余白はobject/utility/_margin.scssで管理をします。
 
 サイズはデフォルトで3つ、最大で5つとします。
@@ -22,15 +22,15 @@ Modifierなしをmedium、変更する場合にはModifierを指定します。
 
 ```block
 <div class="l-section">
-  <p>Lorem ipsum</p>
+  <h2>見出し2</h2>
 </div>
 
 <div class="l-section l-section--small">
-  <p>Lorem ipsum</p>
+  <h2>見出し2</h2>
 </div>
 
 <div class="l-section l-section--large">
-  <p>Lorem ipsum</p>
+  <h2>見出し2</h2>
 </div>
 ```
 */

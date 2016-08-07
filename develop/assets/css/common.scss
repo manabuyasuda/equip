@@ -34,10 +34,11 @@
  * base...タイプセレクタと属性セレクタのデフォルトスタイルです。
  *
  * LAYOUT
- * header...ヘッダーエリアのコンテナブロックのスタイルです。
- * footer...フッターエリアのコンテナブロックのスタイルです。
- * main...コンテンツエリアのコンテナブロックのスタイルです。
- * sidebar...サイドバーエリアのコンテナブロックのスタイルです。
+ * header...`<body>`タグ直下にある`<header>`タグのスタイルです。
+ * footer...`<body>`タグ直下にある`<footer>`タグのスタイルです。
+ * main...`<main>`タグのスタイルです。
+ * content...`<article>`タグが使われるようなメインコンテンツのスタイルです。
+ * sidebar...`<aside>`タグが使われるようなサイドバーのスタイルです。
  * section...`<section>`要素を使うようなセクションの余白を管理します。
  *
  * COMPONENT
@@ -132,6 +133,7 @@
 @import "layout/_header";
 @import "layout/_footer";
 @import "layout/_main";
+@import "layout/_content";
 @import "layout/_sidebar";
 @import "layout/_section";
 

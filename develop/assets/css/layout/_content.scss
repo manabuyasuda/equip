@@ -1,0 +1,24 @@
+ /* #Content
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: content
+name: content
+categories: [layout]
+---
+
+`<article>`タグが使われるようなメインコンテンツのスタイルです。
+ナビゲーションやバナーなどのレイアウトを含むことはできますが、
+コンポーネント自体はobject/projectレイヤーで定義します。
+
+```block
+<body>
+  <article class="l-content s-blog">
+    <header class="l-content__lead"></header>
+  </article>
+</body>
+```
+*/
+.l-content {
+
+}

@@ -1,5 +1,32 @@
  /* #Footer
    -------------------------------------------------------------------------- */
+/*doc
+---
+title: footer
+name: footer
+categories: [layout]
+---
+
+`<body>`タグ直下にある`<footer>`タグのスタイルです。
+コピーライトやナビゲーションのレイアウトを含むことはできますが、
+コンポーネント自体はobject/projectレイヤーで定義します。
+
+```block
+<body>
+  <footer class="l-footer">
+    <div class="l-footer__copyright">
+      <small class="p-copyright"></small>
+    </div>
+    <nav class="l-footer__sub-nav">
+      <ul class="p-foot-nav">
+        <li></li>
+        <li></li>
+      <ul>
+    </nav>
+  </footer>
+</body>
+```
+*/
 .l-footer {
 
 }
