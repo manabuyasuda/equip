@@ -13,13 +13,13 @@ Modifierは以下のとおりです。
 
 * 余白の変更 `--small`, `--large`
 * vertical-alignの変更 `--middle`, `--bottom`
-* 配置を反転 `--rev`
+* 配置を反転 `--reverse`
 * 横並びからブロック `--stack`
 * 横並びからブロックして、配置を反転 `--stack-shift`
 
 HTMLは画像・テキストの順番で記述して、Modifierでレイアウトを変更します。
 
-ブレイクポイントは`rev`に`min-width`が、`stack`と`stack-shift`は`max-width`が指定されています。
+ブレイクポイントは`reverse`に`min-width`が、`stack`と`stack-shift`は`max-width`が指定されています。
 
 ```block
 <div class="c-media" style="margin-bottom:1rem;">
@@ -29,7 +29,7 @@ HTMLは画像・テキストの順番で記述して、Modifierでレイアウ�
   </div>
 </div>
 
-<div class="c-media c-media--middle c-media--rev-md" style="margin-bottom:1rem;">
+<div class="c-media c-media--middle c-media--reverse-md" style="margin-bottom:1rem;">
   <div class="c-media__image"><img src="http://lorempixel.com/150/150/"></div>
   <div class="c-media__body" style="background-color:#eee;">
     <p>画像とテキストを中央揃え、<code>md</code>から画像を右側に反転させます。</p>
@@ -103,7 +103,7 @@ $_media-gutter-large: ($_media-gutter * 2) !default;
 /**
  * 横並びになった要素を右から左の順番でレイアウトされます（right to left）。
  */
-@include _responsive('.c-media--rev') {
+@include _responsive('.c-media--reverse') {
   text-align: left;
   direction: rtl;
   > .c-media__image,
