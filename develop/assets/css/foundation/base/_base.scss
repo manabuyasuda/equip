@@ -22,7 +22,7 @@ html {
 html {
   font-size: map-get($_font-size, sm);
   line-height: 1.7;
-  @include _mq-up(md) {
+  @include _mq-up() {
     font-size: map-get($_font-size, md);
   }
 }
@@ -46,12 +46,12 @@ h1, h2, h3, h4, h5, h6 {
   color: inherit;
 }
 
-h1, .u-h1 {}
-h2, .u-h2 {}
-h3, .u-h3 {}
-h4, .u-h4 {}
-h5, .u-h5 {}
-h6, .u-h6 {}
+h1 {}
+h2 {}
+h3 {}
+h4 {}
+h5 {}
+h6 {}
 
 ul, ol {
   padding-left: 1.5rem;

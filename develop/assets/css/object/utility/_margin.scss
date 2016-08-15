@@ -39,21 +39,21 @@ categories: [utility]
 /* 常に余白を指定するクラス。 */
 .u-mb-small {
   margin-bottom: 0.5em !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 1em !important;
   }
 }
 
 .u-mb-medium {
   margin-bottom: 1em !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 2em !important;
   }
 }
 
 .u-mb-large {
   margin-bottom: 2em !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 4em !important;
   }
 }
@@ -61,21 +61,21 @@ categories: [utility]
 /* ブレイクポイント以上で余白を指定するクラス。 */
 .u-mb-gain-small {
   margin-bottom: 0 !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 1em !important;
   }
 }
 
 .u-mb-gain-medium {
   margin-bottom: 0 !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 2em !important;
   }
 }
 
 .u-mb-gain-large {
   margin-bottom: 0 !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 4em !important;
   }
 }
@@ -83,21 +83,21 @@ categories: [utility]
 /* ブレイクポイント以上で余白を無くすクラス。 */
 .u-mb-lose-small {
   margin-bottom: 0.5em !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 0 !important;
   }
 }
 
 .u-mb-lose-medium {
   margin-bottom: 1em !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 0 !important;
   }
 }
 
 .u-mb-lose-large {
   margin-bottom: 2em !important;
-  @include _mq-up(md) {
+  @include _mq-up() {
     margin-bottom: 0 !important;
   }
 }

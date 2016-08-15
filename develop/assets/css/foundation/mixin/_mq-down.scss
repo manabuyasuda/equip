@@ -1,5 +1,5 @@
 // @desc - メディアクエリを`max-width`で挿入します。
-// @param {String} $breakpoint [md] - 引数に変数のキーワードを渡します。初期値は'md'です。
+// @param {String} $breakpoint [$_default-breakpoint] - 引数に変数のキーワードを渡します。
 // @see - $_breakpoint-down
 // @example scss - Usage
 // .foo {
@@ -17,7 +17,7 @@
 //     color: blue;
 //   }
 // }
-@mixin _mq-down($breakpoint: md) {
+@mixin _mq-down($breakpoint: $_default-breakpoint) {
   @if map-has-key($_breakpoint-down, $breakpoint) {
     @media #{inspect(map-get($_breakpoint-down, $breakpoint))} {
       @content;
