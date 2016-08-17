@@ -70,9 +70,9 @@ develop/assets/css/index.mdはスタイルガイドのトップページにな�
 スタイルガイドのコメントと同じように記述することができます。デフォルトではstyle.scssの内容を貼付けてあります。
 
 ## styleguide.css
-hologram/template/css/styleguide.cssにはスタイルガイドで使用するスタイルが指定されています。
+hologram/template/css/styleguide.cssにはスタイルガイドで使用するスタイルが指定されています。develop/assets/css/object/scope/_styleguide.scssを作成し、スタイルガイド用のスタイルを書いていってもかまいません。
 
-基本的に変更する必要はありませんが、`.hgt-container`にはスタイルガイドの`max-width`が指定されているので、サイトとあわせると確認しやすくなるかもしれません。
+基本的に変更する必要はありませんが、`.hgt-container`にはスタイルガイドの`max-width`が指定されているので、サイトとあわせると確認しやすくなります。
 
 ```css
 /**
