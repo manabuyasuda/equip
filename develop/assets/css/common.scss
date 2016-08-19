@@ -28,6 +28,7 @@
  * layout...layoutオブジェクトのベーススタイルです。
  * media...mediaオブジェクトのベーススタイルです。
  * list-unstyled...list-unstyledオブジェクトのベーススタイルです。
+ * ratio...アスペクト比を固定したまま伸縮させます。
  *
  * BASE
  * normalize...Normalize.cssをインポートしています。
@@ -47,6 +48,7 @@
  * media...画像とテキストが横並びになるオブジェクトです。
  * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
+ * ratio...アスペクト比を固定したまま伸縮させます。
  * table...tableのレイアウトアルゴリズムの変更、余白の変更をします。
  *
  * PROJECT
@@ -111,6 +113,7 @@
 @import "foundation/mixin/_layout";
 @import "foundation/mixin/_media";
 @import "foundation/mixin/_list-unstyled";
+@import "foundation/mixin/_ratio";
 
 /**
  * Foundationレイヤーでは`html`や`body`のような広範囲にわたるベーススタイル、
@@ -171,6 +174,7 @@
 @import "object/component/_media";
 @import "object/component/_list-unstyled";
 @import "object/component/_embed";
+@import "object/component/_ratio";
 @import "object/component/_table";
 
 /* -----------------------------------------------------------------------------

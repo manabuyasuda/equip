@@ -1,0 +1,54 @@
+ /* #Ratio
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: ratio
+name: ratio
+categories: [component]
+---
+
+アスペクト比を固定したまま伸縮させます。デフォルトは1:1になっています。
+
+Modifierは以下のとおりです。
+
+* アスペクト比16:9 `--16to9`
+* アスペクト比4:3 `--4to3`
+* アスペクト比3:2 `--3to2`
+* アスペクト比2:1 `--2to1`
+
+`.c-ratio__content`には`padding`を指定できないので注意してください。
+
+```block
+<div class="c-ratio c-ratio--16to9">
+  <div class="c-ratio__content">
+    <p></p>
+  </div>
+</div>
+```
+*/
+.c-ratio {
+  @include _c-ratio('100%');
+}
+
+.c-ratio__content,
+.c-ratio > iframe,
+.c-ratio > embed,
+.c-ratio > object {
+  @include _c-ratio__content();
+}
+
+.c-ratio--16to9 {
+padding-bottom: percentage(9 / 16);
+}
+
+.c-ratio--4to3 {
+padding-bottom: percentage(3 / 4);
+}
+
+.c-ratio--3to2 {
+padding-bottom: percentage(2 / 3);
+}
+
+.c-ratio--2to1 {
+padding-bottom: percentage(1 / 2);
+}
