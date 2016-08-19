@@ -9,9 +9,24 @@ categories: [project]
 
 アイコンフォントを使ったアイコンを表示します。デフォルトでは`:before`擬似要素で表示されます。
 
+装飾的なアイコンは`<span>`と`aria-hidden="true"`でマークアップをします。
+テキストを表示できない場合は`.u-sr-only`でテキストをマークアップします（非表示のままスクリーンリーダーに対応できます）。
+
+意味を伝えたいアイコンは`<i>`か`<span>`と、`aria-label=""`でマークアップします。
+
 ```block
-<div class="p-icon p-icon--angle-right"></div>
-<div class="p-icon p-icon--angle-left"></div>
+<div>
+  <span class="p-icon p-icon--angle-right" aria-hidden="true"></span>リスト
+</div>
+
+<div>
+  <span class="p-icon p-icon--angle-right" aria-hidden="true"></span>
+  <span class="u-sr-only">右矢印/span>
+</div>
+
+<div>
+  <i class="p-icon p-icon--angle-right" aria-label="右矢印"></i>リスト
+</div>
 ```
 */
 // 任意のクラスの擬似要素で表示する場合は@mixinを使って、
@@ -19,8 +34,8 @@ categories: [project]
 // @example scss
 // .p-list__link {
 //   &:after {
-//     @include _icon;
-//     @include _icon-name(chevron-right);
+//     @include _p-icon;
+//     @include _p-icon-name(chevron-right);
 //   }
 // }
 @font-face {
