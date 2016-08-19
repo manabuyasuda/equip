@@ -1,0 +1,21 @@
+ /* #Sr-only
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: sr-only
+name: sr-only
+categories: [utility]
+---
+
+要素を非表示にさせますが、スクリーンリーダーには読み上げられます。
+
+```block
+<div>
+  <span class="p-icon p-icon--rss" aria-hidden="true"></span>
+  <span class="u-sr-only">rss購読</span>
+</div>
+```
+*/
+.u-sr-only {
+  @include _sr-only('important');
+}

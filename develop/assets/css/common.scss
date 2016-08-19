@@ -70,6 +70,7 @@
  * width...おもにグリッドで使用する`width`を指定する汎用クラスです。
  * offset...おもにグリッドで使用する`margin-right`を指定する汎用クラスです。
  * percent...`width`プロパティを5%刻みで指定する汎用クラスです。
+ * sr-only...要素を非表示にさせますが、スクリーンリーダーには読み上げられます。
  */
 
 /**
@@ -223,3 +224,4 @@
 @import "object/utility/_width";
 @import "object/utility/_offset";
 @import "object/utility/_percent";
+@import "object/utility/_sr-only";
