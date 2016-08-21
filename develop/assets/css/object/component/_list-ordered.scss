@@ -1,0 +1,42 @@
+ /* #List-ordered
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: list-ordered
+name: list-ordered
+categories: [component]
+---
+
+番号付きリストを入れ子レベルに応じて、1, 1.1のように区切り文字を付け加えます。
+
+```block
+<ol class="c-list-ordered">
+  <li>リスト1
+  <ol class="c-list-ordered">
+    <li>リスト1.1
+    <ol class="c-list-ordered">
+      <li>リスト1.1.1</li>
+      <li>リスト1.1.2</li>
+    </ol>
+    </li>
+    <li>リスト1.2</li>
+  </ol>
+  </li>
+  <li>リスト2</li>
+</ol>
+```
+*/
+.c-list-ordered {
+  @include _c-list-unstyled();
+  counter-reset: ordered;
+}
+
+.c-list-ordered > li:before {
+  counter-increment: ordered;
+  content: counters(ordered, ".") " ";
+  padding-right: 0.5em;
+}
+
+li > .c-list-ordered {
+  padding-left: 1em;
+}

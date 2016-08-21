@@ -11,7 +11,17 @@ categories: [component]
 
 ```block
 <ul class="c-list-unstyled">
-  <li>リスト1</li>
+  <li>リスト1
+  <ul>
+    <li>リスト1.1
+    <ul>
+      <li>リスト1.1.1</li>
+      <li>リスト1.1.2</li>
+    </ul>
+    </li>
+    <li>リスト1.2</li>
+  </ul>
+  </li>
   <li>リスト2</li>
   <li>リスト3</li>
 </ul>
@@ -19,4 +29,8 @@ categories: [component]
 */
 .c-list-unstyled {
   @include _c-list-unstyled();
+}
+
+.c-list-unstyled ul {
+  list-style-position: inside;
 }
