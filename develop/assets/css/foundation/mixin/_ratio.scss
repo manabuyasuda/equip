@@ -3,10 +3,10 @@
   overflow: hidden;
   position: relative;
   &:before {
-  content: "";
-  display: block;
-  width: 100%;
-  padding-bottom: unquote($padding-bottom);
+    content: "";
+    display: block;
+    width: 100%;
+    padding-bottom: unquote($padding-bottom);
   }
 }
 
