@@ -7,14 +7,14 @@ name: list-unstyled
 categories: [component]
 ---
 
-`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
+`<ul>`と`<ol>`のデフォルトスタイルをリセットします。
 
 ```block
 <ul class="c-list-unstyled">
   <li>リスト1
-  <ul>
+  <ul class="c-list-unstyled__items">
     <li>リスト1.1
-    <ul>
+    <ul class="c-list-unstyled__items">
       <li>リスト1.1.1</li>
       <li>リスト1.1.2</li>
     </ul>
@@ -27,10 +27,12 @@ categories: [component]
 </ul>
 ```
 */
+/* ul, ol */
 .c-list-unstyled {
   @include _c-list-unstyled();
 }
 
-.c-list-unstyled ul {
+/* li > ul, li > ol */
+.c-list-unstyled__items {
   list-style-position: inside;
 }
