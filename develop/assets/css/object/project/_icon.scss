@@ -8,24 +8,27 @@ categories: [project]
 ---
 
 アイコンフォントを使ったアイコンを表示します。デフォルトでは`:before`擬似要素で表示されます。
+サンプルコードはパンくずリストのホームをアイコンで（2つ目以降はアイコンだけで）示した場合の例です。
 
 装飾的なアイコンは`<span>`と`aria-hidden="true"`でマークアップをします。
-テキストを表示できない場合は`.u-sr-only`でテキストをマークアップします（非表示のままスクリーンリーダーに対応できます）。
 
-意味を伝えたいアイコンは`<i>`か`<span>`と、`aria-label=""`でマークアップします。
+意味を伝えたいアイコンは`aria-label=""`でマークアップします。
+テキスト全体を読み上げたときに違和感が出ないようにします。
+
+テキストを表示できない場合は`.u-sr-only`でテキストをマークアップします（非表示のままスクリーンリーダーには読み上げられます）。
 
 ```block
 <div>
-  <span class="p-icon p-icon--angle-right" aria-hidden="true"></span>リスト
+  <span class="p-icon p-icon--home" aria-hidden="true"></span>ホーム
 </div>
 
 <div>
-  <span class="p-icon p-icon--angle-right" aria-hidden="true"></span>
-  <span class="u-sr-only">右矢印/span>
+  <span class="p-icon p-icon--home" aria-label="ホーム"></span>
 </div>
 
 <div>
-  <i class="p-icon p-icon--angle-right" aria-label="右矢印"></i>リスト
+  <span class="p-icon p-icon--home" aria-hidden="true"></span>
+  <span class="u-sr-only">ホーム</span>
 </div>
 ```
 */
@@ -75,10 +78,7 @@ categories: [project]
 @function _icon-char($filename) {
   $char: "";
 
-  @if $filename == angle-down { $char: "\E001"; }
-  @if $filename == angle-left { $char: "\E002"; }
-  @if $filename == angle-right { $char: "\E003"; }
-  @if $filename == angle-up { $char: "\E004"; }
+  @if $filename == home { $char: "\E001"; }
 
   @return $char;
 }
@@ -87,7 +87,4 @@ categories: [project]
   & { content: _icon-char($filename); }
 }
 
-.p-icon--angle-down:before { @include _p-icon-name(angle-down); }
-.p-icon--angle-left:before { @include _p-icon-name(angle-left); }
-.p-icon--angle-right:before { @include _p-icon-name(angle-right); }
-.p-icon--angle-up:before { @include _p-icon-name(angle-up); }
+.p-icon--home:before { @include _p-icon-name(home); }
