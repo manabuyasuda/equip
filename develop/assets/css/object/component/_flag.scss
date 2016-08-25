@@ -1,0 +1,144 @@
+ /* #Flag
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: flag
+name: flag
+categories: [component]
+---
+
+画像とテキストを横並びにするオブジェクトです。縦方向の指定ができます。
+
+Modifierは以下のとおりです。
+
+* 余白の変更 `--small`, `--large`
+* vertical-alignの変更 `--middle`, `--bottom`
+* 配置を反転 `--reverse`
+* 横並びからブロック `--stack`
+
+HTMLは画像・テキストの順番で記述して、Modifierでレイアウトを変更します。
+
+ブレイクポイントは`stack`のみ`max-width`が指定されています。
+
+```block
+<div class="c-flag" style="margin-bottom:1rem;">
+  <div class="c-flag__image"><img src="http://lorempixel.com/150/150/"></div>
+  <div class="c-flag__body" style="background-color:#eee;">
+    <p>画像とテキストを横並びにするオブジェクトです。<br>余白サイズ、垂直方向、要素の配置順の反転の指定ができます。</p>
+  </div>
+</div>
+
+<div class="c-flag c-flag--middle c-flag--reverse-md" style="margin-bottom:1rem;">
+  <div class="c-flag__image"><img src="http://lorempixel.com/150/150/"></div>
+  <div class="c-flag__body" style="background-color:#eee;">
+    <p>画像とテキストを中央揃え、<code>md</code>から画像を右側に反転させます。</p>
+  </div>
+</div>
+
+<div class="c-flag c-flag--stack-md" style="margin-bottom:1rem;">
+  <div class="c-flag__image"><img src="http://lorempixel.com/150/150/"></div>
+  <div class="c-flag__body" style="background-color:#eee;">
+    <p><code>md</code>未満で横並びから縦にレイアウトさせます。</p>
+  </div>
+</div>
+```
+*/
+$_flag-gutter: $_white-space !default;
+$_flag-gutter-small: ($_flag-gutter / 2) !default;
+$_flag-gutter-large: ($_flag-gutter * 2) !default;
+
+.c-flag {
+  @include _c-flag();
+}
+
+.c-flag__image {
+  @include _c-flag__image($_flag-gutter);
+}
+
+.c-flag__body {
+  @include _c-flag__body();
+}
+
+
+/**
+ * 垂直位置を2つのパリエーションから選択します（デフォルトは`top`）。
+ */
+.c-flag--middle {
+  > .c-flag__image,
+  > .c-flag__body {
+    vertical-align: middle;
+  }
+}
+
+.c-flag--bottom {
+  > .c-flag__image,
+  > .c-flag__body {
+    vertical-align: bottom;
+  }
+}
+
+/**
+ * 要素間の余白を変更します。
+ */
+.c-flag--small {
+  > .c-flag__image {
+    padding-right: $_flag-gutter-small;
+  }
+}
+
+.c-flag--large {
+  > .c-flag__image {
+    padding-right: $_flag-gutter-large;
+  }
+}
+
+/**
+ * 横並びになった要素を右から左の順番でレイアウトされます（right to left）。
+ */
+@include _responsive('.c-flag--reverse') {
+  text-align: left;
+  direction: rtl;
+  > .c-flag__image,
+  > .c-flag__body {
+    text-align: left;
+    direction: ltr;
+  }
+  > .c-flag__image {
+    padding-right: 0;
+    padding-left: $_flag-gutter;
+  }
+  &.c-flag--small > .c-flag__image {
+    padding-right: 0;
+    padding-left: $_flag-gutter-small;
+  }
+  &.c-flag--large > .c-flag__image {
+    padding-right: 0;
+    padding-left: $_flag-gutter-large;
+  }
+}
+
+/**
+ * 横並びから縦にレイアウトされます。
+ */
+@include _responsive('.c-flag--stack', $_breakpoint-down) {
+  display: block;
+  > .c-flag__image,
+  > .c-flag__body {
+    width: 100%;
+    display: block;
+  }
+  > .c-flag__image {
+    margin-bottom: $_flag-gutter;
+    padding-right: 0;
+    padding-left: 0;
+  }
+  > .c-flag__image > img {
+    max-width: 100%;
+  }
+  &.c-flag--small > .c-flag__image {
+    margin-bottom: $_flag-gutter-small;
+  }
+  &.c-flag--large > .c-flag__image {
+    margin-bottom: $_flag-gutter-large;
+  }
+}

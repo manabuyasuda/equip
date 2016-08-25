@@ -9,44 +9,31 @@ categories: [component]
 
 画像とテキストを横並びにするオブジェクトです。
 
+`c-flag`オブジェクトと違うのは、縦方向の指定ができないこと、（デフォルトで）テキストが画像に回り込みすることです。
+
 Modifierは以下のとおりです。
 
 * 余白の変更 `--small`, `--large`
-* vertical-alignの変更 `--middle`, `--bottom`
 * 配置を反転 `--reverse`
-* 横並びからブロック `--stack`
-* 横並びからブロックして、配置を反転 `--stack-shift`
 
 HTMLは画像・テキストの順番で記述して、Modifierでレイアウトを変更します。
 
-ブレイクポイントは`reverse`に`min-width`が、`stack`と`stack-shift`は`max-width`が指定されています。
-
 ```block
 <div class="c-media" style="margin-bottom:1rem;">
-  <div class="c-media__image"><img src="http://lorempixel.com/150/150/"></div>
-  <div class="c-media__body" style="background-color:#eee;">
-    <p>画像とテキストを横並びにするオブジェクトです。<br>余白サイズ、垂直方向、要素の配置順の反転の指定ができます。</p>
+  <div class="c-media__image">
+    <img src="https://placehold.jp/150x150.png">
+  </div>
+  <div class="c-media__body">
+    画像・テキストの順番でマークアップします。
   </div>
 </div>
 
-<div class="c-media c-media--middle c-media--reverse-md" style="margin-bottom:1rem;">
-  <div class="c-media__image"><img src="http://lorempixel.com/150/150/"></div>
-  <div class="c-media__body" style="background-color:#eee;">
-    <p>画像とテキストを中央揃え、<code>md</code>から画像を右側に反転させます。</p>
+<div class="c-media c-media--reverse">
+  <div class="c-media__image">
+    <img src="https://placehold.jp/150x150.png">
   </div>
-</div>
-
-<div class="c-media c-media--stack-md" style="margin-bottom:1rem;">
-  <div class="c-media__image"><img src="http://lorempixel.com/150/150/"></div>
-  <div class="c-media__body" style="background-color:#eee;">
-    <p><code>md</code>未満で横並びから縦にレイアウトさせます。</p>
-  </div>
-</div>
-
-<div class="c-media c-media--stack-shift-md" style="margin-bottom:1rem;">
-  <div class="c-media__image"><img src="http://lorempixel.com/150/150/"></div>
-  <div class="c-media__body" style="background-color:#eee;">
-    <p><code>md</code>未満で横並びから縦にレイアウトさせ、テキストを上にします。</p>
+  <div class="c-media__body">
+    画像・テキストの順番でマークアップします。<code>.c-media--reverse</code>を指定すると画像が右側になります。
   </div>
 </div>
 ```
@@ -60,112 +47,41 @@ $_media-gutter-large: ($_media-gutter * 2) !default;
 }
 
 .c-media__image {
-  @include _c-media__image();
+  @include _c-media__image($_media-gutter);
 }
 
 .c-media__body {
-  @include _c-media__body($_media-gutter);
-}
-
-
-/**
- * 垂直位置を2つのパリエーションから選択します（デフォルトは`top`）。
- */
-.c-media--middle {
-  > .c-media__image,
-  > .c-media__body {
-    vertical-align: middle;
-  }
-}
-
-.c-media--bottom {
-  > .c-media__image,
-  > .c-media__body {
-    vertical-align: bottom;
-  }
+  @include _c-media__body();
 }
 
 /**
  * 要素間の余白を変更します。
  */
 .c-media--small {
-  > .c-media__body {
-    padding-left: $_media-gutter-small;
+  > .c-media__image {
+    margin-right: $_media-gutter-small;
   }
 }
 
 .c-media--large {
-  > .c-media__body {
-    padding-left: $_media-gutter-large;
+  > .c-media__image {
+    margin-right: $_media-gutter-large;
   }
 }
 
 /**
- * 横並びになった要素を右から左の順番でレイアウトされます（right to left）。
+ * 横並びになった要素を右から左の順番でレイアウトします。
  */
 @include _responsive('.c-media--reverse') {
-  text-align: left;
-  direction: rtl;
-  > .c-media__image,
-  > .c-media__body {
-    text-align: left;
-    direction: ltr;
-  }
-  > .c-media__body {
-    padding-left: 0;
-    padding-right: $_media-gutter;
-  }
-  &.c-media--small > .c-media__body {
-    padding-left: 0;
-    padding-right: $_media-gutter-small;
-  }
-  &.c-media--large > .c-media__body {
-    padding-left: 0;
-    padding-right: $_media-gutter-large;
-  }
-}
-
-/**
- * 横並びから縦にレイアウトされます。
- */
-@include _responsive('.c-media--stack', $_breakpoint-down) {
-  > .c-media__image,
-  > .c-media__body {
-    display: block;
-  }
-  > .c-media__body {
-    padding: $_media-gutter 0 0;
-  }
-  > .c-media__image > img {
-    margin: auto;
-  }
-  &.c-media--small > .c-media__body {
-    padding: $_media-gutter-small 0 0;
-  }
-  &.c-media--large > .c-media__body {
-    padding: $_media-gutter-large 0 0;
-  }
-}
-
-/**
- * 横並びから縦にレイアウトされ、テキストが上になります。
- */
-@include _responsive('.c-media--stack-shift', $_breakpoint-down) {
   > .c-media__image {
-    /* 要素の順番を最後に変更する。 */
-    display: table-footer-group;
+    float: right;
+    margin-right: 0;
+    margin-left: $_media-gutter;
   }
-  > .c-media__body {
-    display: block;
-    padding: 0 0 $_media-gutter;
+  &.c-media--small > .c-media__image {
+    margin-left: $_media-gutter-small;
   }
-  > .c-media__image > img {
-    margin: 0 auto;
-  }
-  &.c-media--small > .c-media__body {
-    padding: 0 0 $_media-gutter-small;
-  }
-  &.c-media--large > .c-media__body {
-    padding: 0 0 $_media-gutter-large;
+  &.c-media--large > .c-media__image {
+    margin-left: $_media-gutter-large;
   }
 }

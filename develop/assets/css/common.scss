@@ -27,6 +27,7 @@
  * sr-only...非表示にしてスクリーンリーダーにだけ読み上げさせます。
  * layout...layoutオブジェクトのベーススタイルです。
  * media...mediaオブジェクトのベーススタイルです。
+ * flag...flagオブジェクトのベーススタイルです。
  * list-unstyled...list-unstyledオブジェクトのベーススタイルです。
  * ratio...アスペクト比を固定したまま伸縮させます。
  *
@@ -45,7 +46,8 @@
  * COMPONENT
  * wrapper...最大幅を指定します。
  * layout...汎用的なレイアウトオブジェクトです。グリッドレイアウトなどに使用できます。
- * media...画像とテキストが横並びになるオブジェクトです。
+ * media...画像とテキストが横並びになるオブジェクトです。テキストを画像に回り込みさせます。
+ * flag...画像とテキストが横並びになるオブジェクトです。縦方向の指定ができます。
  * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
  * list-ordered...番号付きリストを入れ子レベルに応じて、1, 1.1のように区切り文字を付け加えます。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
@@ -113,6 +115,7 @@
 @import "foundation/mixin/_sr-only";
 @import "foundation/mixin/_layout";
 @import "foundation/mixin/_media";
+@import "foundation/mixin/_flag";
 @import "foundation/mixin/_list-unstyled";
 @import "foundation/mixin/_ratio";
 
@@ -173,6 +176,7 @@
 @import "object/component/_wrapper";
 @import "object/component/_layout";
 @import "object/component/_media";
+@import "object/component/_flag";
 @import "object/component/_list-unstyled";
 @import "object/component/_list-ordered";
 @import "object/component/_embed";

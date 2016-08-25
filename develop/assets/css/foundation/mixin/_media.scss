@@ -1,28 +1,27 @@
 @mixin _c-media() {
-  display: table;
-  width: 100%;
+  display: block;
   margin: 0;
   padding: 0;
+  @include _clearfix;
 }
 
-@mixin _c-media__image {
-  display: table-cell;
-  width: 1px;
+// @param $gutter - 画像とテキストの間の余白を指定します。
+@mixin _c-media__image($gutter) {
+  float: left;
   margin: 0;
+  margin-right: $gutter;
   padding: 0;
-  vertical-align: top;
   > img {
-    max-width: none;
+    display: block;
   }
 }
 
-@mixin _c-media__body($gutter) {
-  display: table-cell;
-  width: auto;
+// @param $overflow(null) - テキストを画像に回り込みさせる場合は`hidden`を指定します。
+@mixin _c-media__body($overflow: null) {
+  display: block;
   margin: 0;
   padding: 0;
-  padding-left: $gutter;
-  vertical-align: top;
+  overflow: $overflow;
   & > :last-child {
     margin-bottom: 0;
   }

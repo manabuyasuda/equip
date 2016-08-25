@@ -1,0 +1,30 @@
+@mixin _c-flag() {
+  display: table;
+  width: 100%;
+  margin: 0;
+  padding: 0;
+}
+
+// @param $gutter - 画像とテキストの間の余白を指定します。
+@mixin _c-flag__image($gutter) {
+  display: table-cell;
+  width: 1px;
+  margin: 0;
+  padding: 0;
+  padding-right: $gutter;
+  vertical-align: top;
+  > img {
+    max-width: none;
+  }
+}
+
+@mixin _c-flag__body() {
+  display: table-cell;
+  width: auto;
+  margin: 0;
+  padding: 0;
+  vertical-align: top;
+  & > :last-child {
+    margin-bottom: 0;
+  }
+}
