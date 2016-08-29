@@ -1,0 +1,38 @@
+@mixin _p-box() {
+  display: block;
+  @include _clearfix;
+}
+
+@mixin _p-box__image($margin-bottom: null) {
+  position: relative;
+  display: block;
+  margin-bottom: $margin-bottom;
+  > img {
+    width: 100%;
+    max-width: none;
+  }
+}
+
+@mixin _p-box__labels() {
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding-left: 0;
+  list-style-type: none;
+  @include _clearfix;
+}
+
+@mixin _p-box__label() {
+  float: left;
+}
+
+@mixin _p-box__content($padding: 0) {
+  display: block;
+  padding: $padding;
+  > :first-child {
+    margin-top: 0;
+  }
+  > :last-child {
+    margin-bottom: 0;
+  }
+}

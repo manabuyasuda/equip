@@ -29,7 +29,8 @@
  * media...mediaオブジェクトのベーススタイルです。
  * flag...flagオブジェクトのベーススタイルです。
  * list-unstyled...list-unstyledオブジェクトのベーススタイルです。
- * ratio...アスペクト比を固定したまま伸縮させます。
+ * ratio...ratioオブジェクトのベーススタイルです。
+ * box...boxオブジェクトのベーススタイルです。
  *
  * BASE
  * normalize...Normalize.cssをインポートしています。
@@ -61,6 +62,7 @@
  * breadcrumb...パンくずリストコンポーネントです。
  * label...インラインのラベルコンポーネントです。
  * badge...投稿数のような数値を表示するバッジコンポーネントです。
+ * box...画像やテキストなどを縦に並べるコンポーネントです。
  * card...カードタイプのコンポーネントです。
  * split...定義リストをブロックからインラインにするコンポーネントです。
  *
@@ -118,6 +120,7 @@
 @import "foundation/mixin/_flag";
 @import "foundation/mixin/_list-unstyled";
 @import "foundation/mixin/_ratio";
+@import "foundation/mixin/_box";
 
 /**
  * Foundationレイヤーでは`html`や`body`のような広範囲にわたるベーススタイル、
@@ -198,6 +201,7 @@
 @import "object/project/_breadcrumb";
 @import "object/project/_label";
 @import "object/project/_badge";
+@import "object/project/_box";
 @import "object/project/_card";
 @import "object/project/_split";
 
