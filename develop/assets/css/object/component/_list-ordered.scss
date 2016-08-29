@@ -29,31 +29,19 @@ categories: [component]
 /* ul */
 .c-list-ordered {
   @include _c-list-unstyled();
-  display: table;
   counter-reset: ordered;
 }
 
 /* li */
-.c-list-ordered__item {
-  display: table-row;
-  counter-increment: ordered;
-}
-
 .c-list-ordered__item:before {
-  display: table-cell;
-  padding-right: 0.5em;
-  text-align: right;
+  counter-increment: ordered;
   content: counters(ordered, ".") " ";
-}
-
-.c-list-ordered__item:after {
-  content: "";
-  display: block;
-  text-align: right;
+  padding-right: 0.5em;
 }
 
 /* li > ul */
 .c-list-ordered__items {
-  @include _c-list-unstyled();
+  padding-left: 1em;
+  list-style-type: none;
   counter-reset: ordered;
 }
