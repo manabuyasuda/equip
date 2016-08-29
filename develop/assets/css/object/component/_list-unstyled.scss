@@ -34,5 +34,7 @@ categories: [component]
 
 /* li > ul, li > ol */
 .c-list-unstyled__items {
+  margin-left: 1em;
+  text-indent: -1em;
   list-style-position: inside;
 }
