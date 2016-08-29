@@ -29,6 +29,7 @@
  * media...mediaオブジェクトのベーススタイルです。
  * flag...flagオブジェクトのベーススタイルです。
  * list-unstyled...list-unstyledオブジェクトのベーススタイルです。
+ * list-mark...list-markオブジェクトのベーススタイルです。
  * ratio...ratioオブジェクトのベーススタイルです。
  * box...boxオブジェクトのベーススタイルです。
  *
@@ -51,6 +52,7 @@
  * flag...画像とテキストが横並びになるオブジェクトです。縦方向の指定ができます。
  * list-unstyled...`<ul>`と`<ol>`でデフォルトスタイルをリセットします。
  * list-ordered...番号付きリストを入れ子レベルに応じて、1, 1.1のように区切り文字を付け加えます。
+ * list-mark...リストアイテムの左にアイコンを配置します。
  * embed...Youtubeなどをアスペクト比を固定してレスポンシブ対応させる場合に使用します。
  * ratio...アスペクト比を固定したまま伸縮させます。
  * table...tableのレイアウトアルゴリズムの変更、余白の変更をします。
@@ -119,6 +121,7 @@
 @import "foundation/mixin/_media";
 @import "foundation/mixin/_flag";
 @import "foundation/mixin/_list-unstyled";
+@import "foundation/mixin/_list-mark";
 @import "foundation/mixin/_ratio";
 @import "foundation/mixin/_box";
 
@@ -182,6 +185,7 @@
 @import "object/component/_flag";
 @import "object/component/_list-unstyled";
 @import "object/component/_list-ordered";
+@import "object/component/_list-mark";
 @import "object/component/_embed";
 @import "object/component/_ratio";
 @import "object/component/_table";

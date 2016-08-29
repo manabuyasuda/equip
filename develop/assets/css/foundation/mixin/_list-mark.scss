@@ -1,0 +1,19 @@
+@mixin _c-list-mark() {
+  display: table;
+  @include _c-list-unstyled();
+}
+
+@mixin _c-list-mark__item() {
+  display: table-row;
+}
+
+@mixin _c-list-mark__icon($padding-right: 0.25em) {
+  display: table-cell;
+  width: 1em;
+  padding-right: $padding-right;
+  text-align: right;
+}
+
+@mixin _c-list-mark__items() {
+  @include _c-list-unstyled();
+}
