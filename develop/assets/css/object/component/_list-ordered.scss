@@ -28,20 +28,25 @@ categories: [component]
 */
 /* ul */
 .c-list-ordered {
+  display: table;
   @include _c-list-unstyled();
-  counter-reset: ordered;
 }
 
-/* li */
-.c-list-ordered__item:before {
+/* ul > li */
+.c-list-ordered__item {
+  display: table-row;
   counter-increment: ordered;
+}
+
+.c-list-ordered__item:before {
   content: counters(ordered, ".") " ";
+  display: table-cell;
   padding-right: 0.5em;
+  text-align: right;
 }
 
 /* li > ul */
 .c-list-ordered__items {
-  padding-left: 1em;
-  list-style-type: none;
   counter-reset: ordered;
+  @include _c-list-unstyled();
 }
