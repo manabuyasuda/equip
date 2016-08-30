@@ -13,7 +13,7 @@ categories: [component]
 <ul class="c-list-mark">
   <li class="c-list-mark__item"><span class="c-list-mark__icon p-icon p-icon--home" aria-hidden="true"></span>リスト1
   <ul class="c-list-mark__items">
-    <li class="c-list-mark__item"><span class="c-list-mark__icon p-icon p-icon--home" aria-hidden="true"></span>リスト1.1
+    <li class="c-list-mark__item"><span class="c-list-mark__icon c-list-mark__icon--small p-icon p-icon--home" aria-hidden="true"></span>リスト1.1
     </li>
     <li class="c-list-mark__item"><span class="c-list-mark__icon"></span>リスト1.2</li>
   </ul>
@@ -38,4 +38,20 @@ categories: [component]
 /* li > ul */
 .c-list-mark__items {
   @include _c-list-mark__items();
+}
+
+.c-list-mark__icon--small {
+  $size: 0.8em;
+  width: $size;
+  &:before {
+    font-size: $size;
+  }
+}
+
+.c-list-mark__icon--large {
+  $size: 1.2em;
+  width: $size;
+  &:before {
+    font-size: $size;
+  }
 }
