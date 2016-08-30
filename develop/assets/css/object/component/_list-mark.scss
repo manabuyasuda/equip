@@ -8,6 +8,12 @@ categories: [component]
 ---
 
 リストアイテムの左にアイコンを配置します。`.p-icon`で任意のアイコンを表示させます。
+複数行になった場合はテキストの位置で左揃えになります。
+
+アイコンのサイズは以下のmodifierで変更できます。
+
+- `.c-list-mark__icon--small`
+- `.c-list-mark__icon--large`
 
 ```block
 <ul class="c-list-mark">
