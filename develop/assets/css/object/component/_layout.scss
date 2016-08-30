@@ -13,8 +13,8 @@ Modifierは以下のとおりです。
 
 * ガターの追加 `--small`, `--medium`, `--large`
 * text-alignの変更 `--middle`, `--bottom`
-* 配置を反転 `--rev`
-* `.c-layout__item`のカラム幅をまとめて指定 `--colx`
+* 配置を反転 `--reverse`
+* `.c-layout__item`のカラム幅をまとめて指定 `--colx`, `--colxandx`
 
 ```block
 <div class="c-wrapper">
@@ -23,7 +23,7 @@ Modifierは以下のとおりです。
     <div class="c-layout__item u-4of12-md"><div style="background-color:lightblue;">c-layout__item u-4of12-md</div></div>
   </div>
 
-  <div class="c-layout c-layout--rev c-layout--medium" style="margin-bottom:1rem;">
+  <div class="c-layout c-layout--reverse c-layout--medium" style="margin-bottom:1rem;">
     <div class="c-layout__item u-8of12-md"><div style="background-color:lightblue;">c-layout--rev c-layout__item u-8of12-md</div></div>
     <div class="c-layout__item u-4of12-md"><div style="background-color:lightblue;">c-layout--rev c-layout__item u-4of12-md</div></div>
   </div>
@@ -36,6 +36,11 @@ Modifierは以下のとおりです。
     <div class="c-layout__item"><div style="background-color:lightblue;">c-layout__item c-layout--col2-sm c-layout--col3-md</div></div>
     <div class="c-layout__item"><div style="background-color:lightblue;">c-layout__item c-layout--col2-sm c-layout--col3-md</div></div>
     <div class="c-layout__item"><div style="background-color:lightblue;">c-layout__item c-layout--col2-sm c-layout--col3-md</div></div>
+  </div>
+
+  <div class="c-layout c-layout--col4and8" style="margin-bottom:1rem;">
+    <div class="c-layout__item"><div style="background-color:lightblue;">c-layout__item u-8of12-md</div></div>
+    <div class="c-layout__item"><div style="background-color:lightblue;">c-layout__item u-4of12-md</div></div>
   </div>
 </div>
 ```
@@ -132,10 +137,46 @@ $_layout-gutter-large: ($_layout-gutter * 2) !default;
   }
 }
 
+@include _responsive('.c-layout--col2and10') {
+  > .c-layout__item:nth-child(odd) {
+    width: percentage(2 / 12);
+  }
+  > .c-layout__item:nth-child(even) {
+    width: percentage(10 / 12);
+  }
+}
+
+@include _responsive('.c-layout--col3and9') {
+  > .c-layout__item:nth-child(odd) {
+    width: percentage(3 / 12);
+  }
+  > .c-layout__item:nth-child(even) {
+    width: percentage(9 / 12);
+  }
+}
+
+@include _responsive('.c-layout--col4and8') {
+  > .c-layout__item:nth-child(odd) {
+    width: percentage(4 / 12);
+  }
+  > .c-layout__item:nth-child(even) {
+    width: percentage(8 / 12);
+  }
+}
+
+@include _responsive('.c-layout--col5and7') {
+  > .c-layout__item:nth-child(odd) {
+    width: percentage(5 / 12);
+  }
+  > .c-layout__item:nth-child(even) {
+    width: percentage(7 / 12);
+  }
+}
+
 /**
  * 要素を右から配置させます（HTMLの記述を反転させた状態でレイアウトされます）。
  */
-@include _responsive('.c-layout--rev') {
+@include _responsive('.c-layout--reverse') {
   text-align: left;
   direction: rtl;
   > .c-layout__item {
