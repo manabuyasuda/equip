@@ -1,0 +1,36 @@
+ /* #Align
+   -------------------------------------------------------------------------- */
+/*doc
+---
+title: align
+name: align
+categories: [utility]
+---
+
+画像などを左右や中央に配置します。
+
+```block
+<div class="c-wrapper">
+  <img src="http://lorempixel.com/150/150/">
+  <img src="http://lorempixel.com/150/150/" class="u-align-center">
+  <img src="http://lorempixel.com/150/150/" class="u-align-right">
+</div>
+```
+*/
+.u-align-left {
+  display: block !important;
+  margin-left: 0 !important;
+  margin-right: auto !important;
+}
+
+.u-align-center {
+  display: block !important;
+  margin-right: auto !important;
+  margin-left: auto !important;
+}
+
+.u-align-right {
+  display: block !important;
+  margin-left: auto !important;
+  margin-right: 0 !important;
+}

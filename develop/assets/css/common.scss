@@ -73,7 +73,7 @@
  *
  * UTILITY
  * text...テキストのスタイルに関する汎用クラスです。
- * image...画像のレイアウトに関する汎用クラスです。
+ * align...画像などを中央や右側に配置します。
  * margin...マージンで余白の管理をします。常に下方向にだけ余白をとります。
  * display...要素の表示や改行をコントロールする場合に使用します。
  * width...おもにグリッドで使用する`width`を指定する汎用クラスです。
@@ -236,7 +236,7 @@
  * プレフィックス（接頭辞）として`u-`をつけます。
  */
 @import "object/utility/_text";
-@import "object/utility/_image";
+@import "object/utility/_align";
 @import "object/utility/_margin";
 @import "object/utility/_display";
 @import "object/utility/_width";
