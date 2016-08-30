@@ -66,7 +66,6 @@
  * badge...投稿数のような数値を表示するバッジコンポーネントです。
  * box...画像やテキストなどを縦に並べるコンポーネントです。
  * card...カードタイプのコンポーネントです。
- * split...定義リストをブロックからインラインにするコンポーネントです。
  *
  * SCOPE
  * blog...ブログページのスタイルです。
@@ -207,7 +206,6 @@
 @import "object/project/_badge";
 @import "object/project/_box";
 @import "object/project/_card";
-@import "object/project/_split";
 
 /* -----------------------------------------------------------------------------
    #Scope
