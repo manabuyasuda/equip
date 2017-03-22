@@ -30,26 +30,33 @@ var hologram = require('gulp-hologram');
  */
 var develop = {
   'root': 'develop/',
-  'ejs': ['develop/**/*.ejs', '!' + 'develop/**/_*.ejs'],
+  'ejs': ['develop/**/*.ejs', '!develop/**/_*.ejs'],
   'data': 'develop/assets/data/',
   'sass': 'develop/**/*.scss',
   'minifyCss': 'develop/assets/css/*.scss',
-  'js': ['develop/**/*.js', '!' + 'develop/assets/js/bundle/**/*.js'],
+  'js': ['develop/**/*.js', '!develop/assets/js/bundle/**/*.js'],
   'bundleJs': 'develop/assets/js/bundle/**/*.js',
-  'image': ['develop/**/*.{png,jpg,gif,svg}', '!' + 'develop/assets/icon/*.svg', '!' + 'develop/assets/font/*.svg'],
+  'image': ['develop/**/*.{png,jpg,gif,svg}', '!develop/assets/icon/*.svg', '!develop/assets/font/*.svg'],
   'iconfont': 'develop/assets/icon/*.svg'
-}
+};
 
 /**
- * 公開用のリリースパス。ディレクトリ名はプロジェクトにあわせて変更します。
+ * テスト用のパス。
  */
-var release = {
-  'root': 'release/',
-  'html': 'release/',
-  'minifyCss': 'release/assets/css/',
-  'bundleJs': 'release/assets/js/bundle/',
+var test = {
+  'root': 'test/',
+  'html': 'test/',
+  'minifyCss': 'test/assets/css/',
+  'bundleJs': 'test/assets/js/bundle/',
   'iconfont': 'develop/assets/font/'
-}
+};
+
+/**
+ * 本番公開用ファイルを出力するパス。
+ */
+var htdocs = {
+  'root': 'htdocs/'
+};
 
 var AUTOPREFIXER_BROWSERS = [
   // @see https://github.com/ai/browserslist#browsers
@@ -59,12 +66,12 @@ var AUTOPREFIXER_BROWSERS = [
   // 'Firefox >= 30', // Firefox30以上
   'ie >= 9', // IE9以上
   // 'Edge >= 12', // Edge12以上
-  'iOS >= 7', // iOS7以上
+  'iOS >= 8', // iOS8以上
   // 'Opera >= 23', // Opera23以上
   // 'Safari >= 7', // Safari7以上
 
   // Other（Androidなどのマイナーなデバイスの指定）
-  'Android >= 4.0' // Android4.0以上
+  'Android >= 4.4' // Android4.4以上
 ];
 
 /**
@@ -80,7 +87,7 @@ gulp.task('ejs', function() {
     {ext: '.html'}
   ))
   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
-  .pipe(gulp.dest(release.html))
+  .pipe(gulp.dest(test.root))
   .pipe(browserSync.reload({stream: true}));
 });
 
@@ -98,7 +105,7 @@ gulp.task('sass', function(){
   }))
   .pipe(csscomb())
   .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(release.root))
+  .pipe(gulp.dest(test.root))
   .pipe(browserSync.reload({stream: true}));
 });
 
@@ -116,7 +123,7 @@ gulp.task('minifyCss', function(){
   .pipe(rename({suffix: '.min'}))
   .pipe(cleanCss())
   .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(release.minifyCss));
+  .pipe(gulp.dest(test.minifyCss));
 });
 
 /**
@@ -124,7 +131,7 @@ gulp.task('minifyCss', function(){
  */
 gulp.task('js', function() {
   return gulp.src(develop.js, {base: develop.root})
-  .pipe(gulp.dest(release.root))
+  .pipe(gulp.dest(test.root))
   .pipe(browserSync.reload({stream: true}));
 });
 
@@ -136,7 +143,7 @@ gulp.task('bundleJs', function() {
   .pipe(sourcemaps.init())
   .pipe(concat('bundle.js'))
   .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(release.bundleJs))
+  .pipe(gulp.dest(test.bundleJs))
   .pipe(browserSync.reload({stream: true}));
 });
 
@@ -154,7 +161,7 @@ gulp.task('image', function() {
     // PNGファイルの圧縮率（7が最高）を指定します。
     optimizationLevel: 7
   }))
-  .pipe(gulp.dest(release.root))
+  .pipe(gulp.dest(test.root))
   .pipe(browserSync.reload({stream: true}));
 });
 
@@ -182,12 +189,12 @@ gulp.task('createIconfont', function(){
       // normalize: true,
       // fontHeight: 500
     }))
-    .pipe(gulp.dest(release.iconfont));
+    .pipe(gulp.dest(test.iconfont));
 });
 
 gulp.task('copyIconfont', function() {
   return gulp.src('develop/assets/font/*.{woff,eot,svg,ttf}')
-    .pipe(gulp.dest('release/assets/font/'));
+    .pipe(gulp.dest('test/assets/font/'));
 });
 
 gulp.task('iconfont', function() {
@@ -210,12 +217,19 @@ gulp.task('styleguide', function() {
 /**
  * リリースディレクトリを削除します。
  */
-gulp.task('clean', function (cb) {
-  rimraf(release.root, cb);
+gulp.task('cleanTest', function (cb) {
+  rimraf(test.root, cb);
 });
 
 /**
- * 一連のタスクを処理します（画像の圧縮は`release`タスクでおこないます）。
+ * リリースディレクトリを削除します。
+ */
+gulp.task('cleanHtdocs', function (cb) {
+  rimraf(htdocs.root, cb);
+});
+
+/**
+ * 一連のタスクを処理します（画像の圧縮は`test`タスクでおこないます）。
  */
 gulp.task('build', ['ejs', 'sass', 'js', 'bundleJs', 'image', 'iconfont']);
 
@@ -237,7 +251,7 @@ gulp.task('watch', ['build'],function() {
 gulp.task('browser-sync', function() {
   browserSync({
     server: {
-      baseDir: release.root,
+      baseDir: test.root,
       index: "index.html"
     }
   });
@@ -248,7 +262,7 @@ gulp.task('browser-sync', function() {
  * `gulp`タスクにbrowser-syncを追加します。
  * ローカルサーバーを起動し、リアルタイムに更新を反映させます。
  */
-gulp.task('default', ['clean'], function() {
+gulp.task('default', ['cleanTest'], function() {
   runSequence(
     'watch',
     'browser-sync'
@@ -259,8 +273,7 @@ gulp.task('default', ['clean'], function() {
  * リリースに使用するタスクです。
  * リリースディレクトリを最新の状態にしてから、ファイルの圧縮をします。
  */
-gulp.task('release', ['clean'], function() {
-  runSequence(
-    ['ejs', 'sass', 'minifyCss', 'js', 'bundleJs', 'image', 'iconfont']
-  )
+gulp.task('htdocs', ['cleanHtdocs'], function() {
+  return gulp.src(test.root + '**/*')
+  .pipe(gulp.dest(htdocs.root));
 });
