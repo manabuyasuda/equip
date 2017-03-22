@@ -14,19 +14,19 @@ tag: Icon
 ```
 */
 @font-face {
-  font-family: "<%= fontName %>";
-  src: url('<%= fontPath %><%= fontName %>.eot');
-  src: url('<%= fontPath %><%= fontName %>.eot?#iefix') format('eot'),
-    url('<%= fontPath %><%= fontName %>.woff') format('woff'),
-    url('<%= fontPath %><%= fontName %>.ttf') format('truetype'),
-    url('<%= fontPath %><%= fontName %>.svg#<%= fontName %>') format('svg');
+  font-family: "iconfont";
+  src: url('../font/iconfont.eot');
+  src: url('../font/iconfont.eot?#iefix') format('eot'),
+    url('../font/iconfont.woff') format('woff'),
+    url('../font/iconfont.ttf') format('truetype'),
+    url('../font/iconfont.svg#iconfont') format('svg');
   font-weight: normal;
   font-style: normal;
 }
 
 // アイコンフォントのベーススタイル
 @mixin icon {
-  font-family: "<%= fontName %>";
+  font-family: "iconfont";
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
   position: relative;
@@ -48,8 +48,11 @@ tag: Icon
 
 @function icon-char($filename) {
   $char: "";
-<% _.each(glyphs, function(glyph) { %>
-  @if $filename == <%= glyph.fileName %> { $char: "\<%= glyph.codePoint %>"; }<% }); %>
+
+  @if $filename == LinkDownload { $char: "\E001"; }
+  @if $filename == LinkExternal { $char: "\E002"; }
+  @if $filename == LinkMore { $char: "\E003"; }
+  @if $filename == LinkPdf { $char: "\E004"; }
 
   @return $char;
 }
@@ -58,5 +61,7 @@ tag: Icon
   & { content: icon-char($filename); }
 }
 
-<% _.each(glyphs, function(glyph) { %>.sw-Icon-<%= glyph.fileName %>:before { @include icon-name(<%= glyph.fileName %>); }
-<% }); %>
+.sw-Icon-LinkDownload:before { @include icon-name(LinkDownload); }
+.sw-Icon-LinkExternal:before { @include icon-name(LinkExternal); }
+.sw-Icon-LinkMore:before { @include icon-name(LinkMore); }
+.sw-Icon-LinkPdf:before { @include icon-name(LinkPdf); }

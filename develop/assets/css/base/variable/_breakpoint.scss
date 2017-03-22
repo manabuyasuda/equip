@@ -1,0 +1,11 @@
+// min-width
+$breakpoint-up: (
+  'md': '(min-width: 768px)',
+  'lg': '(min-width: 1080px)',
+) !default;
+
+// max-width
+$breakpoint-down: (
+  'md': '(max-width: 767px)',
+  'lg': '(max-width: 1079px)',
+) !default;

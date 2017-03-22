@@ -1,0 +1,19 @@
+ /* #Label
+   -------------------------------------------------------------------------- */
+.sw-Label {
+  display: inline-block;
+  padding: 0.5em 1em;
+  color: #fff;
+  font-size: rem(10);
+  line-height: 1;
+  text-align: center;
+  white-space: nowrap;
+  text-decoration: none;
+  background-color: inherit;
+  border: 1px solid transparent;
+
+  &:--onEvent {
+    color: #fff;
+    text-decoration: none;
+  }
+}

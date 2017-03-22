@@ -1,0 +1,25 @@
+ /* #ListNoteOrder
+   -------------------------------------------------------------------------- */
+.sw-ListNoteOrder {
+  padding-left: 0;
+  list-style-type: none;
+
+  li {
+    counter-increment: noteOrder;
+    font-size: $font-size-secondary;
+  }
+
+  & > li:target {
+    background-color: lightgray;
+  }
+
+  & > li:before {
+    content: "※" counter(noteOrder);
+    margin-right: 0.25em;
+  }
+
+  [lang="en"] & > li:before,
+  [lang="zh-cn"] & > li:before {
+    content: "*" counter(noteOrder);
+  }
+}

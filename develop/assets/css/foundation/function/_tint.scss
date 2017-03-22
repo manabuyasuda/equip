@@ -1,6 +1,0 @@
-// @desc - 白色を加えて明度を明るくします。
-// @param {String}
-// @example - _tint(blue, 50%) => #8080ff
-@function _tint($color, $percent) {
-  @return mix(#fff, $color, $percent);
-}

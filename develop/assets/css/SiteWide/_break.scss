@@ -1,0 +1,17 @@
+ /* #Break
+   -------------------------------------------------------------------------- */
+.sw-Break {
+  display: none;
+}
+
+.sw-Break-md {
+  @include mq-up(md) {
+    display: none;
+  }
+}
+
+.sw-Break-lg {
+  @include mq-up(lg) {
+    display: none;
+  }
+}

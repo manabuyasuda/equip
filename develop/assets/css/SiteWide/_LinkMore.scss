@@ -1,0 +1,19 @@
+ /* #LinkMore
+   -------------------------------------------------------------------------- */
+.sw-LinkMore {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-link-hover;
+    text-decoration: underline;
+  }
+}
+
+.sw-LinkMore__icon:after {
+  @include icon;
+  @include icon-name(LinkMore);
+  top: -0.1em;
+  left: 0.25em;
+  font-size: 0.8em;
+}

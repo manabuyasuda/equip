@@ -1,0 +1,19 @@
+ /* #LinkPdf
+   -------------------------------------------------------------------------- */
+.sw-LinkPdf {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-link-hover;
+    text-decoration: underline;
+  }
+}
+
+.sw-LinkPdf__icon:after {
+  @include icon;
+  @include icon-name(LinkPdf);
+  top: -0.2em;
+  left: 0.25em;
+  font-size: 1.25em;
+}

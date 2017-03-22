@@ -1,0 +1,15 @@
+ /* #ListBracketOrder
+   -------------------------------------------------------------------------- */
+.sw-ListBracketOrder {
+  padding-left: 0;
+  list-style-type: none;
+
+  li {
+    counter-increment: bracketOrder;
+  }
+
+  li:before {
+    content: "(" counter(bracketOrder) ")";
+    margin-right: 0.25em;
+  }
+}

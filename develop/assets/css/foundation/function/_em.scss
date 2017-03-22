@@ -1,7 +1,0 @@
-// @desc - pxをemに変換します。
-// @param {Number} $self - 指定したいpx。
-// @param {Number} $parent - 基準となるpx。
-// @example - _em(15px, 30px) => 0.5em
-@function _em($self, $parent) {
-  @return ($self / $parent) * 1em;
-}

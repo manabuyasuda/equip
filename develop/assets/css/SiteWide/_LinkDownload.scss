@@ -1,0 +1,19 @@
+ /* #LinkDownload
+   -------------------------------------------------------------------------- */
+.sw-LinkDownload {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-link-hover;
+    text-decoration: underline;
+  }
+}
+
+.sw-LinkDownload__icon:after {
+  @include icon;
+  @include icon-name(LinkDownload);
+  top: -0.2em;
+  left: 0.25em;
+  font-size: 1.25em;
+}

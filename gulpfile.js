@@ -9,6 +9,8 @@ var sass = require('gulp-sass')
 var autoprefixer = require('gulp-autoprefixer');
 var csscomb = require('gulp-csscomb');
 var cleanCss = require('gulp-clean-css')
+var sassGlob = require('gulp-sass-glob');
+
 // Image
 var imagemin = require('gulp-imagemin');
 // Iconfont
@@ -99,6 +101,7 @@ gulp.task('html', function() {
  */
 gulp.task('css', function(){
   return gulp.src(develop.css, {base: develop.root})
+  .pipe(sassGlob())
   .pipe(sourcemaps.init())
   .pipe(sass().on('error', sass.logError))
   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -180,7 +183,7 @@ gulp.task('createIconfont', function(){
     .pipe(iconfontCss({
       fontName: fontName, // 生成されるフォントの名前（iconfontと同じにするため変数化）
       path: 'develop/assets/icon/template/_icon.scss',  // アイコンフォント用CSSのテンプレートファイル
-      targetPath: '../css/object/project/_icon.scss',  // scssファイルを出力するパス（gulp.destの出力先からみた相対パス）
+      targetPath: '../css/SiteWide/_Icon.scss',  // scssファイルを出力するパス（gulp.destの出力先からみた相対パス）
       fontPath: '../font/' // 最終的に出力されるCSSからみた、フォントファイルまでの相対パス
     }))
     .pipe(iconfont({
@@ -205,7 +208,6 @@ gulp.task('iconfont', function() {
     'copyIconfont'
   )
 });
-
 
 /**
  * スタイルガイドを生成します。
@@ -244,7 +246,7 @@ gulp.task('watch', ['build'],function() {
   gulp.watch(develop.bundleJs, ['bundleJs']);
   gulp.watch(develop.image, ['image']);
   gulp.watch(develop.iconfont, ['iconfont']);
-  gulp.watch(develop.cssWatch, ['styleguide']);
+  gulp.watch(develop.css, ['styleguide']);
 });
 
 /**

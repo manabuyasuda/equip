@@ -1,0 +1,31 @@
+ /* #Button
+   -------------------------------------------------------------------------- */
+.sw-Button {
+  display: inline-block;
+  margin: 0;
+  padding: 1em 2em;
+  border: none;
+  border: 1px solid #d0d0d0;
+  color: #fff;
+  font-family: inherit;
+  font-size: 1em;
+  line-height: 1;
+  text-align: center;
+  text-decoration: none;
+  background: transparent;
+  background-color: #fff;
+  cursor: pointer;
+  appearance: none;
+
+  @include on-event() {
+    text-decoration: none;
+  }
+
+  &:focus {
+
+  }
+
+  &:disabled {
+
+  }
+}

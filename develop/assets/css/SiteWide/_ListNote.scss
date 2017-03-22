@@ -1,0 +1,20 @@
+ /* #ListNote
+   -------------------------------------------------------------------------- */
+.sw-ListNote {
+  padding-left: 0;
+  list-style-type: none;
+
+  li {
+    font-size: $font-size-secondary;
+  }
+
+  & > li:before {
+    content: "※";
+    margin-right: 0.5em;
+  }
+
+  [lang="en"] & > li:before,
+  [lang="zh-cn"] & > li:before {
+    content: "*";
+  }
+}

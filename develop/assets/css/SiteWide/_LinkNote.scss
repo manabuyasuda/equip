@@ -1,0 +1,21 @@
+ /* #LinkNote
+   -------------------------------------------------------------------------- */
+.sw-LinkNote {
+  color: $color-link;
+  text-decoration: underline;
+
+  &:hover {
+    color: $color-link-hover;
+    text-decoration: underline;
+  }
+
+  &:before {
+    content: "※";
+    margin-left: 0.25em;
+  }
+
+  [lang^="en"] &:before,
+  [lang^="zh-cn"] &:before {
+    content: "*";
+  }
+}

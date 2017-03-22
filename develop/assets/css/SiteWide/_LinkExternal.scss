@@ -1,0 +1,19 @@
+ /* #LinkExternal
+   -------------------------------------------------------------------------- */
+.sw-LinkExternal {
+  color: $color-link;
+  text-decoration: none;
+
+  &:hover {
+    color: $color-link-hover;
+    text-decoration: underline;
+  }
+}
+
+.sw-LinkExternal__icon:after {
+  @include icon;
+  @include icon-name(LinkExternal);
+  top: -0.15em;
+  left: 0.25em;
+  font-size: 1.25em;
+}
