@@ -25,7 +25,7 @@ var runSequence = require('run-sequence');
 // browser-sync
 var browserSync = require('browser-sync');
 // Styleguide
-var hologram = require('gulp-hologram');
+var aigis = require('gulp-aigis');
 
 
 /**
@@ -36,7 +36,7 @@ var develop = {
   'html': ['develop/**/*.ejs', '!develop/**/_*.ejs'],
   'htmlWatch': ['develop/**/*.ejs', 'develop/assets/data/**/*.json'],
   'data': 'develop/assets/data/',
-  'sass': 'develop/**/*.scss',
+  'css': 'develop/**/*.scss',
   'minifyCss': 'develop/assets/css/*.scss',
   'js': ['develop/**/*.js', '!develop/assets/js/bundle/**/*.js'],
   'bundleJs': 'develop/assets/js/bundle/**/*.js',
@@ -97,8 +97,8 @@ gulp.task('html', function() {
  * `.scss`をコンパイルしてから、リリースディレクトリに出力します。
  * ベンダープレフィックスを付与後、csscombで整形されます。
  */
-gulp.task('sass', function(){
-  return gulp.src(develop.sass, {base: develop.root})
+gulp.task('css', function(){
+  return gulp.src(develop.css, {base: develop.root})
   .pipe(sourcemaps.init())
   .pipe(sass().on('error', sass.logError))
   .pipe(plumber({errorHandler: notify.onError("Error: <%= error.message %>")}))
@@ -208,12 +208,11 @@ gulp.task('iconfont', function() {
 
 
 /**
- * Hologramでスタイルガイドを生成します。
- * 設定はhologram_config.ymlに記述しています。
+ * スタイルガイドを生成します。
  */
 gulp.task('styleguide', function() {
-  gulp.src('hologram/hologram_config.yml')
-  .pipe(hologram({bundler:true}));
+  return gulp.src('./aigis/aigis_config.yml')
+    .pipe(aigis());
 });
 
 /**
@@ -233,18 +232,19 @@ gulp.task('cleanHtdocs', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮は`test`タスクでおこないます）。
  */
-gulp.task('build', ['html', 'sass', 'js', 'bundleJs', 'image', 'iconfont']);
+gulp.task('build', ['html', 'css', 'js', 'bundleJs', 'image', 'iconfont', 'styleguide']);
 
 /**
  * watchタスクを指定します。
  */
 gulp.task('watch', ['build'],function() {
   gulp.watch(develop.htmlWatch, ['html']);
-  gulp.watch(develop.sass, ['sass']);
+  gulp.watch(develop.css, ['css']);
   gulp.watch(develop.js, ['js']);
   gulp.watch(develop.bundleJs, ['bundleJs']);
   gulp.watch(develop.image, ['image']);
   gulp.watch(develop.iconfont, ['iconfont']);
+  gulp.watch(develop.cssWatch, ['styleguide']);
 });
 
 /**
