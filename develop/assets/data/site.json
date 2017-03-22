@@ -1,18 +1,12 @@
 {
-  "name": "サイトのタイトル",
-  "description": "サイトの概要",
-  "keywords": "サイトのキーワード1, サイトのキーワード2",
-  "author": "",
+  "name": "Site Title",
+  "description": "Site Description",
+  "keywords": "Site Keyword1, Site Keyword2",
   "rootUrl": "http://example.com/",
-  "css": ".css",
-  "ogpImage": "http://example.com/images/og-image.jpg",
+  "ogpImage": "http://example.com/ogp-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",
   "twitterCard": "summary",
   "twitterSite": "@",
-  "favicon": "",
-  "appleIcon": "",
-  "appTitle": "",
-  "analyticsId": "",
   "developDir": "develop/"
 }

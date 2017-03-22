@@ -1,4 +1,3 @@
-<% if (typeof modifier === undefined) { var modifier = ''; } -%>
 <!DOCTYPE html>
 <html lang="ja">
   <head prefix="og: http://ogp.me/ns# fb: http://ogp.me/ns/fb# <%= page.ogpType %>: http://ogp.me/ns/<%= page.ogpType %>#">
@@ -6,17 +5,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width,initial-scale=1.0">
     <% if(page.title) { %><title><%= page.title %> | <%= site.name %></title><% } else { %><title><%= site.name %></title><% } %>
-    <meta name="description" content="<%= page.description %>"><% if(page.keywords) { %>
-    <meta name="keywords" content="<%= page.keywords %>"><% } %><% if(site.author) { %>
-    <meta name="author" content="<%= site.author %>"><% } %>
+    <meta name="description" content="<%= page.description %>">
+    <meta name="keywords" content="<%= page.keywords %>">
 
-    <link rel="stylesheet" href="<%= page.relativePath %>assets/css/common<%= site.css %>"><% if(page.singleCss) { %><% page.singleCss.forEach(function(data) { %>
-    <link rel="stylesheet" href="<%= data %>"><% }); %><% } %>
+    <link rel="stylesheet" href="/assets/css/common.css">
 
-    <meta name="format-detection" content="telephone=no"><% if(site.favicon) { %>
-    <link rel="shortcut icon" href="<%= site.favicon %>"><% } %><% if(site.appleIcon) { %>
-    <link rel="apple-touch-icon" sizes="180x180" href="<%= site.appleIcon %>"><% } %><% if(site.appTitle) { %>
-    <meta name="apple-mobile-web-app-title" content="<%= site.appTitle %>"><% } %>
+    <meta name="format-detection" content="telephone=no">
 
     <!-- OGP -->
     <meta property="og:title" content="<% if(page.title) { %><%= page.title %> | <%= site.name %><% } else { %><%= site.name %><% } %>">
@@ -32,4 +26,4 @@
     <!-- / OGP -->
 
   </head>
-  <% if(page.bodyClass) { %><body class="<%= page.bodyClass %><%= modifier %>"><% } else { %><body><% } %>
+  <body>

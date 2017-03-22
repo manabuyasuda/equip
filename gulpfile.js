@@ -1,6 +1,9 @@
 var gulp = require('gulp');
+
 // EJS
 var ejs = require("gulp-ejs");
+var fs = require('fs');
+
 // Sass
 var sass = require('gulp-sass')
 var autoprefixer = require('gulp-autoprefixer');
@@ -26,11 +29,12 @@ var hologram = require('gulp-hologram');
 
 
 /**
- * 開発用のデベロップパス。ディレクトリ名はプロジェクトにあわせて変更します。
+ * 開発用のパス。ディレクトリ名はプロジェクトにあわせて変更します。
  */
 var develop = {
   'root': 'develop/',
-  'ejs': ['develop/**/*.ejs', '!develop/**/_*.ejs'],
+  'html': ['develop/**/*.ejs', '!develop/**/_*.ejs'],
+  'htmlWatch': ['develop/**/*.ejs', 'develop/assets/data/**/*.json'],
   'data': 'develop/assets/data/',
   'sass': 'develop/**/*.scss',
   'minifyCss': 'develop/assets/css/*.scss',
@@ -75,14 +79,12 @@ var AUTOPREFIXER_BROWSERS = [
 ];
 
 /**
- * `.ejs`をコンパイルしてから、リリースディレクトリに出力します。
+ * `.ejs`を`.html`にコンパイルします。
  */
-var fs = require('fs');
-gulp.task('ejs', function() {
-  return gulp.src(develop.ejs)
+gulp.task('html', function() {
+  return gulp.src(develop.html)
   .pipe(ejs({
-    site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
-    sample: JSON.parse(fs.readFileSync(develop.data + 'sample.json'))
+    site: JSON.parse(fs.readFileSync(develop.data + 'site.json'))
     },
     {ext: '.html'}
   ))
@@ -231,13 +233,13 @@ gulp.task('cleanHtdocs', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮は`test`タスクでおこないます）。
  */
-gulp.task('build', ['ejs', 'sass', 'js', 'bundleJs', 'image', 'iconfont']);
+gulp.task('build', ['html', 'sass', 'js', 'bundleJs', 'image', 'iconfont']);
 
 /**
  * watchタスクを指定します。
  */
 gulp.task('watch', ['build'],function() {
-  gulp.watch(develop.ejs, ['ejs']);
+  gulp.watch(develop.htmlWatch, ['html']);
   gulp.watch(develop.sass, ['sass']);
   gulp.watch(develop.js, ['js']);
   gulp.watch(develop.bundleJs, ['bundleJs']);

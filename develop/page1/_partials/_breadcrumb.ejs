@@ -1,6 +1,0 @@
-<% if (typeof pageTitle === undefined) { var pageTitle = ''; } -%>
-<% if (typeof modifier === undefined) { var modifier = ''; } -%>
-    <ol class="p-breadcrumb<%= modifier %>">
-      <li class="p-breadcrumb__item"><a href="../" class="p-breadcrumb__link">Home</a></li><% if(pageTitle) { %>
-      <li class="p-breadcrumb__item"><%= pageTitle %></li><% } %>
-    </ol>

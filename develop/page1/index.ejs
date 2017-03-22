@@ -2,10 +2,10 @@
 var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
-  title: "",
-  description: site.description,
-  keywords: site.keywords,
-  ogpType: "website",
+  title: "Page Title",
+  description: "Page Description",
+  keywords: "Page Keyword1, Page Keyword2",
+  ogpType: "article",
   ogpImage: site.ogpImage,
   absolutePath: absolutePath,
   relativePath: relativePath
@@ -14,6 +14,11 @@ var page = {
 <%- include(page.relativePath + '_partials/_head', {page: page}); %>
 <%- include(page.relativePath + '_partials/_header', {page: page}); %>
 
-    <article>contens</article>
+    <ol class="p-breadcrumb">
+      <li class="p-breadcrumb__item"><a href="/" class="p-breadcrumb__link">Home</a></li>
+      <li class="p-breadcrumb__item"><%= page.title %></li>
+    </ol>
+
+    <article>contents</article>
 
 <%- include(page.relativePath + '_partials/_footer', {page: page}); %>
