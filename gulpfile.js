@@ -13,9 +13,11 @@ var sassGlob = require('gulp-sass-glob');
 
 // Image
 var imagemin = require('gulp-imagemin');
+
 // Iconfont
 var iconfont = require('gulp-iconfont');
-var iconfontCss = require('gulp-iconfont-css');
+var consolidate = require('gulp-consolidate');
+
 // Utility
 var rimraf = require('rimraf');
 var rename = require('gulp-rename');
@@ -43,7 +45,7 @@ var develop = {
   'js': ['develop/**/*.js', '!develop/assets/js/bundle/**/*.js'],
   'bundleJs': 'develop/assets/js/bundle/**/*.js',
   'image': ['develop/**/*.{png,jpg,gif,svg}', '!develop/assets/icon/*.svg', '!develop/assets/font/*.svg'],
-  'iconfont': 'develop/assets/icon/*.svg'
+  'iconfont': 'develop/assets/icon/**/*.svg'
 };
 
 /**
@@ -54,7 +56,7 @@ var test = {
   'html': 'test/',
   'minifyCss': 'test/assets/css/',
   'bundleJs': 'test/assets/js/bundle/',
-  'iconfont': 'develop/assets/font/'
+  'iconfont': 'test/assets/font/'
 };
 
 /**
@@ -178,36 +180,37 @@ gulp.task('image', function() {
  * assets/css/object/projectディレクトリに専用のscssファイルが生成されます。
  * フォントファイルはリリースディレクトリにコピーされます。
  */
-gulp.task('createIconfont', function(){
+gulp.task('iconfont', function() {
+  // シンボルフォント名を指定します。
   var fontName = 'iconfont';
   return gulp.src(develop.iconfont)
-    .pipe(iconfontCss({
-      fontName: fontName, // 生成されるフォントの名前（iconfontと同じにするため変数化）
-      path: 'develop/assets/icon/template/_icon.scss',  // アイコンフォント用CSSのテンプレートファイル
-      targetPath: '../css/SiteWide/_Icon.scss',  // scssファイルを出力するパス（gulp.destの出力先からみた相対パス）
-      fontPath: '../font/' // 最終的に出力されるCSSからみた、フォントファイルまでの相対パス
-    }))
-    .pipe(iconfont({
+  .pipe(iconfont({
+    fontName: fontName,
+    formats: ['ttf', 'eot', 'woff', 'svg'],
+    // SVGファイル名にUnicodeを付与します（recommended option）。
+    prependUnicode: false
+  }))
+  .on('glyphs', function(codepoints, opt) {
+    var options = {
+      glyphs: codepoints,
       fontName: fontName,
-      formats: ['ttf', 'eot', 'woff', 'svg'], // 出力するフォントファイルの形式
-      // startUnicode: 0xF001,
-      // appendCodepoints: false
-      // normalize: true,
-      // fontHeight: 500
-    }))
-    .pipe(gulp.dest(test.iconfont));
-});
-
-gulp.task('copyIconfont', function() {
-  return gulp.src('develop/assets/font/*.{woff,eot,svg,ttf}')
-    .pipe(gulp.dest('test/assets/font/'));
-});
-
-gulp.task('iconfont', function() {
-  runSequence(
-    'createIconfont',
-    'copyIconfont'
-  )
+      // CSSファイルからfontファイルまでの相対パスを指定します。
+      fontPath: '../font/',
+      // CSSのクラス名を指定します。
+      className: 'sw-Icon'
+    };
+    // CSSのテンプレートからCSSファイルを生成します。
+    gulp.src('develop/assets/icon/template/_Icon.scss')
+    .pipe(consolidate('lodash', options))
+    .pipe(gulp.dest('develop/assets/css/SiteWide/'));
+    // アイコンフォントのサンプルHTMLを生成します。
+    gulp.src('develop/assets/icon/template/Icon.html')
+    .pipe(consolidate('lodash', options))
+    // アイコンフォントのサンプルHTMLを生成するパスを指定します。
+    .pipe(gulp.dest('test/styleguide/'))
+  })
+  // fontファイルを出力するパスを指定します。
+  .pipe(gulp.dest(test.iconfont));
 });
 
 /**
@@ -235,7 +238,7 @@ gulp.task('cleanHtdocs', function (cb) {
 /**
  * 一連のタスクを処理します（画像の圧縮は`test`タスクでおこないます）。
  */
-gulp.task('build', ['html', 'css', 'js', 'bundleJs', 'image', 'iconfont', 'styleguide']);
+gulp.task('build', ['iconfont', 'html', 'css', 'js', 'bundleJs', 'image', 'styleguide']);
 
 /**
  * watchタスクを指定します。

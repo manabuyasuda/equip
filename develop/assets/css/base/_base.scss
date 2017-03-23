@@ -63,6 +63,11 @@ img {
   width: 100%; /* IE対応 */
 }
 
+code {
+  font-family: Consolas, Menlo, Courier, monospace;
+  font-size: 0.85em;
+}
+
 /* IE10以降`input[type="text"]`の入力内容の消去を非表示にします。 */
 input::-ms-clear {
   visibility: hidden;

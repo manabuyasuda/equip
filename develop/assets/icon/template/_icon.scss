@@ -10,7 +10,7 @@ tag: Icon
 アイコンフォントを使ったアイコンを表示します。デフォルトでは`:before`擬似要素で表示されます。
 
 ```ejs
-<p>More <span class="sw-Icon sw-Icon-LinkMore" aria-hidden="true"></span></p>
+<p>More <span class="sw-Icon sw-Icon-linkMore" aria-hidden="true"></span></p>
 ```
 */
 @font-face {
@@ -24,7 +24,7 @@ tag: Icon
   font-style: normal;
 }
 
-// アイコンフォントのベーススタイル
+// アイコンフォントのベーススタイルです。
 @mixin icon {
   font-family: "<%= fontName %>";
   -webkit-font-smoothing: antialiased;
@@ -42,21 +42,17 @@ tag: Icon
   speak: none;
 }
 
-.sw-Icon:before {
-  @include icon;
-}
-
-@function icon-char($filename) {
-  $char: "";
-<% _.each(glyphs, function(glyph) { %>
-  @if $filename == <%= glyph.fileName %> { $char: "\<%= glyph.codePoint %>"; }<% }); %>
-
-  @return $char;
-}
-
-@mixin icon-name($filename) {
-  & { content: icon-char($filename); }
-}
-
-<% _.each(glyphs, function(glyph) { %>.sw-Icon-<%= glyph.fileName %>:before { @include icon-name(<%= glyph.fileName %>); }
+// アイコンフォントを`content: "";`で表示できるように変数化しています。
+// インターポレーション（`#{}`）の中に入れる必要があります。
+// example: content: "#{$icon-LinkMore}";
+<% _.each(glyphs, function(glyph) { %>$icon-<%= glyph.name %>: "\<%= glyph.unicode[0].charCodeAt(0).toString(16).toUpperCase() %>";
 <% }); %>
+
+/* 汎用的なアイコンフォントです。 */
+.<%= className %> { display: inline-block; }
+.<%= className %>:before { @include icon; }
+
+<% _.each(glyphs, function(glyph) { %>.<%= className %>-<%= glyph.name %>:before { content: "\<%= glyph.unicode[0].charCodeAt(0).toString(16).toUpperCase() %>"; }
+<% }); %>
+
+

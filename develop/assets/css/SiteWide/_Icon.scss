@@ -10,7 +10,7 @@ tag: Icon
 アイコンフォントを使ったアイコンを表示します。デフォルトでは`:before`擬似要素で表示されます。
 
 ```ejs
-<p>More <span class="sw-Icon sw-Icon-LinkMore" aria-hidden="true"></span></p>
+<p>More <span class="sw-Icon sw-Icon-linkMore" aria-hidden="true"></span></p>
 ```
 */
 @font-face {
@@ -24,7 +24,7 @@ tag: Icon
   font-style: normal;
 }
 
-// アイコンフォントのベーススタイル
+// アイコンフォントのベーススタイルです。
 @mixin icon {
   font-family: "iconfont";
   -webkit-font-smoothing: antialiased;
@@ -42,26 +42,22 @@ tag: Icon
   speak: none;
 }
 
-.sw-Icon:before {
-  @include icon;
-}
+// アイコンフォントを`content: "";`で表示できるように変数化しています。
+// インターポレーション（`#{}`）の中に入れる必要があります。
+// example: content: "#{$icon-LinkMore}";
+$icon-linkDownload: "\EA01";
+$icon-linkExternal: "\EA02";
+$icon-linkMore: "\EA03";
+$icon-linkPdf: "\EA04";
 
-@function icon-char($filename) {
-  $char: "";
 
-  @if $filename == LinkDownload { $char: "\E001"; }
-  @if $filename == LinkExternal { $char: "\E002"; }
-  @if $filename == LinkMore { $char: "\E003"; }
-  @if $filename == LinkPdf { $char: "\E004"; }
+/* 汎用的なアイコンフォントです。 */
+.sw-Icon { display: inline-block; }
+.sw-Icon:before { @include icon; }
 
-  @return $char;
-}
+.sw-Icon-linkDownload:before { content: "\EA01"; }
+.sw-Icon-linkExternal:before { content: "\EA02"; }
+.sw-Icon-linkMore:before { content: "\EA03"; }
+.sw-Icon-linkPdf:before { content: "\EA04"; }
 
-@mixin icon-name($filename) {
-  & { content: icon-char($filename); }
-}
 
-.sw-Icon-LinkDownload:before { @include icon-name(LinkDownload); }
-.sw-Icon-LinkExternal:before { @include icon-name(LinkExternal); }
-.sw-Icon-LinkMore:before { @include icon-name(LinkMore); }
-.sw-Icon-LinkPdf:before { @include icon-name(LinkPdf); }
