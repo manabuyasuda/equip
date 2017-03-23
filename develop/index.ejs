@@ -1,5 +1,5 @@
 <%
-var absolutePath = filename.split(site.developDir)[filename.split(site.developDir).length -1].replace('.ejs','.html');
+var absolutePath = filename.split(developDir)[filename.split(developDir).length -1].replace('.ejs','.html');
 var relativePath = '../'.repeat([absolutePath.split('/').length -1]);
 var page = {
   title: "",
@@ -7,7 +7,7 @@ var page = {
   keywords: site.keywords,
   ogpType: "website",
   ogpImage: site.ogpImage,
-  absolutePath: absolutePath,
+  absolutePath: '/' + absolutePath,
   relativePath: relativePath
 };
 -%>

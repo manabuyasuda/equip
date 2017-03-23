@@ -2,11 +2,10 @@
   "name": "Site Title",
   "description": "Site Description",
   "keywords": "Site Keyword1, Site Keyword2",
-  "rootUrl": "http://example.com/",
+  "rootUrl": "http://example.com",
   "ogpImage": "http://example.com/ogp-image.jpg",
   "facebookAdmins": "",
   "facebookAppId": "",
   "twitterCard": "summary",
-  "twitterSite": "@",
-  "developDir": "develop/"
+  "twitterSite": "@"
 }

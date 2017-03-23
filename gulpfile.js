@@ -86,7 +86,8 @@ var AUTOPREFIXER_BROWSERS = [
 gulp.task('html', function() {
   return gulp.src(develop.html)
   .pipe(ejs({
-    site: JSON.parse(fs.readFileSync(develop.data + 'site.json'))
+    site: JSON.parse(fs.readFileSync(develop.data + 'site.json')),
+    developDir: develop.root
     },
     {ext: '.html'}
   ))
