@@ -1,5 +1,27 @@
  /* #ListNoteOrder
    -------------------------------------------------------------------------- */
+/*doc
+---
+name: ListNoteOrder
+category: SiteWide
+tag: List
+---
+
+注釈用のリストです。米印やアスタリスクが表示されます。
+
+```ejs
+<ol class="sw-ListNoteOrder">
+  <li>注釈です</li>
+  <li>注釈です</li>
+</ol>
+<div lang="en">
+  <ol class="sw-ListNoteOrder">
+    <li>注釈です</li>
+    <li>注釈です</li>
+  </ol>
+</div>
+```
+*/
 .sw-ListNoteOrder {
   padding-left: 0;
   list-style-type: none;

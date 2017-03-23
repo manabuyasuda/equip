@@ -1,5 +1,20 @@
  /* #Embed
    -------------------------------------------------------------------------- */
+/*doc
+---
+name: Embed
+category: SiteWide
+tag: Embed
+---
+
+Youtubeなどをレスポンシブ対応させます。
+
+```ejs
+<div class="sw-Embed">
+  <iframe width="560" height="315" src="https://www.youtube.com/embed/1OKZOV-iLj4"></iframe>
+</div>
+```
+*/
 .sw-Embed {
   display: block;
   overflow: hidden;
@@ -7,7 +22,7 @@
   height: 0;
   padding-bottom: percentage(9 / 16);
 
-  &__item,
+  &_Item,
   iframe,
   embed,
   object,

@@ -1,5 +1,27 @@
  /* #ListNote
    -------------------------------------------------------------------------- */
+/*doc
+---
+name: ListNote
+category: SiteWide
+tag: List
+---
+
+注釈用のリストです。米印やアスタリスクが表示されます。
+
+```ejs
+<ul class="sw-ListNote">
+  <li>1つ目の注釈です</li>
+  <li>2つ目の注釈です</li>
+</ul>
+<div lang="en">
+  <ul class="sw-ListNote">
+    <li>1つ目の注釈です</li>
+    <li>2つ目の注釈です</li>
+  </ul>
+</div>
+```
+*/
 .sw-ListNote {
   padding-left: 0;
   list-style-type: none;

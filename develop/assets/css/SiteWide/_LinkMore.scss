@@ -1,5 +1,19 @@
  /* #LinkMore
    -------------------------------------------------------------------------- */
+/*doc
+---
+name: LinkMore
+category: SiteWide
+tag: Link
+---
+
+クリックを促すようなテキストリンクに使います。
+
+```ejs
+<p><a class="sw-Link" href="#">テキストリンクです。</a></p>
+<p><a class="sw-LinkMore" href="#">詳しく見る<span class="sw-LinkMore_Icon" aria-hidden="true"></span></a></p>
+```
+*/
 .sw-LinkMore {
   color: $color-link;
   text-decoration: none;
@@ -10,7 +24,7 @@
   }
 }
 
-.sw-LinkMore__icon:after {
+.sw-LinkMore_Icon:after {
   @include icon;
   @include icon-name(LinkMore);
   top: -0.1em;

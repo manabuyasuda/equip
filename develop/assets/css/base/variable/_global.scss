@@ -14,6 +14,7 @@ $font-size: (
 ) !default;
 
 $color-brand: #a48030 !default;
+$color-text: #000;
 $color-link: #2b70ba !default;
 $color-link-hover: #2b70ba !default;
 
@@ -23,3 +24,11 @@ $font-famiry-serif: "Hiragino Mincho ProN", "游明朝", "YuMincho", "HG明朝E"
 $font-famiry-sans-serif: "Hiragino Kaku Gothic ProN", Meiryo, sans-serif !default;
 
 $opacity: 0.7 !default;
+
+$form-border-radius: 3px;
+$form-transition-duration: 0.3s;
+$form-transition-property: border-color, box-shadow, background-color;
+$form-placeholder-color: #767676;
+$form-disabled-cursor: not-allowed;
+$form-disabled-opacity: 0.5;
+$form-disabled-background-color: #ddd;
