@@ -99,8 +99,8 @@ gulp.task('html', function() {
 });
 
 /**
- * `.scss`をコンパイルしてから、リリースディレクトリに出力します。
- * ベンダープレフィックスを付与後、csscombで整形されます。
+ * `.scss`を`.css`にコンパイルします。
+ * ベンダープレフィックスの付与、インデントやプロパティの整形、圧縮が実行されます。
  */
 gulp.task('css', function(){
   return gulp.src(develop.css, {base: develop.root})
@@ -112,26 +112,10 @@ gulp.task('css', function(){
     browsers: AUTOPREFIXER_BROWSERS,
   }))
   .pipe(csscomb())
+  .pipe(cleanCss())
   .pipe(sourcemaps.write('.'))
   .pipe(gulp.dest(test.root))
   .pipe(browserSync.reload({stream: true}));
-});
-
-/**
- * `sass`タスクにミニファイとリネームを追加します。
- */
-gulp.task('minifyCss', function(){
-  return gulp.src(develop.minifyCss)
-  .pipe(sourcemaps.init())
-  .pipe(sass().on('error', sass.logError))
-  .pipe(autoprefixer({
-    browsers: AUTOPREFIXER_BROWSERS,
-  }))
-  .pipe(csscomb())
-  .pipe(rename({suffix: '.min'}))
-  .pipe(cleanCss())
-  .pipe(sourcemaps.write('.'))
-  .pipe(gulp.dest(test.minifyCss));
 });
 
 /**
